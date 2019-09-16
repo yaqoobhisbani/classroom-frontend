@@ -4,9 +4,11 @@ import {
   Toolbar,
   Typography,
   Button,
-  makeStyles
+  makeStyles,
+  Link
 } from "@material-ui/core";
 import SchoolIcon from "@material-ui/icons/School";
+import { Link as RouterLink } from "react-router-dom";
 
 const useStyles = makeStyles(theme => ({
   iconLogo: {
@@ -14,6 +16,12 @@ const useStyles = makeStyles(theme => ({
   },
   title: {
     flexGrow: 1
+  },
+  link: {
+    color: "white",
+    "&:hover": {
+      textDecoration: "none"
+    }
   }
 }));
 
@@ -28,8 +36,20 @@ const Header = () => {
           <Typography component="h1" variant="h6" className={classes.title}>
             Classroom
           </Typography>
-          <Button color="inherit">Login</Button>
-          <Button color="inherit">Register</Button>
+          <Button>
+            <Link className={classes.link} component={RouterLink} to="/">
+              Login
+            </Link>
+          </Button>
+          <Button>
+            <Link
+              className={classes.link}
+              component={RouterLink}
+              to="/register"
+            >
+              Register
+            </Link>
+          </Button>
         </Toolbar>
       </AppBar>
     </Fragment>
