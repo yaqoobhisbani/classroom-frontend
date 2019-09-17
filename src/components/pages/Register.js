@@ -1,17 +1,12 @@
 import React from "react";
-import {
-  Avatar,
-  Box,
-  Typography,
-  makeStyles,
-  Container
-} from "@material-ui/core";
-import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
-import LoginForm from "../auth/LoginForm";
+import { Avatar, Box, Typography, Container } from "@material-ui/core";
+import { makeStyles } from "@material-ui/core/styles";
+import PersonAdd from "@material-ui/icons/PersonAdd";
+import RegisterForm from "../auth/RegisterForm";
 
 const useStyles = makeStyles(theme => ({
   paper: {
-    marginTop: theme.spacing(6),
+    marginTop: theme.spacing(4),
     display: "flex",
     flexDirection: "column",
     alignItems: "center"
@@ -29,18 +24,18 @@ const Register = () => {
     <Container component="main" maxWidth="xs">
       <div className={classes.paper}>
         <Avatar className={classes.avatar}>
-          <LockOutlinedIcon />
+          <PersonAdd />
         </Avatar>
         <Typography component="h1" variant="h5">
           Register Account
         </Typography>
-        <LoginForm />
+        <RegisterForm />
       </div>
-      <Box mt={8}>
+      <Box mt={4}>
         <Typography variant="body2" color="textSecondary" align="center">
-          {"Copyright © Classroom "}
+          {"Copyright © "}
           {new Date().getFullYear()}
-          {"."}
+          {" Classroom."}
         </Typography>
       </Box>
     </Container>

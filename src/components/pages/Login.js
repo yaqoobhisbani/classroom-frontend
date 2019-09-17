@@ -1,17 +1,12 @@
 import React from "react";
-import {
-  Avatar,
-  Box,
-  Typography,
-  makeStyles,
-  Container
-} from "@material-ui/core";
+import { Avatar, Box, Typography, Container } from "@material-ui/core";
+import { makeStyles } from "@material-ui/core/styles";
 import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import LoginForm from "../auth/LoginForm";
 
 const useStyles = makeStyles(theme => ({
   paper: {
-    marginTop: theme.spacing(6),
+    marginTop: theme.spacing(4),
     display: "flex",
     flexDirection: "column",
     alignItems: "center"
@@ -38,9 +33,9 @@ const Login = () => {
       </div>
       <Box mt={8}>
         <Typography variant="body2" color="textSecondary" align="center">
-          {"Copyright © Classroom "}
+          {"Copyright © "}
           {new Date().getFullYear()}
-          {"."}
+          {" Classroom."}
         </Typography>
       </Box>
     </Container>

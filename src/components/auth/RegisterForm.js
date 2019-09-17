@@ -13,7 +13,7 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const LoginForm = () => {
+const RegisterForm = () => {
   const classes = useStyles();
 
   return (
@@ -23,11 +23,20 @@ const LoginForm = () => {
         required
         margin="normal"
         fullWidth
+        id="name"
+        label="Full Name"
+        name="name"
+        autoFocus
+      />
+      <TextField
+        variant="outlined"
+        required
+        margin="normal"
+        fullWidth
         id="email"
         label="Email Address"
         name="email"
         autoComplete="email"
-        autoFocus
       />
       <TextField
         variant="outlined"
@@ -40,7 +49,16 @@ const LoginForm = () => {
         id="password"
         autoComplete="current-password"
       />
-
+      <TextField
+        variant="outlined"
+        margin="normal"
+        required
+        fullWidth
+        name="password2"
+        label="Confirm Password"
+        type="password"
+        id="password2"
+      />
       <Button
         type="submit"
         fullWidth
@@ -48,17 +66,12 @@ const LoginForm = () => {
         color="primary"
         className={classes.submit}
       >
-        Sign In
+        Register Account
       </Button>
       <Grid container>
         <Grid item xs>
-          <Link href="#" variant="body2">
-            Forgot password?
-          </Link>
-        </Grid>
-        <Grid item>
-          <Link to="/register" component={RouterLink} variant="body2">
-            Don't have an account? Sign Up
+          <Link to="/" component={RouterLink} variant="body2">
+            Already have an account? Login
           </Link>
         </Grid>
       </Grid>
@@ -66,4 +79,4 @@ const LoginForm = () => {
   );
 };
 
-export default LoginForm;
+export default RegisterForm;

@@ -4,7 +4,6 @@ import CSSBaseline from "@material-ui/core/CssBaseline";
 import Header from "./components/layout/Header";
 import Login from "./components/pages/Login";
 import Register from "./components/pages/Register";
-import "./App.css";
 
 const App = () => (
   <Fragment>
