@@ -1,5 +1,6 @@
-import React from "react";
-import { Link as RouterLink } from "react-router-dom";
+import React, { useState, useContext, useEffect } from "react";
+import AuthContext from "../../context/auth/authContext";
+import { Link as RouterLink, withRouter } from "react-router-dom";
 import { TextField, Link, Grid, Button } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 
@@ -13,21 +14,57 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const LoginForm = () => {
+const LoginForm = withRouter(({ history }) => {
+  const authContext = useContext(AuthContext);
+
+  const { loginUser, isAuthenticated } = authContext;
+
+  // Intializing Local Component State
+  const [user, setUser] = useState({
+    email: "",
+    password: ""
+  });
+
+  const { email, password } = user;
+
+  // Component Effects
+  useEffect(() => {
+    if (isAuthenticated) {
+      history.push("/");
+    }
+  }, [isAuthenticated, history]);
+
   const classes = useStyles();
 
+  // Setting State onChange Function
+  const onChange = e => setUser({ ...user, [e.target.name]: e.target.value });
+
+  // Submit Function
+  const onSubmit = e => {
+    e.preventDefault();
+    if (email === "" || password === "") {
+      // Show Error When Email & Password Are Empty
+    } else {
+      // Run Login Function From State
+      loginUser({
+        email,
+        password
+      });
+    }
+  };
+
   return (
-    <form className={classes.form}>
+    <form onSubmit={onSubmit} className={classes.form}>
       <TextField
         variant="outlined"
-        required
         margin="normal"
         fullWidth
-        id="email"
+        required
         label="Email Address"
         name="email"
+        value={email}
+        onChange={onChange}
         autoComplete="email"
-        autoFocus
       />
       <TextField
         variant="outlined"
@@ -37,7 +74,8 @@ const LoginForm = () => {
         name="password"
         label="Password"
         type="password"
-        id="password"
+        value={password}
+        onChange={onChange}
         autoComplete="current-password"
       />
 
@@ -64,6 +102,6 @@ const LoginForm = () => {
       </Grid>
     </form>
   );
-};
+});
 
 export default LoginForm;

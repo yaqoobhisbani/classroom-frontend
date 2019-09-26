@@ -1,8 +1,9 @@
 import React from "react";
-import { Avatar, Box, Typography, Container } from "@material-ui/core";
+import { Avatar, Typography, Container } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import PersonAdd from "@material-ui/icons/PersonAdd";
 import RegisterForm from "../auth/RegisterForm";
+import Footer from "../layout/Footer";
 
 const useStyles = makeStyles(theme => ({
   paper: {
@@ -31,13 +32,7 @@ const Register = () => {
         </Typography>
         <RegisterForm />
       </div>
-      <Box mt={4}>
-        <Typography variant="body2" color="textSecondary" align="center">
-          {"Copyright © "}
-          {new Date().getFullYear()}
-          {" Classroom."}
-        </Typography>
-      </Box>
+      <Footer mb={3} mt={4} />
     </Container>
   );
 };
