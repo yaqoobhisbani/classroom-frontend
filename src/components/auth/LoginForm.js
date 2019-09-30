@@ -16,36 +16,78 @@ const useStyles = makeStyles(theme => ({
 
 const LoginForm = withRouter(({ history }) => {
   const authContext = useContext(AuthContext);
-
   const { loginUser, isAuthenticated } = authContext;
-
-  // Intializing Local Component State
-  const [user, setUser] = useState({
-    email: "",
-    password: ""
-  });
-
-  const { email, password } = user;
+  const classes = useStyles();
 
   // Component Effects
   useEffect(() => {
     if (isAuthenticated) {
-      history.push("/");
+      history.push("/dashboard");
     }
   }, [isAuthenticated, history]);
 
-  const classes = useStyles();
+  // Initial User State
+  const initialUser = {
+    email: "",
+    password: ""
+  };
 
-  // Setting State onChange Function
-  const onChange = e => setUser({ ...user, [e.target.name]: e.target.value });
+  // Empty Error Object
+  const emptyError = {
+    isInvalid: false,
+    msg: null
+  };
+
+  // Initial Error State
+  const initialErrors = {
+    emailError: emptyError,
+    passwordError: emptyError
+  };
+
+  // User State
+  const [user, setUser] = useState(initialUser);
+  const { email, password } = user;
+
+  // Login Errors State
+  const [errors, setErrors] = useState(initialErrors);
+  const { emailError, passwordError } = errors;
+
+  // Email Error Setter
+  const setEmailError = (isInvalid, msg) =>
+    setErrors({ ...errors, emailError: { isInvalid: isInvalid, msg: msg } });
+
+  // Password Error Setter
+  const setPasswordError = (isInvalid, msg) =>
+    setErrors({ ...errors, passwordError: { isInvalid: isInvalid, msg: msg } });
+
+  // On Email Change
+  const onEmailChange = e => {
+    // Update User State
+    setUser({ ...user, [e.target.name]: e.target.value });
+    if (e.target.value.includes("@") && e.target.value.includes(".")) {
+      setEmailError(false, null);
+    } else {
+      setEmailError(true, "Invalid Email Address!");
+    }
+  };
+
+  // On Password Change
+  const onPasswordChange = e => {
+    // Update User State
+    setUser({ ...user, [e.target.name]: e.target.value });
+    if (e.target.value.length < 5) {
+      setPasswordError(true, "Password must be atleast 6 characters!");
+    } else {
+      setPasswordError(false, null);
+    }
+  };
 
   // Submit Function
   const onSubmit = e => {
     e.preventDefault();
     if (email === "" || password === "") {
-      // Show Error When Email & Password Are Empty
+      // All Errors
     } else {
-      // Run Login Function From State
       loginUser({
         email,
         password
@@ -56,27 +98,25 @@ const LoginForm = withRouter(({ history }) => {
   return (
     <form onSubmit={onSubmit} className={classes.form}>
       <TextField
+        error={emailError.isInvalid}
         variant="outlined"
         margin="normal"
         fullWidth
-        required
-        label="Email Address"
+        label={emailError.msg ? emailError.msg : "Email Address"}
         name="email"
         value={email}
-        onChange={onChange}
-        autoComplete="email"
+        onChange={onEmailChange}
       />
       <TextField
+        error={passwordError.isInvalid}
         variant="outlined"
         margin="normal"
-        required
         fullWidth
         name="password"
-        label="Password"
+        label={passwordError.msg ? passwordError.msg : "Password"}
         type="password"
         value={password}
-        onChange={onChange}
-        autoComplete="current-password"
+        onChange={onPasswordChange}
       />
 
       <Button

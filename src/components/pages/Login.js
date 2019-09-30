@@ -1,7 +1,8 @@
-import React from "react";
+import React, { Fragment } from "react";
 import { Avatar, Typography, Container } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
+import Header from "../layout/Header";
 import LoginForm from "../auth/LoginForm";
 import Footer from "../layout/Footer";
 
@@ -22,18 +23,21 @@ const Login = () => {
   const classes = useStyles();
 
   return (
-    <Container component="main" maxWidth="xs">
-      <div className={classes.paper}>
-        <Avatar className={classes.avatar}>
-          <LockOutlinedIcon />
-        </Avatar>
-        <Typography component="h1" variant="h5">
-          Sign in
-        </Typography>
-        <LoginForm />
-      </div>
-      <Footer mb={3} mt={4} />
-    </Container>
+    <Fragment>
+      <Header />
+      <Container component="main" maxWidth="xs">
+        <div className={classes.paper}>
+          <Avatar className={classes.avatar}>
+            <LockOutlinedIcon />
+          </Avatar>
+          <Typography component="h1" variant="h5">
+            Sign in
+          </Typography>
+          <LoginForm />
+        </div>
+        <Footer mb={3} mt={4} />
+      </Container>
+    </Fragment>
   );
 };
 

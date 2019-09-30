@@ -1,7 +1,8 @@
-import React from "react";
+import React, { Fragment } from "react";
 import { Avatar, Typography, Container } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import PersonAdd from "@material-ui/icons/PersonAdd";
+import Header from "../layout/Header";
 import RegisterForm from "../auth/RegisterForm";
 import Footer from "../layout/Footer";
 
@@ -22,18 +23,21 @@ const Register = () => {
   const classes = useStyles();
 
   return (
-    <Container component="main" maxWidth="xs">
-      <div className={classes.paper}>
-        <Avatar className={classes.avatar}>
-          <PersonAdd />
-        </Avatar>
-        <Typography component="h1" variant="h5">
-          Register Account
-        </Typography>
-        <RegisterForm />
-      </div>
-      <Footer mb={3} mt={4} />
-    </Container>
+    <Fragment>
+      <Header />
+      <Container component="main" maxWidth="xs">
+        <div className={classes.paper}>
+          <Avatar className={classes.avatar}>
+            <PersonAdd />
+          </Avatar>
+          <Typography component="h1" variant="h5">
+            Register Account
+          </Typography>
+          <RegisterForm />
+        </div>
+        <Footer mb={3} mt={4} />
+      </Container>
+    </Fragment>
   );
 };
 

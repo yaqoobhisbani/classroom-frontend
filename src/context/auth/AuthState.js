@@ -18,10 +18,10 @@ const AuthState = props => {
   // Initial Auth State
   const initialState = {
     token: localStorage.getItem("token"),
-    loading: true,
     isAuthenticated: null,
+    loading: true,
     user: null,
-    errors: []
+    error: null
   };
 
   // Attaching Reducer
@@ -56,7 +56,7 @@ const AuthState = props => {
     } catch (err) {
       dispatch({
         type: LOGIN_FAIL,
-        payload: err.response.data.errors
+        payload: err.response.data.msg
       });
     }
   };
@@ -93,7 +93,7 @@ const AuthState = props => {
         isAuthenticated: state.isAuthenticated,
         loading: state.loading,
         user: state.user,
-        errors: state.errors,
+        error: state.error,
         loadUser,
         loginUser,
         registerUser,

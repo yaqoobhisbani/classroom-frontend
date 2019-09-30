@@ -7,7 +7,7 @@ import JoinRoomModal from "./JoinRoomModal";
 const useStyles = makeStyles(theme => ({
   fab: {
     margin: theme.spacing(1),
-    position: "absolute",
+    position: "fixed",
     bottom: theme.spacing(3),
     right: theme.spacing(3)
   }
