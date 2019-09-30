@@ -1,6 +1,7 @@
 import React, { useState, useContext, useEffect } from "react";
 import AuthContext from "../../context/auth/authContext";
-import { Link as RouterLink, withRouter } from "react-router-dom";
+import AlertContext from "../../context/alerts/alertContext";
+import { Link as RouterLink } from "react-router-dom";
 import { TextField, Link, Grid, Button } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 
@@ -14,17 +15,11 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const RegisterForm = withRouter(({ history }) => {
+const RegisterForm = () => {
   const authContext = useContext(AuthContext);
-  const { registerUser, isAuthenticated } = authContext;
+  const alertContext = useContext(AlertContext);
+  const { registerUser, error, clearErrors } = authContext;
   const classes = useStyles();
-
-  // Component Effect
-  useEffect(() => {
-    if (isAuthenticated) {
-      history.push("/");
-    }
-  }, [isAuthenticated, history]);
 
   // Initial User State
   const initialUser = {
@@ -55,6 +50,16 @@ const RegisterForm = withRouter(({ history }) => {
   // Errors State
   const [errors, setErrors] = useState(initialErrors);
   const { nameError, emailError, passError, pass2Error } = errors;
+
+  // Component Effect
+  useEffect(() => {
+    if (error === "Email Address is already registered!") {
+      alertContext.showAlert("error", error);
+      clearErrors();
+      setUser(initialUser);
+    }
+    // eslint-disable-next-line
+  }, [error]);
 
   // Name Error Setter
   const setNameError = (isInvalid, msg) =>
@@ -120,8 +125,6 @@ const RegisterForm = withRouter(({ history }) => {
   const onSubmit = e => {
     e.preventDefault();
     if (name === "" && email === "" && password === "") {
-      // setNameError(true, "Full Name Can Not Be Empty!");
-      // setEmailError(true, "Email Address Can Not Be Empty!");
     } else if (password !== password2) {
       setPass2Error(true, "Password  Does Not Match!");
     } else {
@@ -142,7 +145,8 @@ const RegisterForm = withRouter(({ history }) => {
         variant="outlined"
         margin="normal"
         fullWidth
-        label={nameError.msg ? nameError.msg : "Full Name *"}
+        required
+        label={nameError.msg ? nameError.msg : "Full Name"}
         name="name"
         value={name}
         onChange={onNameChange}
@@ -152,7 +156,8 @@ const RegisterForm = withRouter(({ history }) => {
         variant="outlined"
         margin="normal"
         fullWidth
-        label={emailError.msg ? emailError.msg : "Email Address *"}
+        required
+        label={emailError.msg ? emailError.msg : "Email Address"}
         name="email"
         onChange={onEmailChange}
         value={email}
@@ -162,8 +167,9 @@ const RegisterForm = withRouter(({ history }) => {
         variant="outlined"
         margin="normal"
         fullWidth
+        required
         name="password"
-        label={passError.msg ? passError.msg : "Password *"}
+        label={passError.msg ? passError.msg : "Password"}
         type="password"
         onChange={onPassChange}
         value={password}
@@ -173,8 +179,9 @@ const RegisterForm = withRouter(({ history }) => {
         variant="outlined"
         margin="normal"
         fullWidth
+        required
         name="password2"
-        label={pass2Error.msg ? pass2Error.msg : "Confirm Password *"}
+        label={pass2Error.msg ? pass2Error.msg : "Confirm Password"}
         type="password"
         onChange={onPass2Change}
         value={password2}
@@ -197,6 +204,6 @@ const RegisterForm = withRouter(({ history }) => {
       </Grid>
     </form>
   );
-});
+};
 
 export default RegisterForm;

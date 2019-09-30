@@ -1,7 +1,7 @@
 import React, { Fragment, useContext, useEffect } from "react";
-import AuthContext from "../../context/auth/authContext";
 import FabMenu from "../dashboard/FabMenu";
 import Header from "../layout/Header";
+import RoomsContext from "../../context/rooms/roomsContext";
 import {
   Typography,
   Container,
@@ -22,6 +22,12 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const Dashboard = () => {
+  const roomsContext = useContext(RoomsContext);
+  useEffect(() => {
+    roomsContext.getRooms();
+    // eslint-disable-next-line
+  }, []);
+
   // DUMMY DATA
   const [joinedRooms, setJoinedRooms] = React.useState([
     {
@@ -54,14 +60,7 @@ const Dashboard = () => {
     }
   ]);
 
-  const authContext = useContext(AuthContext);
   const classes = useStyles();
-
-  useEffect(() => {
-    authContext.loadUser();
-    console.log("Dashboard useEffect fired!");
-    // eslint-disable-next-line
-  }, []);
 
   return (
     <Fragment>

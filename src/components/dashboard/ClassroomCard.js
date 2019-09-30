@@ -38,7 +38,7 @@ const useStyles = makeStyles({
 
 const ClassroomCard = ({ room }) => {
   const classes = useStyles();
-  const { classname, subject, description, code, users } = room;
+  const { classname, description, code, users } = room;
 
   return (
     <Grid item>

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext, useEffect, Suspense } from "react";
 import { setAuthToken } from "./utils/axios";
 import AuthContext from "./context/auth/authContext";
 import LinearProgress from "@material-ui/core/LinearProgress";
@@ -11,17 +11,18 @@ if (localStorage.token) {
 }
 
 const App = () => {
-  const authContext = React.useContext(AuthContext);
+  const authContext = useContext(AuthContext);
   const { isAuthenticated, loadUser } = authContext;
 
-  React.useEffect(() => {
+  useEffect(() => {
     loadUser();
+    // eslint-disable-next-line
   }, []);
 
   return (
-    <React.Suspense fallback={<LinearProgress color="secondary" />}>
+    <Suspense fallback={<LinearProgress color="secondary" />}>
       {isAuthenticated ? <AuthApp /> : <UnAuthApp />}
-    </React.Suspense>
+    </Suspense>
   );
 };
 

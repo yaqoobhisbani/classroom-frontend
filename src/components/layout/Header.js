@@ -17,6 +17,7 @@ import MenuIcon from "@material-ui/icons/Menu";
 
 import SideDrawer from "./SideDrawer";
 import AuthContext from "../../context/auth/authContext";
+import RoomsContext from "../../context/rooms/roomsContext";
 
 const useStyles = makeStyles(theme => ({
   iconLogo: {
@@ -41,7 +42,10 @@ const useStyles = makeStyles(theme => ({
 
 const Header = () => {
   const authContext = useContext(AuthContext);
-  const { isAuthenticated, logoutUser, user } = authContext;
+  const roomsContext = useContext(RoomsContext);
+
+  const { isAuthenticated, logoutUser } = authContext;
+  const { resetRooms } = roomsContext;
 
   // Side Drawer State & Methods
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
@@ -52,6 +56,7 @@ const Header = () => {
   // Logout Method
   const onLogout = () => {
     logoutUser();
+    resetRooms();
   };
 
   const classes = useStyles();
@@ -100,7 +105,6 @@ const Header = () => {
         open={isDrawerOpen}
         openDrawer={openDrawer}
         closeDrawer={closeDrawer}
-        user={user}
       />
       <IconButton
         onClick={openDrawer}

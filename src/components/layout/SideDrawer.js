@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import {
   List,
   ListItem,
@@ -79,13 +80,13 @@ const SideDrawer = ({ open, openDrawer, closeDrawer }) => {
       <List>
         {AppTitle}
         {UserProfile}
-        <ListItem button>
+        <ListItem component={Link} button to="/dashboard">
           <ListItemIcon>
             <DashboardIcon />
           </ListItemIcon>
           <ListItemText>Dashboard</ListItemText>
         </ListItem>
-        <ListItem button>
+        <ListItem component={Link} button to="/settings">
           <ListItemIcon>
             <SettingsIcon />
           </ListItemIcon>

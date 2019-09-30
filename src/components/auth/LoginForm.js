@@ -1,6 +1,7 @@
 import React, { useState, useContext, useEffect } from "react";
 import AuthContext from "../../context/auth/authContext";
-import { Link as RouterLink, withRouter } from "react-router-dom";
+import AlertContext from "../../context/alerts/alertContext";
+import { Link as RouterLink } from "react-router-dom";
 import { TextField, Link, Grid, Button } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 
@@ -14,17 +15,12 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const LoginForm = withRouter(({ history }) => {
+const LoginForm = () => {
   const authContext = useContext(AuthContext);
-  const { loginUser, isAuthenticated } = authContext;
-  const classes = useStyles();
+  const { loginUser, error, clearErrors } = authContext;
+  const alertContext = useContext(AlertContext);
 
-  // Component Effects
-  useEffect(() => {
-    if (isAuthenticated) {
-      history.push("/dashboard");
-    }
-  }, [isAuthenticated, history]);
+  const classes = useStyles();
 
   // Initial User State
   const initialUser = {
@@ -52,6 +48,16 @@ const LoginForm = withRouter(({ history }) => {
   const [errors, setErrors] = useState(initialErrors);
   const { emailError, passwordError } = errors;
 
+  // Component Effect
+  useEffect(() => {
+    if (error === "Invalid Credientials!") {
+      alertContext.showAlert("error", error);
+      clearErrors();
+      setUser(initialUser);
+    }
+    // eslint-disable-next-line
+  }, [error]);
+
   // Email Error Setter
   const setEmailError = (isInvalid, msg) =>
     setErrors({ ...errors, emailError: { isInvalid: isInvalid, msg: msg } });
@@ -75,7 +81,7 @@ const LoginForm = withRouter(({ history }) => {
   const onPasswordChange = e => {
     // Update User State
     setUser({ ...user, [e.target.name]: e.target.value });
-    if (e.target.value.length < 5) {
+    if (e.target.value.length < 6) {
       setPasswordError(true, "Password must be atleast 6 characters!");
     } else {
       setPasswordError(false, null);
@@ -85,9 +91,7 @@ const LoginForm = withRouter(({ history }) => {
   // Submit Function
   const onSubmit = e => {
     e.preventDefault();
-    if (email === "" || password === "") {
-      // All Errors
-    } else {
+    if (emailError.isInvalid === false && passwordError.isInvalid === false) {
       loginUser({
         email,
         password
@@ -102,6 +106,7 @@ const LoginForm = withRouter(({ history }) => {
         variant="outlined"
         margin="normal"
         fullWidth
+        required
         label={emailError.msg ? emailError.msg : "Email Address"}
         name="email"
         value={email}
@@ -112,6 +117,7 @@ const LoginForm = withRouter(({ history }) => {
         variant="outlined"
         margin="normal"
         fullWidth
+        required
         name="password"
         label={passwordError.msg ? passwordError.msg : "Password"}
         type="password"
@@ -142,6 +148,6 @@ const LoginForm = withRouter(({ history }) => {
       </Grid>
     </form>
   );
-});
+};
 
 export default LoginForm;

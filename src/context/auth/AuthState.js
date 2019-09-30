@@ -35,7 +35,7 @@ const AuthState = props => {
 
     try {
       const res = await axios.get("/api/auth");
-      console.log("The loadUser request fired off.");
+      console.log("loadUser() just fired off");
       dispatch({
         type: USER_LOADED,
         payload: res.data
@@ -75,7 +75,7 @@ const AuthState = props => {
     } catch (err) {
       dispatch({
         type: REGISTER_FAIL,
-        payload: err.response.data.errors
+        payload: err.response.data.msg
       });
     }
   };
