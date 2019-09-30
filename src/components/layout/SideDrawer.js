@@ -8,7 +8,7 @@ import {
   SwipeableDrawer,
   makeStyles,
   Typography,
-  Avatar
+  CircularProgress
 } from "@material-ui/core";
 
 // Icons
@@ -16,25 +16,22 @@ import DashboardIcon from "@material-ui/icons/Dashboard";
 import SettingsIcon from "@material-ui/icons/Settings";
 import SchoolIcon from "@material-ui/icons/School";
 
-import AvatarImg from "../../assets/avatar.jpg";
+// Lazy Loading Profile in SideDrawer
+const SideProfile = React.lazy(() => import("./SideProfile"));
 
 const useStyles = makeStyles({
   sideList: {
     width: 250
   },
-  sideAvatar: {
-    margin: 10,
-    width: 110,
-    height: 110
-  },
-  userProfile: {
+  loader: {
     display: "flex",
-    flexDirection: "column",
-    textAlign: "center"
+    padding: 20,
+    justifyContent: "center",
+    alignItems: "center"
   }
 });
 
-const SideDrawer = ({ open, openDrawer, closeDrawer }) => {
+const SideDrawer = ({ open, openDrawer, closeDrawer, user }) => {
   const classes = useStyles();
 
   // Main App Title
@@ -52,20 +49,10 @@ const SideDrawer = ({ open, openDrawer, closeDrawer }) => {
     </ListItem>
   );
 
-  // User Profile
-  const UserProfile = (
-    <ListItem button className={classes.userProfile} divider>
-      <ListItemIcon>
-        <Avatar
-          display="block"
-          src={AvatarImg}
-          className={classes.sideAvatar}
-        />
-      </ListItemIcon>
-      <ListItemText>
-        <Typography variant="h6">Muhammad Yaqoob</Typography>
-        <Typography variant="body2">yaqoobm91@gmail.com</Typography>
-      </ListItemText>
+  // User Profile Spinner
+  const profileSpinner = (
+    <ListItem className={classes.loader} divider>
+      <CircularProgress color="secondary" />
     </ListItem>
   );
 
@@ -79,7 +66,9 @@ const SideDrawer = ({ open, openDrawer, closeDrawer }) => {
     >
       <List>
         {AppTitle}
-        {UserProfile}
+        <React.Suspense fallback={profileSpinner}>
+          <SideProfile />
+        </React.Suspense>
         <ListItem component={Link} button to="/dashboard">
           <ListItemIcon>
             <DashboardIcon />
