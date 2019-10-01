@@ -27,6 +27,7 @@ const useStyles = makeStyles({
 const SideProfile = () => {
   const authContext = React.useContext(AuthContext);
   const { user } = authContext;
+  const avatarURL = `/api/users/${user._id}/avatar`;
 
   const classes = useStyles();
 
@@ -35,7 +36,7 @@ const SideProfile = () => {
       <ListItemIcon>
         <Avatar
           display="block"
-          src={AvatarImg}
+          src={user.hasAvatar ? avatarURL : AvatarImg}
           className={classes.sideAvatar}
         />
       </ListItemIcon>
