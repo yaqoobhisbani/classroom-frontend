@@ -124,11 +124,12 @@ const RegisterForm = () => {
   // On Form Submit Function
   const onSubmit = e => {
     e.preventDefault();
-    if (name === "" && email === "" && password === "") {
-    } else if (password !== password2) {
-      setPass2Error(true, "Password  Does Not Match!");
-    } else {
-      // Register The User
+    if (
+      nameError.isInvalid === false &&
+      emailError.isInvalid === false &&
+      passError.isInvalid === false &&
+      pass2Error.isInvalid === false
+    ) {
       registerUser({
         name,
         email,
