@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { Fragment, useContext } from "react";
 import {
   Container,
   Typography,
@@ -13,6 +13,10 @@ const useStyles = makeStyles(theme => ({
   root: {
     marginTop: theme.spacing(2),
     marginBottom: theme.spacing(2)
+  },
+  noRooms: {
+    textAlign: "center",
+    paddingTop: 10
   }
 }));
 
@@ -20,10 +24,12 @@ const Rooms = ({ rooms, loader }) => {
   const roomsContext = useContext(RoomsContext);
   const classes = useStyles();
 
+  // Show Loader When Rooms are Loading
   if (roomsContext.loading === true) return loader;
 
-  return (
-    <Container component="section">
+  // Rooms
+  const Rooms = (
+    <Fragment>
       <Typography variant="h5" gutterBottom>
         Classrooms
       </Typography>
@@ -33,6 +39,24 @@ const Rooms = ({ rooms, loader }) => {
           <RoomCard key={index} room={room} />
         ))}
       </Grid>
+    </Fragment>
+  );
+
+  // No Rooms Available
+  const NoRooms = (
+    <div className={classes.noRooms}>
+      <Typography style={{ marginBottom: 8 }} variant="h5">
+        It's lonely here.
+      </Typography>
+      <Typography>
+        To get started, you need to create or join classrooms.
+      </Typography>
+    </div>
+  );
+
+  return (
+    <Container component="section">
+      {rooms.length > 0 ? Rooms : NoRooms}
     </Container>
   );
 };
