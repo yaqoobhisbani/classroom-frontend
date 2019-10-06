@@ -8,6 +8,7 @@ import {
   CREATE_ROOM,
   JOIN_ROOM,
   CLEAR_ERROR,
+  ROOMS_ERROR,
   RESET_ROOMS
 } from "../types";
 
@@ -29,12 +30,20 @@ const RoomsState = props => {
 
       dispatch({ type: GET_ROOMS, payload: res.data });
     } catch (err) {
-      console.log(err);
+      dispatch({ type: ROOMS_ERROR, payload: err.response.data });
     }
   };
 
   // CREATE ROOM
-  const createRoom = async () => {};
+  const createRoom = async roomData => {
+    try {
+      const res = await axios.post("/api/classrooms", roomData, config);
+
+      dispatch({ type: CREATE_ROOM, payload: res.data });
+    } catch (err) {
+      dispatch({ type: ROOMS_ERROR, payload: err.response.data });
+    }
+  };
 
   // JOIN ROOM
   const joinRoom = async () => {};

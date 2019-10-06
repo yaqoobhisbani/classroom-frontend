@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
+import RoomsContext from "../../context/rooms/roomsContext";
 import ModalTitle from "./ModalTitle";
 import {
   Dialog,
@@ -6,7 +7,8 @@ import {
   DialogActions,
   Button,
   TextField,
-  makeStyles
+  makeStyles,
+  Hidden
 } from "@material-ui/core";
 
 const useStyles = makeStyles(theme => ({
@@ -25,6 +27,7 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const CreateRoomModal = props => {
+  const roomsContext = useContext(RoomsContext);
   const classes = useStyles();
 
   const { openModal, closeModal } = props;
@@ -34,21 +37,39 @@ const CreateRoomModal = props => {
     subject: "",
     description: ""
   });
+  const { classname, subject, description } = roomInfo;
 
   const onChange = e =>
     setRoomInfo({ ...roomInfo, [e.target.name]: e.target.value });
+
+  const onSubmit = e => {
+    e.preventDefault();
+    if (classname.length > 0 && subject.length > 0 && description.length > 0) {
+      roomsContext.createRoom({
+        classname,
+        subject,
+        description
+      });
+      closeModal();
+    }
+  };
 
   return (
     <Dialog onClose={closeModal} open={openModal}>
       <ModalTitle onClose={closeModal}>Create Classroom</ModalTitle>
       <DialogContent dividers>
-        <form className={classes.container} autoComplete="off">
+        <form
+          onSubmit={onSubmit}
+          className={classes.container}
+          autoComplete="off"
+        >
           <TextField
             variant="outlined"
             margin="normal"
             fullWidth
             name="classname"
-            value={roomInfo.classname}
+            required
+            value={classname}
             onChange={onChange}
             className={classes.textField}
             label="Class Name"
@@ -58,7 +79,8 @@ const CreateRoomModal = props => {
             margin="normal"
             fullWidth
             name="subject"
-            value={roomInfo.subject}
+            required
+            value={subject}
             onChange={onChange}
             className={classes.textField}
             label="Subject"
@@ -68,18 +90,23 @@ const CreateRoomModal = props => {
             margin="normal"
             fullWidth
             name="description"
-            value={roomInfo.description}
+            required
+            value={description}
             onChange={onChange}
             className={classes.textField}
             label="Description"
           />
+
+          <Button style={{ display: "none" }} type="submit">
+            Submit
+          </Button>
         </form>
       </DialogContent>
       <DialogActions className={classes.dialogButtons}>
         <Button onClick={closeModal} color="primary">
           Cancel
         </Button>
-        <Button onClick={closeModal} color="primary">
+        <Button onClick={onSubmit} color="primary">
           Create
         </Button>
       </DialogActions>

@@ -2,6 +2,7 @@ import {
   GET_ROOMS,
   CREATE_ROOM,
   JOIN_ROOM,
+  ROOMS_ERROR,
   CLEAR_ERROR,
   RESET_ROOMS
 } from "../types";
@@ -15,11 +16,20 @@ export default (state, action) => {
         loading: false
       };
     case CREATE_ROOM:
-      return {};
+      return {
+        ...state,
+        rooms: [action.payload, ...state.rooms],
+        loading: false
+      };
     case JOIN_ROOM:
       return {};
     case CLEAR_ERROR:
       return {};
+    case ROOMS_ERROR:
+      return {
+        ...state,
+        error: action.payload
+      };
     case RESET_ROOMS:
       return {
         rooms: [],
