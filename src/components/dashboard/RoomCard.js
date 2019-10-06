@@ -36,9 +36,9 @@ const useStyles = makeStyles({
   }
 });
 
-const ClassroomCard = ({ room }) => {
+const RoomCard = ({ room }) => {
   const classes = useStyles();
-  const { classname, description, code, users } = room;
+  const { classname, description, code, students } = room;
 
   return (
     <Grid item>
@@ -57,7 +57,7 @@ const ClassroomCard = ({ room }) => {
               <GroupIcon className={classes.mediaIcon} fontSize="large" />
               <Typography className={classes.mediaText}>
                 {" "}
-                Students: {users.length}
+                Students: {students.length}
               </Typography>
             </div>
           </CardMedia>
@@ -76,4 +76,4 @@ const ClassroomCard = ({ room }) => {
   );
 };
 
-export default ClassroomCard;
+export default RoomCard;

@@ -1,94 +1,50 @@
-import React, { Fragment, useContext, useEffect } from "react";
+import React, { Fragment, Suspense } from "react";
 import FabMenu from "../dashboard/FabMenu";
 import Header from "../layout/Header";
+import { Container, makeStyles, CircularProgress } from "@material-ui/core";
 import RoomsContext from "../../context/rooms/roomsContext";
-import {
-  Typography,
-  Container,
-  makeStyles,
-  Divider,
-  Grid
-} from "@material-ui/core";
-import ClassroomCard from "../dashboard/ClassroomCard";
+import AuthContext from "../../context/auth/authContext";
+
+const Rooms = React.lazy(() => import("../dashboard/Rooms"));
 
 const useStyles = makeStyles(theme => ({
-  root: {
-    marginTop: theme.spacing(2),
-    marginBottom: theme.spacing(2)
-  },
   container: {
     marginTop: theme.spacing(2)
+  },
+  loader: {
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    marginTop: 50
   }
 }));
 
 const Dashboard = () => {
-  const roomsContext = useContext(RoomsContext);
-  useEffect(() => {
-    roomsContext.getRooms();
-    // eslint-disable-next-line
-  }, []);
-
-  // DUMMY DATA
-  const [joinedRooms, setJoinedRooms] = React.useState([
-    {
-      classname: "OOP Java",
-      subject: "Object Oriented Programming Java",
-      description: "Starting Object Oriented Programming with Java",
-      code: "hg5j7a",
-      users: []
-    },
-    {
-      classname: "C++ Programming",
-      subject: "Programming Foundation with C++",
-      description: "Beginning the World of Programming with C++",
-      code: "ax65gf",
-      users: []
-    },
-    {
-      classname: "Oracle Database",
-      subject: "DBA Oracle Fundamentals",
-      description: "Beginning the World of Programming with C++",
-      code: "kxasd5",
-      users: []
-    },
-    {
-      classname: "Computer Networks",
-      subject: "Programming Foundation with C++",
-      description: "Beginning the World of Programming with C++",
-      code: "bhx5sd",
-      users: []
-    }
-  ]);
+  const roomsContext = React.useContext(RoomsContext);
+  const authContext = React.useContext(AuthContext);
+  const { rooms, getRooms } = roomsContext;
+  const { loading } = authContext;
 
   const classes = useStyles();
+
+  React.useEffect(() => {
+    if (loading === false) {
+      getRooms();
+    }
+    // eslint-disable-next-line
+  }, [loading]);
+
+  const loader = (
+    <div className={classes.loader}>
+      <CircularProgress color="secondary" />
+    </div>
+  );
 
   return (
     <Fragment>
       <Header />
       <Container component="main" className={classes.container}>
-        <Container component="section">
-          <Typography variant="h5" gutterBottom>
-            Your Classrooms
-          </Typography>
-          <Divider />
-          <Grid className={classes.root} container spacing={2}>
-            {joinedRooms.map(room => (
-              <ClassroomCard key={room.code} room={room} />
-            ))}
-          </Grid>
-        </Container>
-
-        <Container component="section">
-          <Typography variant="h5" gutterBottom>
-            Joined Classrooms
-          </Typography>
-          <Divider />
-          <Grid className={classes.root} container spacing={2}>
-            {joinedRooms.map(room => (
-              <ClassroomCard key={room.code} room={room} />
-            ))}
-          </Grid>
-        </Container>
+        <Rooms rooms={rooms} loader={loader} />
       </Container>
       <FabMenu />
     </Fragment>

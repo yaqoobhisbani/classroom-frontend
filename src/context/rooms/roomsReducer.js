@@ -11,8 +11,7 @@ export default (state, action) => {
     case GET_ROOMS:
       return {
         ...state,
-        adminRooms: action.payload.adminRooms,
-        joinedRooms: action.payload.joinedRooms,
+        rooms: action.payload,
         loading: false
       };
     case CREATE_ROOM:
@@ -23,9 +22,8 @@ export default (state, action) => {
       return {};
     case RESET_ROOMS:
       return {
-        adminRooms: null,
-        joinedRooms: null,
-        loading: false,
+        rooms: [],
+        loading: true,
         error: null
       };
     default:

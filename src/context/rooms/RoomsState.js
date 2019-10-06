@@ -14,8 +14,7 @@ import {
 const RoomsState = props => {
   // Initial State
   const initialState = {
-    adminRooms: null,
-    joinedRooms: null,
+    rooms: [],
     loading: true,
     error: null
   };
@@ -49,8 +48,7 @@ const RoomsState = props => {
   return (
     <RoomsContext.Provider
       value={{
-        adminRooms: state.adminRooms,
-        joinedRooms: state.joinedRooms,
+        rooms: state.rooms,
         loading: state.loading,
         error: state.error,
         getRooms,
