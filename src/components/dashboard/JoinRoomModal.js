@@ -1,5 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import ModalTitle from "./ModalTitle";
+import RoomsContext from "../../context/rooms/roomsContext";
 import {
   Dialog,
   DialogContent,
@@ -25,6 +26,7 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const JoinRoomModal = props => {
+  const roomsContext = useContext(RoomsContext);
   const classes = useStyles();
 
   const { openModal, closeModal } = props;
@@ -33,11 +35,24 @@ const JoinRoomModal = props => {
 
   const onChange = e => setRoomCode(([e.target.name] = e.target.value));
 
+  const onSubmit = e => {
+    e.preventDefault();
+    if (roomCode.length > 2) {
+      roomsContext.joinRoom(roomCode);
+    }
+    closeModal();
+    setRoomCode("");
+  };
+
   return (
     <Dialog onClose={closeModal} open={openModal}>
       <ModalTitle onClose={closeModal}>Join Classroom</ModalTitle>
       <DialogContent dividers>
-        <form className={classes.container} autoComplete="off">
+        <form
+          onSubmit={onSubmit}
+          className={classes.container}
+          autoComplete="off"
+        >
           <TextField
             variant="outlined"
             margin="normal"
@@ -48,13 +63,17 @@ const JoinRoomModal = props => {
             className={classes.textField}
             label="Room Code"
           />
+
+          <Button style={{ display: "none" }} type="submit">
+            Submit
+          </Button>
         </form>
       </DialogContent>
       <DialogActions className={classes.dialogButtons}>
         <Button onClick={closeModal} color="primary">
           Cancel
         </Button>
-        <Button onClick={closeModal} color="primary">
+        <Button onClick={onSubmit} color="primary">
           Join
         </Button>
       </DialogActions>

@@ -4,7 +4,8 @@ import {
   Typography,
   Divider,
   Grid,
-  makeStyles
+  makeStyles,
+  CircularProgress
 } from "@material-ui/core";
 import RoomCard from "./RoomCard";
 import RoomsContext from "../../context/rooms/roomsContext";
@@ -14,18 +15,28 @@ const useStyles = makeStyles(theme => ({
     marginTop: theme.spacing(2),
     marginBottom: theme.spacing(2)
   },
+  loader: {
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    marginTop: 50
+  },
   noRooms: {
     textAlign: "center",
     paddingTop: 10
   }
 }));
 
-const Rooms = ({ rooms, loader }) => {
+const Rooms = ({ rooms }) => {
   const roomsContext = useContext(RoomsContext);
   const classes = useStyles();
 
-  // Show Loader When Rooms are Loading
-  if (roomsContext.loading === true) return loader;
+  // Loader
+  const loader = (
+    <div className={classes.loader}>
+      <CircularProgress color="secondary" />
+    </div>
+  );
 
   // Rooms
   const Rooms = (
@@ -53,6 +64,9 @@ const Rooms = ({ rooms, loader }) => {
       </Typography>
     </div>
   );
+
+  // Show Loader When Rooms are Loading
+  if (roomsContext.loading === true) return loader;
 
   return (
     <Container component="section">

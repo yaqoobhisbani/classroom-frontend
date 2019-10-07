@@ -14,7 +14,7 @@ import {
 
 const useStyles = makeStyles({
   card: {
-    maxWidth: 275
+    maxWidth: "100%"
   },
   media: {
     display: "flex",
@@ -41,7 +41,7 @@ const RoomCard = ({ room }) => {
   const { classname, description, code, students } = room;
 
   return (
-    <Grid item>
+    <Grid item xs={12} sm={6} md={3}>
       <Card className={classes.card}>
         <CardActionArea>
           <CardMedia className={classes.media}>

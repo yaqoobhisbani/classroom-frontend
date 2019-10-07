@@ -46,7 +46,15 @@ const RoomsState = props => {
   };
 
   // JOIN ROOM
-  const joinRoom = async () => {};
+  const joinRoom = async code => {
+    try {
+      const res = await axios.put(`/api/classrooms/${code}`);
+
+      dispatch({ type: JOIN_ROOM, payload: res.data });
+    } catch (err) {
+      dispatch({ type: ROOMS_ERROR, payload: err.response.data });
+    }
+  };
 
   // CLEAR ERROR
   const clearError = async () => {};

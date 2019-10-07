@@ -16,13 +16,12 @@ export default (state, action) => {
         loading: false
       };
     case CREATE_ROOM:
+    case JOIN_ROOM:
       return {
         ...state,
         rooms: [action.payload, ...state.rooms],
         loading: false
       };
-    case JOIN_ROOM:
-      return {};
     case CLEAR_ERROR:
       return {};
     case ROOMS_ERROR:
