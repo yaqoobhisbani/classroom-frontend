@@ -38,7 +38,7 @@ const Dashboard = () => {
   }, [loading]);
 
   React.useEffect(() => {
-    if (error === "There is no classroom with that code.") {
+    if (error) {
       alertContext.showAlert("error", error);
       clearError();
     }
