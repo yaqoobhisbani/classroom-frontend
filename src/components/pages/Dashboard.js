@@ -4,6 +4,7 @@ import Header from "../layout/Header";
 import { Container, makeStyles } from "@material-ui/core";
 import RoomsContext from "../../context/rooms/roomsContext";
 import AuthContext from "../../context/auth/authContext";
+import AlertContext from "../../context/alerts/alertContext";
 
 const Rooms = React.lazy(() => import("../dashboard/Rooms"));
 
@@ -16,7 +17,15 @@ const useStyles = makeStyles(theme => ({
 const Dashboard = () => {
   const roomsContext = React.useContext(RoomsContext);
   const authContext = React.useContext(AuthContext);
-  const { rooms, getRooms } = roomsContext;
+  const alertContext = React.useContext(AlertContext);
+  const {
+    rooms,
+    error,
+    success,
+    getRooms,
+    clearError,
+    clearSuccess
+  } = roomsContext;
   const { loading } = authContext;
 
   const classes = useStyles();
@@ -27,6 +36,22 @@ const Dashboard = () => {
     }
     // eslint-disable-next-line
   }, [loading]);
+
+  React.useEffect(() => {
+    if (error === "There is no classroom with that code.") {
+      alertContext.showAlert("error", error);
+      clearError();
+    }
+    // eslint-disable-next-line
+  }, [error]);
+
+  React.useEffect(() => {
+    if (success) {
+      alertContext.showAlert("success", success);
+      clearSuccess();
+    }
+    // eslint-disable-next-line
+  }, [success]);
 
   return (
     <Fragment>

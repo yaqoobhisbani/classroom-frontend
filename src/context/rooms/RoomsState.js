@@ -8,6 +8,7 @@ import {
   CREATE_ROOM,
   JOIN_ROOM,
   CLEAR_ERROR,
+  CLEAR_SUCCESS,
   ROOMS_ERROR,
   RESET_ROOMS
 } from "../types";
@@ -17,7 +18,8 @@ const RoomsState = props => {
   const initialState = {
     rooms: [],
     loading: true,
-    error: null
+    error: null,
+    success: null
   };
 
   // Attaching Reducer
@@ -41,7 +43,7 @@ const RoomsState = props => {
 
       dispatch({ type: CREATE_ROOM, payload: res.data });
     } catch (err) {
-      dispatch({ type: ROOMS_ERROR, payload: err.response.data });
+      dispatch({ type: ROOMS_ERROR, payload: err.response.data.msg });
     }
   };
 
@@ -52,12 +54,15 @@ const RoomsState = props => {
 
       dispatch({ type: JOIN_ROOM, payload: res.data });
     } catch (err) {
-      dispatch({ type: ROOMS_ERROR, payload: err.response.data });
+      dispatch({ type: ROOMS_ERROR, payload: err.response.data.msg });
     }
   };
 
   // CLEAR ERROR
-  const clearError = async () => {};
+  const clearError = async () => dispatch({ type: CLEAR_ERROR });
+
+  // CLEAR SUCCESS
+  const clearSuccess = async () => dispatch({ type: CLEAR_SUCCESS });
 
   // RESET STATE
   const resetRooms = async () => dispatch({ type: RESET_ROOMS });
@@ -68,10 +73,12 @@ const RoomsState = props => {
         rooms: state.rooms,
         loading: state.loading,
         error: state.error,
+        success: state.success,
         getRooms,
         createRoom,
         joinRoom,
         clearError,
+        clearSuccess,
         resetRooms
       }}
     >

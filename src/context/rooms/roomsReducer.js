@@ -4,6 +4,7 @@ import {
   JOIN_ROOM,
   ROOMS_ERROR,
   CLEAR_ERROR,
+  CLEAR_SUCCESS,
   RESET_ROOMS
 } from "../types";
 
@@ -16,14 +17,29 @@ export default (state, action) => {
         loading: false
       };
     case CREATE_ROOM:
+      return {
+        ...state,
+        rooms: [action.payload, ...state.rooms],
+        loading: false,
+        success: "The Classroom has been created successfully!"
+      };
     case JOIN_ROOM:
       return {
         ...state,
         rooms: [action.payload, ...state.rooms],
-        loading: false
+        loading: false,
+        success: "The Classroom has been joined successfully!"
       };
     case CLEAR_ERROR:
-      return {};
+      return {
+        ...state,
+        error: null
+      };
+    case CLEAR_SUCCESS:
+      return {
+        ...state,
+        success: null
+      };
     case ROOMS_ERROR:
       return {
         ...state,

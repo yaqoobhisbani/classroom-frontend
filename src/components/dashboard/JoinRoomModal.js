@@ -28,20 +28,42 @@ const useStyles = makeStyles(theme => ({
 const JoinRoomModal = props => {
   const roomsContext = useContext(RoomsContext);
   const classes = useStyles();
-
   const { openModal, closeModal } = props;
 
   const [roomCode, setRoomCode] = useState("");
 
-  const onChange = e => setRoomCode(([e.target.name] = e.target.value));
+  const emptyError = {
+    isInvalid: false,
+    msg: null
+  };
+
+  const [codeError, setCodeError] = useState(emptyError);
+
+  const onCodeChange = e => {
+    e.preventDefault();
+    setRoomCode(e.target.value);
+    if (e.target.value.length === 6) {
+      setCodeError(emptyError);
+    } else {
+      setCodeError({
+        isInvalid: true,
+        msg: "Invalid Classroom Code"
+      });
+    }
+  };
 
   const onSubmit = e => {
     e.preventDefault();
-    if (roomCode.length > 2) {
+    if (roomCode.length === 6) {
       roomsContext.joinRoom(roomCode);
+      closeModal();
+      setRoomCode("");
+    } else {
+      setCodeError({
+        isInvalid: true,
+        msg: "Invalid Room Code"
+      });
     }
-    closeModal();
-    setRoomCode("");
   };
 
   return (
@@ -54,14 +76,15 @@ const JoinRoomModal = props => {
           autoComplete="off"
         >
           <TextField
+            error={codeError.isInvalid}
             variant="outlined"
             margin="normal"
             fullWidth
             name="roomcode"
             value={roomCode}
-            onChange={onChange}
+            onChange={onCodeChange}
             className={classes.textField}
-            label="Room Code"
+            label={codeError.msg ? codeError.msg : "Room Code"}
           />
 
           <Button style={{ display: "none" }} type="submit">

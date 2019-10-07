@@ -28,9 +28,9 @@ const useStyles = makeStyles(theme => ({
 const CreateRoomModal = props => {
   const roomsContext = useContext(RoomsContext);
   const classes = useStyles();
-
   const { openModal, closeModal } = props;
 
+  // Room State
   const emptyRoom = {
     classname: "",
     subject: "",
@@ -45,7 +45,7 @@ const CreateRoomModal = props => {
 
   const onSubmit = e => {
     e.preventDefault();
-    if (classname.length > 0 && subject.length > 0 && description.length > 0) {
+    if (classname.length > 2 && subject.length > 2 && description.length > 2) {
       roomsContext.createRoom({
         classname,
         subject,
@@ -64,6 +64,7 @@ const CreateRoomModal = props => {
           onSubmit={onSubmit}
           className={classes.container}
           autoComplete="off"
+          id="create-room"
         >
           <TextField
             variant="outlined"
@@ -98,17 +99,13 @@ const CreateRoomModal = props => {
             className={classes.textField}
             label="Description"
           />
-
-          <Button style={{ display: "none" }} type="submit">
-            Submit
-          </Button>
         </form>
       </DialogContent>
       <DialogActions className={classes.dialogButtons}>
         <Button onClick={closeModal} color="primary">
           Cancel
         </Button>
-        <Button onClick={onSubmit} color="primary">
+        <Button type="submit" form="create-room" color="primary">
           Create
         </Button>
       </DialogActions>
