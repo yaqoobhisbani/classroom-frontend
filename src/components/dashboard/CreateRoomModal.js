@@ -7,8 +7,7 @@ import {
   DialogActions,
   Button,
   TextField,
-  makeStyles,
-  Hidden
+  makeStyles
 } from "@material-ui/core";
 
 const useStyles = makeStyles(theme => ({
@@ -32,11 +31,13 @@ const CreateRoomModal = props => {
 
   const { openModal, closeModal } = props;
 
-  const [roomInfo, setRoomInfo] = useState({
+  const emptyRoom = {
     classname: "",
     subject: "",
     description: ""
-  });
+  };
+
+  const [roomInfo, setRoomInfo] = useState(emptyRoom);
   const { classname, subject, description } = roomInfo;
 
   const onChange = e =>
@@ -51,6 +52,7 @@ const CreateRoomModal = props => {
         description
       });
       closeModal();
+      setRoomInfo(emptyRoom);
     }
   };
 
