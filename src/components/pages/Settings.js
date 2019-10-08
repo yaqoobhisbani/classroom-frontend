@@ -8,26 +8,19 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const NotFound = () => {
+const Settings = () => {
   const classes = useStyles();
-
-  React.useEffect(() => {
-    document.title = "404 Not Found | Classroom";
-  }, []);
 
   return (
     <Fragment>
       <Header />
       <Container component="main" className={classes.container}>
         <Typography variant="h3" gutterBottom>
-          404 Not Found
-        </Typography>
-        <Typography variant="body1">
-          The page you were looking for does not exist!
+          Settings Page
         </Typography>
       </Container>
     </Fragment>
   );
 };
 
-export default NotFound;
+export default Settings;

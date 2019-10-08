@@ -22,6 +22,10 @@ const useStyles = makeStyles(theme => ({
 const Login = () => {
   const classes = useStyles();
 
+  React.useEffect(() => {
+    document.title = "Sign In | Classroom";
+  }, []);
+
   return (
     <Fragment>
       <Header />

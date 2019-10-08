@@ -10,6 +10,7 @@ import {
   CLEAR_ERROR,
   CLEAR_SUCCESS,
   ROOMS_ERROR,
+  LOAD_ROOM,
   RESET_ROOMS
 } from "../types";
 
@@ -18,6 +19,7 @@ const RoomsState = props => {
   const initialState = {
     rooms: [],
     loading: true,
+    current: null,
     error: null,
     success: null
   };
@@ -58,6 +60,9 @@ const RoomsState = props => {
     }
   };
 
+  // LOAD ROOM
+  const loadRoom = async code => dispatch({ type: LOAD_ROOM, payload: code });
+
   // CLEAR ERROR
   const clearError = async () => dispatch({ type: CLEAR_ERROR });
 
@@ -72,6 +77,7 @@ const RoomsState = props => {
       value={{
         rooms: state.rooms,
         loading: state.loading,
+        current: state.current,
         error: state.error,
         success: state.success,
         getRooms,
@@ -79,6 +85,7 @@ const RoomsState = props => {
         joinRoom,
         clearError,
         clearSuccess,
+        loadRoom,
         resetRooms
       }}
     >

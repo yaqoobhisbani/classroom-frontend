@@ -31,6 +31,10 @@ const Dashboard = () => {
   const classes = useStyles();
 
   React.useEffect(() => {
+    document.title = "Dashboard | Classroom";
+  }, []);
+
+  React.useEffect(() => {
     if (loading === false) {
       getRooms();
     }

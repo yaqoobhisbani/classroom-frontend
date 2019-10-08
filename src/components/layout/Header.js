@@ -1,5 +1,5 @@
 import React, { Fragment, useContext, useState } from "react";
-import { Link as RouterLink } from "react-router-dom";
+import { Link as RouterLink, withRouter } from "react-router-dom";
 import {
   AppBar,
   Toolbar,
@@ -40,12 +40,12 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const Header = () => {
+const Header = props => {
   const authContext = useContext(AuthContext);
   const roomsContext = useContext(RoomsContext);
 
   const { isAuthenticated, logoutUser } = authContext;
-  const { resetRooms } = roomsContext;
+  const { resetRooms, current } = roomsContext;
 
   // Side Drawer State & Methods
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
@@ -114,7 +114,15 @@ const Header = () => {
         <MenuIcon />
       </IconButton>
       <Typography component="h2" variant="h6" className={classes.title}>
-        Dashboard
+        {current === null
+          ? "Classroom"
+          : props.match.url === "/dashboard"
+          ? "Dashboard"
+          : props.match.url === "/settings"
+          ? "Settings"
+          : props.match.url.includes("/room/")
+          ? `${current.classname}`
+          : "Classroom"}
       </Typography>
     </Fragment>
   );
@@ -129,4 +137,4 @@ const Header = () => {
   );
 };
 
-export default Header;
+export default withRouter(Header);

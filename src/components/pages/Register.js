@@ -22,6 +22,10 @@ const useStyles = makeStyles(theme => ({
 const Register = () => {
   const classes = useStyles();
 
+  React.useEffect(() => {
+    document.title = "Register | Classroom";
+  }, []);
+
   return (
     <Fragment>
       <Header />

@@ -1,6 +1,8 @@
-import React from "react";
+import React, { useContext } from "react";
 import GroupIcon from "@material-ui/icons/Group";
 import CodeIcon from "@material-ui/icons/Code";
+import { withRouter } from "react-router-dom";
+import RoomsContext from "../../context/rooms/roomsContext";
 
 import {
   makeStyles,
@@ -11,6 +13,7 @@ import {
   Typography,
   Grid
 } from "@material-ui/core";
+import roomsContext from "../../context/rooms/roomsContext";
 
 const useStyles = makeStyles({
   card: {
@@ -36,13 +39,19 @@ const useStyles = makeStyles({
   }
 });
 
-const RoomCard = ({ room }) => {
+const RoomCard = props => {
+  const roomsContext = useContext(RoomsContext);
   const classes = useStyles();
-  const { classname, description, code, students } = room;
+  const { classname, description, code, students } = props.room;
+
+  const onClick = () => {
+    roomsContext.loadRoom(code);
+    props.history.push(`/room/${code}`);
+  };
 
   return (
     <Grid item xs={12} sm={6} md={3}>
-      <Card className={classes.card}>
+      <Card onClick={onClick} className={classes.card}>
         <CardActionArea>
           <CardMedia className={classes.media}>
             <div className={classes.mediaContainer}>
@@ -76,4 +85,4 @@ const RoomCard = ({ room }) => {
   );
 };
 
-export default RoomCard;
+export default withRouter(RoomCard);

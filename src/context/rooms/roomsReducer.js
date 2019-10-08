@@ -5,6 +5,7 @@ import {
   ROOMS_ERROR,
   CLEAR_ERROR,
   CLEAR_SUCCESS,
+  LOAD_ROOM,
   RESET_ROOMS
 } from "../types";
 
@@ -21,14 +22,19 @@ export default (state, action) => {
         ...state,
         rooms: [action.payload, ...state.rooms],
         loading: false,
-        success: "The Classroom has been created successfully!"
+        success: "The Classroom has been created!"
       };
     case JOIN_ROOM:
       return {
         ...state,
         rooms: [action.payload, ...state.rooms],
         loading: false,
-        success: "The Classroom has been joined successfully!"
+        success: "The Classroom has been joined!"
+      };
+    case LOAD_ROOM:
+      return {
+        ...state,
+        current: state.rooms.filter(room => room.code === action.payload)[0]
       };
     case CLEAR_ERROR:
       return {
