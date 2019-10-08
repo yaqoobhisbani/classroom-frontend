@@ -13,6 +13,7 @@ export const CREATE_ROOM = "CREATE_ROOM";
 export const JOIN_ROOM = "JOIN_ROOM";
 export const CLEAR_ERROR = "CLEAR_ERROR";
 export const CLEAR_SUCCESS = "CLEAR_SUCCESS";
+export const CLEAR_CURRENT = "CLEAR_CURRENT";
 export const RESET_ROOMS = "RESET_ROOMS";
 export const ROOMS_ERROR = "ROOMS_ERROR";
 export const LOAD_ROOM = "LOAD_ROOM";

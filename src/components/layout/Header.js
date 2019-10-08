@@ -7,13 +7,15 @@ import {
   Button,
   Link,
   IconButton,
-  makeStyles
+  makeStyles,
+  Tabs,
+  Tab
 } from "@material-ui/core";
 
 // Icons
 import SchoolIcon from "@material-ui/icons/School";
-import LogoutIcon from "@material-ui/icons/ExitToApp";
 import MenuIcon from "@material-ui/icons/Menu";
+import BooksIcon from "@material-ui/icons/LibraryBooks";
 
 import SideDrawer from "./SideDrawer";
 import AuthContext from "../../context/auth/authContext";
@@ -37,6 +39,9 @@ const useStyles = makeStyles(theme => ({
   },
   logoutIcon: {
     marginLeft: 5
+  },
+  tabs: {
+    width: "100%"
   }
 }));
 
@@ -52,6 +57,20 @@ const Header = props => {
 
   const openDrawer = () => setIsDrawerOpen(true);
   const closeDrawer = () => setIsDrawerOpen(false);
+
+  // Rooms Tabs State and Handler
+  const [tabValue, setTabValue] = useState(0);
+
+  const handleTab = (e, value) => {
+    setTabValue(value);
+  };
+
+  const a11yProps = index => {
+    return {
+      id: `scrollable-auto-tab-${index}`,
+      "aria-controls": `scrollable-auto-tabpanel-${index}`
+    };
+  };
 
   // Logout Method
   const onLogout = () => {
@@ -76,20 +95,6 @@ const Header = props => {
     </Fragment>
   );
 
-  const LoggedInLinks = (
-    <Button>
-      <Link
-        className={classes.link}
-        component={RouterLink}
-        onClick={onLogout}
-        to="/"
-      >
-        <span>Logout</span>
-        <LogoutIcon className={classes.logoutIcon} />
-      </Link>
-    </Button>
-  );
-
   const loggedOutHeader = (
     <Fragment>
       <SchoolIcon fontSize="large" className={classes.iconLogo} />
@@ -105,6 +110,7 @@ const Header = props => {
         open={isDrawerOpen}
         openDrawer={openDrawer}
         closeDrawer={closeDrawer}
+        logout={onLogout}
       />
       <IconButton
         onClick={openDrawer}
@@ -113,26 +119,45 @@ const Header = props => {
       >
         <MenuIcon />
       </IconButton>
+
       <Typography component="h2" variant="h6" className={classes.title}>
-        {current === null
-          ? "Classroom"
-          : props.match.url === "/dashboard"
+        {props.match.url === "/dashboard"
           ? "Dashboard"
           : props.match.url === "/settings"
           ? "Settings"
-          : props.match.url.includes("/room/")
+          : current
           ? `${current.classname}`
           : "Classroom"}
       </Typography>
     </Fragment>
   );
 
+  // Room Tabs
+  const RoomTabs = (
+    <Tabs
+      value={tabValue}
+      onChange={handleTab}
+      className={classes.tabs}
+      indicatorColor="secondary"
+      variant="scrollable"
+      scrollButtons="auto"
+      aria-label="scrollable auto tabs example"
+    >
+      <Tab label="Study Material" {...a11yProps(0)} />
+      <Tab label="Tasks" {...a11yProps(1)} />
+      <Tab label="Students" {...a11yProps(2)} />
+      <Tab label="Chat" {...a11yProps(3)} />
+      <Tab label="About" {...a11yProps(4)} />
+    </Tabs>
+  );
+
   return (
     <AppBar position="static">
       <Toolbar>
         {isAuthenticated ? loggedInHeader : loggedOutHeader}
-        {isAuthenticated ? LoggedInLinks : LoggedOutLinks}
+        {!isAuthenticated ? LoggedOutLinks : null}
       </Toolbar>
+      {current ? RoomTabs : null}
     </AppBar>
   );
 };

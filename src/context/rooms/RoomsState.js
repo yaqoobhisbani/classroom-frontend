@@ -11,7 +11,8 @@ import {
   CLEAR_SUCCESS,
   ROOMS_ERROR,
   LOAD_ROOM,
-  RESET_ROOMS
+  RESET_ROOMS,
+  CLEAR_CURRENT
 } from "../types";
 
 const RoomsState = props => {
@@ -64,13 +65,16 @@ const RoomsState = props => {
   const loadRoom = async code => dispatch({ type: LOAD_ROOM, payload: code });
 
   // CLEAR ERROR
-  const clearError = async () => dispatch({ type: CLEAR_ERROR });
+  const clearError = () => dispatch({ type: CLEAR_ERROR });
 
   // CLEAR SUCCESS
-  const clearSuccess = async () => dispatch({ type: CLEAR_SUCCESS });
+  const clearSuccess = () => dispatch({ type: CLEAR_SUCCESS });
+
+  // CLEAR CURRENT
+  const clearCurrent = () => dispatch({ type: CLEAR_CURRENT });
 
   // RESET STATE
-  const resetRooms = async () => dispatch({ type: RESET_ROOMS });
+  const resetRooms = () => dispatch({ type: RESET_ROOMS });
 
   return (
     <RoomsContext.Provider
@@ -85,6 +89,7 @@ const RoomsState = props => {
         joinRoom,
         clearError,
         clearSuccess,
+        clearCurrent,
         loadRoom,
         resetRooms
       }}

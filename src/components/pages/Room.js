@@ -12,12 +12,16 @@ const useStyles = makeStyles(theme => ({
 
 const Room = () => {
   const roomsContext = useContext(RoomsContext);
-  const { current } = roomsContext;
+  const { current, clearCurrent } = roomsContext;
 
   React.useEffect(() => {
     if (current) {
       document.title = current.classname + " | Classroom";
     }
+
+    return () => {
+      clearCurrent();
+    };
     // eslint-disable-next-line
   }, []);
 

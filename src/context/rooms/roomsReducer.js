@@ -5,6 +5,7 @@ import {
   ROOMS_ERROR,
   CLEAR_ERROR,
   CLEAR_SUCCESS,
+  CLEAR_CURRENT,
   LOAD_ROOM,
   RESET_ROOMS
 } from "../types";
@@ -46,6 +47,11 @@ export default (state, action) => {
         ...state,
         success: null
       };
+    case CLEAR_CURRENT:
+      return {
+        ...state,
+        current: null
+      };
     case ROOMS_ERROR:
       return {
         ...state,
@@ -55,7 +61,9 @@ export default (state, action) => {
       return {
         rooms: [],
         loading: true,
-        error: null
+        current: null,
+        error: null,
+        success: null
       };
     default:
       return state;

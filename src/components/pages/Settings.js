@@ -9,6 +9,10 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const Settings = () => {
+  React.useEffect(() => {
+    document.title = "Settings | Classroom";
+    // eslint-disable-next-line
+  }, []);
   const classes = useStyles();
 
   return (

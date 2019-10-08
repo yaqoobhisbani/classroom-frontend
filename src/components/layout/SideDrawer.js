@@ -15,6 +15,7 @@ import {
 import DashboardIcon from "@material-ui/icons/Dashboard";
 import SettingsIcon from "@material-ui/icons/Settings";
 import SchoolIcon from "@material-ui/icons/School";
+import LogoutIcon from "@material-ui/icons/ExitToApp";
 
 // Lazy Loading Profile in SideDrawer
 const SideProfile = React.lazy(() => import("./SideProfile"));
@@ -31,7 +32,7 @@ const useStyles = makeStyles({
   }
 });
 
-const SideDrawer = ({ open, openDrawer, closeDrawer, user }) => {
+const SideDrawer = ({ open, openDrawer, closeDrawer, logout }) => {
   const classes = useStyles();
 
   // Main App Title
@@ -80,6 +81,12 @@ const SideDrawer = ({ open, openDrawer, closeDrawer, user }) => {
             <SettingsIcon />
           </ListItemIcon>
           <ListItemText>Settings</ListItemText>
+        </ListItem>
+        <ListItem component={Link} button to="/" onClick={logout}>
+          <ListItemIcon>
+            <LogoutIcon />
+          </ListItemIcon>
+          <ListItemText>Logout</ListItemText>
         </ListItem>
       </List>
     </div>
