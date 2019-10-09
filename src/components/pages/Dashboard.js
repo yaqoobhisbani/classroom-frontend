@@ -24,6 +24,7 @@ const Dashboard = () => {
     success,
     getRooms,
     clearError,
+    clearCurrent,
     clearSuccess
   } = roomsContext;
   const { loading } = authContext;
@@ -32,6 +33,8 @@ const Dashboard = () => {
 
   React.useEffect(() => {
     document.title = "Dashboard | Classroom";
+    clearCurrent();
+    // eslint-disable-next-line
   }, []);
 
   React.useEffect(() => {

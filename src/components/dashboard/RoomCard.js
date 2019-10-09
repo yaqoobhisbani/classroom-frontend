@@ -13,7 +13,6 @@ import {
   Typography,
   Grid
 } from "@material-ui/core";
-import roomsContext from "../../context/rooms/roomsContext";
 
 const useStyles = makeStyles({
   card: {

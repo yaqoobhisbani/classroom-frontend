@@ -7,15 +7,12 @@ import {
   Button,
   Link,
   IconButton,
-  makeStyles,
-  Tabs,
-  Tab
+  makeStyles
 } from "@material-ui/core";
 
 // Icons
 import SchoolIcon from "@material-ui/icons/School";
 import MenuIcon from "@material-ui/icons/Menu";
-import BooksIcon from "@material-ui/icons/LibraryBooks";
 
 import SideDrawer from "./SideDrawer";
 import AuthContext from "../../context/auth/authContext";
@@ -42,6 +39,9 @@ const useStyles = makeStyles(theme => ({
   },
   tabs: {
     width: "100%"
+  },
+  noShadow: {
+    boxShadow: "none!important"
   }
 }));
 
@@ -57,20 +57,6 @@ const Header = props => {
 
   const openDrawer = () => setIsDrawerOpen(true);
   const closeDrawer = () => setIsDrawerOpen(false);
-
-  // Rooms Tabs State and Handler
-  const [tabValue, setTabValue] = useState(0);
-
-  const handleTab = (e, value) => {
-    setTabValue(value);
-  };
-
-  const a11yProps = index => {
-    return {
-      id: `scrollable-auto-tab-${index}`,
-      "aria-controls": `scrollable-auto-tabpanel-${index}`
-    };
-  };
 
   // Logout Method
   const onLogout = () => {
@@ -132,32 +118,12 @@ const Header = props => {
     </Fragment>
   );
 
-  // Room Tabs
-  const RoomTabs = (
-    <Tabs
-      value={tabValue}
-      onChange={handleTab}
-      className={classes.tabs}
-      indicatorColor="secondary"
-      variant="scrollable"
-      scrollButtons="auto"
-      aria-label="scrollable auto tabs example"
-    >
-      <Tab label="Study Material" {...a11yProps(0)} />
-      <Tab label="Tasks" {...a11yProps(1)} />
-      <Tab label="Students" {...a11yProps(2)} />
-      <Tab label="Chat" {...a11yProps(3)} />
-      <Tab label="About" {...a11yProps(4)} />
-    </Tabs>
-  );
-
   return (
-    <AppBar position="static">
+    <AppBar className={current ? classes.noShadow : null} position="static">
       <Toolbar>
         {isAuthenticated ? loggedInHeader : loggedOutHeader}
         {!isAuthenticated ? LoggedOutLinks : null}
       </Toolbar>
-      {current ? RoomTabs : null}
     </AppBar>
   );
 };
