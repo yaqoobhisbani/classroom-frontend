@@ -7,7 +7,6 @@ import {
   Avatar,
   Typography
 } from "@material-ui/core";
-import AvatarImg from "../../assets/avatar.jpg";
 
 import AuthContext from "../../context/auth/authContext";
 
@@ -36,7 +35,7 @@ const SideProfile = () => {
       <ListItemIcon>
         <Avatar
           display="block"
-          src={user.hasAvatar ? avatarURL : AvatarImg}
+          src={avatarURL}
           className={classes.sideAvatar}
         />
       </ListItemIcon>
