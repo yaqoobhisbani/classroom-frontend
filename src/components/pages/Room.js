@@ -1,7 +1,9 @@
 import React, { Fragment, Suspense } from "react";
+import { AppBar, Tabs, Tab, makeStyles } from "@material-ui/core";
 import Header from "../layout/Header";
 import TabPanel from "../layout/TabPanel";
-import { AppBar, Tabs, Tab, makeStyles } from "@material-ui/core";
+import Loader from "../layout/Loader";
+import NotFound from "../pages/NotFound";
 import RoomsContext from "../../context/rooms/roomsContext";
 
 // Icons
@@ -10,8 +12,6 @@ import TaskIcon from "@material-ui/icons/AssignmentTurnedIn";
 import StudentsIcon from "@material-ui/icons/People";
 import ChatIcon from "@material-ui/icons/Chat";
 import AboutIcon from "@material-ui/icons/Info";
-
-import NotFound from "../pages/NotFound";
 
 // Room Pages
 const Material = React.lazy(() => import("../room/Material"));
@@ -69,31 +69,31 @@ const Room = () => {
       </AppBar>
 
       <TabPanel value={value} index={0}>
-        <Suspense fallback={<h1>Loading..</h1>}>
+        <Suspense fallback={<Loader />}>
           <Material />
         </Suspense>
       </TabPanel>
 
       <TabPanel value={value} index={1}>
-        <Suspense fallback={<h1>Loading..</h1>}>
+        <Suspense fallback={<Loader />}>
           <Tasks />
         </Suspense>
       </TabPanel>
 
       <TabPanel value={value} index={2}>
-        <Suspense fallback={<h1>Loading..</h1>}>
+        <Suspense fallback={<Loader />}>
           <Students />
         </Suspense>
       </TabPanel>
 
       <TabPanel value={value} index={3}>
-        <Suspense fallback={<h1>Loading..</h1>}>
+        <Suspense fallback={<Loader />}>
           <Chat />
         </Suspense>
       </TabPanel>
 
       <TabPanel value={value} index={4}>
-        <Suspense fallback={<h1>Loading..</h1>}>
+        <Suspense fallback={<Loader />}>
           <About />
         </Suspense>
       </TabPanel>

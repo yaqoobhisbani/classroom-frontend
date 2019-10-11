@@ -8,7 +8,9 @@ import {
   CardMedia,
   Typography,
   CardActions,
-  makeStyles
+  makeStyles,
+  CardHeader,
+  Avatar
 } from "@material-ui/core";
 
 import xls from "../../assets/xls.png";
@@ -55,6 +57,9 @@ const useStyles = makeStyles({
   },
   xlsBG: {
     background: "#4caf50"
+  },
+  avatar: {
+    backgroundColor: "#d84315"
   }
 });
 
@@ -83,6 +88,15 @@ const FileCard = ({ fileType }) => {
   return (
     <Grid item xs={6} sm={4} md={3} lg={2}>
       <Card className={classes.card}>
+        <CardHeader
+          avatar={
+            <Avatar aria-label="avatar" className={classes.avatar}>
+              R
+            </Avatar>
+          }
+          title="Muhammad Yaqoob"
+          subheader="June 15, 2019"
+        />
         <CardActionArea>
           <CardMedia className={`${classes.media} ${cardTheme.bg}`}>
             <img src={cardTheme.icon} className={classes.mediaImg} />
