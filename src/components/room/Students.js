@@ -8,6 +8,7 @@ import {
   List
 } from "@material-ui/core";
 import StudentItem from "../students/StudentItem";
+import RoomsContext from "../../context/rooms/roomsContext";
 
 const useStyles = makeStyles(theme => ({
   container: {
@@ -20,14 +21,10 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const Students = () => {
-  const classes = useStyles();
+  const roomsContext = React.useContext(RoomsContext);
+  const { current } = roomsContext;
 
-  const students = [
-    "Muhammad Yaqoob",
-    "Kashif Hussain",
-    "Khalil Ahmed",
-    "Tahir Ali Tunio"
-  ];
+  const classes = useStyles();
 
   return (
     <Container component="main" className={classes.container}>
@@ -37,8 +34,8 @@ const Students = () => {
       <Divider />
       <List className={classes.list}>
         <Grid container spacing={2}>
-          {students.length > 0
-            ? students.map((student, index) => (
+          {current.students.length > 0
+            ? current.students.map((student, index) => (
                 <StudentItem key={index} student={student} />
               ))
             : null}
