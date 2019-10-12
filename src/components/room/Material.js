@@ -26,7 +26,7 @@ const Material = () => {
       <Typography variant="h5" gutterBottom>
         Uploaded By Teacher
       </Typography>
-      <Divider gutterBottom />
+      <Divider />
       <Grid container className={classes.grid} spacing={2}>
         <FileCard fileType="doc" />
         <FileCard fileType="pdf" />
