@@ -8,9 +8,7 @@ import {
   CardMedia,
   Typography,
   CardActions,
-  makeStyles,
-  CardHeader,
-  Avatar
+  makeStyles
 } from "@material-ui/core";
 
 import xls from "../../assets/xls.png";

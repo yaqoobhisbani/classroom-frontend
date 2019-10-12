@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Fragment } from "react";
 import {
   Container,
   Grid,
@@ -8,7 +8,9 @@ import {
   List
 } from "@material-ui/core";
 import StudentItem from "../students/StudentItem";
+import FabButton from "../students/FabButton";
 import RoomsContext from "../../context/rooms/roomsContext";
+import AuthContext from "../../context/auth/authContext";
 
 const useStyles = makeStyles(theme => ({
   container: {
@@ -21,27 +23,37 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const Students = () => {
+  // Context
   const roomsContext = React.useContext(RoomsContext);
+  const authContext = React.useContext(AuthContext);
   const { current } = roomsContext;
+  const { user } = authContext;
 
+  // Styles
   const classes = useStyles();
 
+  // Local Dynamic Variables
+  const isAdminLoggedIn = current.createdBy === user._id ? true : false;
+
   return (
-    <Container component="main" className={classes.container}>
-      <Typography variant="h5" gutterBottom>
-        Students
-      </Typography>
-      <Divider />
-      <List className={classes.list}>
-        <Grid container spacing={2}>
-          {current.students.length > 0
-            ? current.students.map((student, index) => (
-                <StudentItem key={index} student={student} />
-              ))
-            : null}
-        </Grid>
-      </List>
-    </Container>
+    <Fragment>
+      <Container component="main" className={classes.container}>
+        <Typography variant="h5" gutterBottom>
+          Students
+        </Typography>
+        <Divider />
+        <List className={classes.list}>
+          <Grid container spacing={2}>
+            {current.students.length > 0
+              ? current.students.map((student, index) => (
+                  <StudentItem key={index} student={student} />
+                ))
+              : null}
+          </Grid>
+        </List>
+      </Container>
+      {isAdminLoggedIn ? <FabButton /> : null}
+    </Fragment>
   );
 };
 

@@ -13,6 +13,7 @@ import {
 } from "@material-ui/core";
 import DeleteIcon from "@material-ui/icons/Delete";
 import RoomsContext from "../../context/rooms/roomsContext";
+import AuthContext from "../../context/auth/authContext";
 
 const useStyles = makeStyles(theme => ({
   listItem: {
@@ -27,13 +28,24 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const StudentItem = ({ student }) => {
+  // Context
   const roomsContext = React.useContext(RoomsContext);
+  const authContext = React.useContext(AuthContext);
   const { current } = roomsContext;
+  const { user } = authContext;
+
+  // Props
   const { name, id } = student;
+
+  // Dynamic Local Variables
   const avatarURL = `/api/users/${id}/avatar`;
-  const isAdmin = current.createdBy === id ? true : false;
+  const isStudentAdmin = current.createdBy === id ? true : false;
+  const isAdminLoggedIn = current.createdBy === user._id ? true : false;
+
+  // Styles
   const classes = useStyles();
 
+  // Avatar With Admin Badge
   const AdminAvatar = (
     <Badge
       color="secondary"
@@ -47,20 +59,28 @@ const StudentItem = ({ student }) => {
     </Badge>
   );
 
+  // Normal Avatar
   const NormalAvatar = <Avatar src={avatarURL} />;
+
+  // Delete Button
+  const DeleteButton = (
+    <ListItemSecondaryAction>
+      <IconButton edge="end" aria-label="remove">
+        <DeleteIcon />
+      </IconButton>
+    </ListItemSecondaryAction>
+  );
 
   return (
     <Grid item className={classes.listItem} xs={12} sm={4} md="auto">
       <ListItem>
-        <ListItemAvatar>{isAdmin ? AdminAvatar : NormalAvatar}</ListItemAvatar>
+        <ListItemAvatar>
+          {isStudentAdmin ? AdminAvatar : NormalAvatar}
+        </ListItemAvatar>
         <ListItemText>
           <Typography variant="subtitle2">{name}</Typography>
         </ListItemText>
-        <ListItemSecondaryAction>
-          <IconButton edge="end" aria-label="remove">
-            <DeleteIcon />
-          </IconButton>
-        </ListItemSecondaryAction>
+        {isAdminLoggedIn ? DeleteButton : null}
       </ListItem>
     </Grid>
   );
