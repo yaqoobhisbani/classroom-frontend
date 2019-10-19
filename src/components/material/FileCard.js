@@ -61,7 +61,7 @@ const useStyles = makeStyles({
   }
 });
 
-const FileCard = ({ fileType }) => {
+const FileCard = ({ file, fileType }) => {
   const classes = useStyles();
 
   let cardTheme = {
@@ -92,7 +92,7 @@ const FileCard = ({ fileType }) => {
           </CardMedia>
           <CardContent className={classes.cardContent}>
             <Typography gutterBottom variant="subtitle2">
-              Lecture#1.pptx
+              {file.originalName}
             </Typography>
           </CardContent>
         </CardActionArea>

@@ -12,7 +12,21 @@ import Alerts from "../components/layout/Alerts";
 
 import Room from "../components/pages/Room";
 
+import AuthContext from "../context/auth/authContext";
+import RoomsContext from "../context/rooms/roomsContext";
+
 const AuthApp = () => {
+  const authContext = React.useContext(AuthContext);
+  const roomsContext = React.useContext(RoomsContext);
+
+  // Loading Classrooms From Backend
+  React.useEffect(() => {
+    if (authContext.loading === false) {
+      roomsContext.getRooms();
+    }
+    // eslint-disable-next-line
+  }, [authContext.loading]);
+
   return (
     <Router>
       <Switch>

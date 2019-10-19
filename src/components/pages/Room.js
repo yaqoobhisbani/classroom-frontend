@@ -14,7 +14,7 @@ import ChatIcon from "@material-ui/icons/Chat";
 import AboutIcon from "@material-ui/icons/Info";
 
 // Room Pages
-const Material = React.lazy(() => import("../room/Material"));
+import Material from "../room/Material";
 const Tasks = React.lazy(() => import("../room/Tasks"));
 const Students = React.lazy(() => import("../room/Students"));
 const Chat = React.lazy(() => import("../room/Chat"));
@@ -69,9 +69,7 @@ const Room = () => {
       </AppBar>
 
       <TabPanel value={value} index={0}>
-        <Suspense fallback={<Loader />}>
-          <Material />
-        </Suspense>
+        <Material />
       </TabPanel>
 
       <TabPanel value={value} index={1}>

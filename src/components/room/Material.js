@@ -7,8 +7,10 @@ import {
   Grid
 } from "@material-ui/core";
 
+import Loader from "../layout/Loader";
 import RoomsContext from "../../context/rooms/roomsContext";
 import AuthContext from "../../context/auth/authContext";
+import MaterialContext from "../../context/material/materialContext";
 
 import FileCard from "../material/FileCard";
 import FabButton from "../material/FabButton";
@@ -27,8 +29,10 @@ const Material = () => {
   // Context
   const roomsContext = React.useContext(RoomsContext);
   const authContext = React.useContext(AuthContext);
+  const materialContext = React.useContext(MaterialContext);
   const { current } = roomsContext;
   const { user } = authContext;
+  const { material } = materialContext;
 
   // Styles
   const classes = useStyles();
@@ -36,20 +40,26 @@ const Material = () => {
   // Local Dynamic Variables
   const isAdminLoggedIn = current.createdBy === user._id ? true : false;
 
+  React.useEffect(() => {
+    materialContext.getMaterial(current.code);
+    // eslint-disable-next-line
+  }, []);
+
+  if (materialContext.loading === true) return <Loader />;
+
   return (
     <Fragment>
       <Container component="main" className={classes.container}>
         <Typography variant="h5" gutterBottom>
-          Uploaded By Teacher
+          Study Material
         </Typography>
         <Divider />
         <Grid container className={classes.grid} spacing={2}>
-          <FileCard fileType="doc" />
-          <FileCard fileType="pdf" />
-          <FileCard fileType="ppt" />
-          <FileCard fileType="xls" />
-          <FileCard fileType="pdf" />
-          <FileCard fileType="doc" />
+          {material.length > 0
+            ? material.map(file => (
+                <FileCard file={file} fileType={file.fileType} />
+              ))
+            : null}
         </Grid>
       </Container>
       {isAdminLoggedIn ? <FabButton /> : null}
