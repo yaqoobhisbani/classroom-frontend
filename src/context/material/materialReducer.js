@@ -1,6 +1,5 @@
 import {
   GET_MATERIAL,
-  DOWNLOAD_FILE,
   UPLOAD_FILE,
   DELETE_FILE,
   FILE_ERROR,
@@ -13,6 +12,12 @@ export default (state, action) => {
       return {
         ...state,
         material: action.payload,
+        loading: false
+      };
+    case DELETE_FILE:
+      return {
+        ...state,
+        material: state.material.filter(item => item._id !== action.payload),
         loading: false
       };
     case FILE_ERROR:

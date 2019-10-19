@@ -22,7 +22,6 @@ export const SHOW_ALERT = "SHOW_ALERT";
 export const REMOVE_ALERT = "REMOVE_ALERT";
 // MATERIALS STATE CONSTANTS
 export const GET_MATERIAL = "GET_MATERIAL";
-export const DOWNLOAD_FILE = "DOWNLOAD_FILE";
 export const UPLOAD_FILE = "UPLOAD_FILE";
 export const DELETE_FILE = "DELETE_FILE";
 export const FILE_ERROR = "FILE_ERROR";

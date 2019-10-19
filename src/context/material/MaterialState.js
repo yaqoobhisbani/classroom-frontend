@@ -4,7 +4,6 @@ import materialReducer from "./materialReducer";
 import axios from "axios";
 import {
   GET_MATERIAL,
-  DOWNLOAD_FILE,
   UPLOAD_FILE,
   DELETE_FILE,
   FILE_ERROR,
@@ -46,12 +45,20 @@ const MaterialState = props => {
       link.click();
       link.remove();
     } catch (err) {
-      console.log(err.response);
+      dispatch({ type: FILE_ERROR, payload: err.response.data });
     }
   };
 
   // DELETE FILE
-  const deleteFile = async () => {};
+  const deleteFile = async (fileLink, fileId) => {
+    try {
+      await axios.delete(`/api/${fileLink}`);
+
+      dispatch({ type: DELETE_FILE, payload: fileId });
+    } catch (err) {
+      dispatch({ type: FILE_ERROR, payload: err.response.data });
+    }
+  };
 
   // RESET
   const resetMaterial = async () => dispatch({ type: RESET_MATERIAL });
