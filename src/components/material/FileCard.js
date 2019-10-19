@@ -16,6 +16,8 @@ import ppt from "../../assets/ppt.png";
 import pdf from "../../assets/pdf.png";
 import doc from "../../assets/word.png";
 
+import MaterialContext from "../../context/material/materialContext";
+
 const useStyles = makeStyles({
   card: {
     maxWidth: "100%"
@@ -62,6 +64,7 @@ const useStyles = makeStyles({
 });
 
 const FileCard = ({ file, fileType }) => {
+  const materialContext = React.useContext(MaterialContext);
   const classes = useStyles();
 
   let cardTheme = {
@@ -83,6 +86,11 @@ const FileCard = ({ file, fileType }) => {
     cardTheme.bg = classes.xlsBG;
   }
 
+  // Download File
+  const download = () => {
+    materialContext.downloadFile(file.downloadLink, file.originalName);
+  };
+
   return (
     <Grid item xs={6} sm={4} md={3} lg={2}>
       <Card className={classes.card}>
@@ -97,7 +105,7 @@ const FileCard = ({ file, fileType }) => {
           </CardContent>
         </CardActionArea>
         <CardActions>
-          <Button size="small" color="primary">
+          <Button onClick={download} size="small" color="primary">
             Download
           </Button>
         </CardActions>

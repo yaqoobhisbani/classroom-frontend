@@ -35,7 +35,20 @@ const MaterialState = props => {
   const uploadFile = async () => {};
 
   // DOWNLOAD FILE
-  const downloadFile = async () => {};
+  const downloadFile = async (fileLink, fileName) => {
+    try {
+      const res = await axios.get(`/api/${fileLink}`, { responseType: "blob" });
+      const downloadUrl = window.URL.createObjectURL(new Blob([res.data]));
+      const link = document.createElement("a");
+      link.href = downloadUrl;
+      link.setAttribute("download", fileName);
+      document.body.appendChild(link);
+      link.click();
+      link.remove();
+    } catch (err) {
+      console.log(err.response);
+    }
+  };
 
   // DELETE FILE
   const deleteFile = async () => {};

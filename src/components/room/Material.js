@@ -22,7 +22,8 @@ const useStyles = makeStyles(theme => ({
   grid: {
     marginTop: theme.spacing(2),
     marginBottom: theme.spacing(2)
-  }
+  },
+  noMaterial: {}
 }));
 
 const Material = () => {
@@ -40,6 +41,13 @@ const Material = () => {
   // Local Dynamic Variables
   const isAdminLoggedIn = current.createdBy === user._id ? true : false;
 
+  // No Material
+  const NoMaterial = (
+    <div className={classes.noMaterial}>
+      <Typography variant="h5">No Files Available!</Typography>
+    </div>
+  );
+
   React.useEffect(() => {
     materialContext.getMaterial(current.code);
     // eslint-disable-next-line
@@ -56,10 +64,10 @@ const Material = () => {
         <Divider />
         <Grid container className={classes.grid} spacing={2}>
           {material.length > 0
-            ? material.map(file => (
-                <FileCard file={file} fileType={file.fileType} />
+            ? material.map((file, index) => (
+                <FileCard file={file} key={index} fileType={file.fileType} />
               ))
-            : null}
+            : NoMaterial}
         </Grid>
       </Container>
       {isAdminLoggedIn ? <FabButton /> : null}
