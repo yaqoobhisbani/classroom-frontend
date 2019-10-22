@@ -80,7 +80,7 @@ const StudentItem = ({ student }) => {
         <ListItemText>
           <Typography variant="subtitle2">{name}</Typography>
         </ListItemText>
-        {isAdminLoggedIn ? DeleteButton : null}
+        {isAdminLoggedIn && !isStudentAdmin ? DeleteButton : null}
       </ListItem>
     </Grid>
   );

@@ -36,14 +36,21 @@ const MaterialState = props => {
   // DOWNLOAD FILE
   const downloadFile = async (fileLink, fileName) => {
     try {
+      // Download File From Backend
       const res = await axios.get(`/api/${fileLink}`, { responseType: "blob" });
+      // Create URL and Downloaded File as Blob
       const downloadUrl = window.URL.createObjectURL(new Blob([res.data]));
+      // Creating Anchor Tag Element
       const link = document.createElement("a");
+      // Setting HREF attribute of Anchor Tag Element
       link.href = downloadUrl;
       link.setAttribute("download", fileName);
+      // Adding Element To Body & Clicking It
       document.body.appendChild(link);
       link.click();
+      // Cleanup
       link.remove();
+      window.URL.revokeObjectURL(downloadUrl);
     } catch (err) {
       dispatch({ type: FILE_ERROR, payload: err.response.data });
     }

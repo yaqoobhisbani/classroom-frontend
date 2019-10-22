@@ -13,6 +13,8 @@ import {
 } from "@material-ui/core";
 import DeleteIcon from "@material-ui/icons/Delete";
 
+import FileViewerDialog from "./FileViewerDialog";
+
 import xls from "../../assets/xls.png";
 import ppt from "../../assets/ppt.png";
 import pdf from "../../assets/pdf.png";
@@ -71,6 +73,11 @@ const FileCard = ({ file, fileType }) => {
   const { current } = roomsContext;
   const classes = useStyles();
 
+  // File Viewer Modal State
+  const [openViewer, setOpenViewer] = React.useState(false);
+  const handleOpenViewer = () => setOpenViewer(true);
+  const handleCloseViewer = () => setOpenViewer(false);
+
   // Local Dynamic Variables
   const isAdminLoggedIn = current.createdBy === user._id ? true : false;
 
@@ -105,10 +112,14 @@ const FileCard = ({ file, fileType }) => {
 
   return (
     <Grid item xs={6} sm={4} md={3} lg={2}>
-      <Card className={classes.card}>
+      <Card onClick={handleOpenViewer} className={classes.card}>
         <CardActionArea>
           <CardMedia className={`${classes.media} ${cardTheme.bg}`}>
-            <img src={cardTheme.icon} className={classes.mediaImg} />
+            <img
+              src={cardTheme.icon}
+              alt={file.originalName}
+              className={classes.mediaImg}
+            />
           </CardMedia>
           <CardContent className={classes.cardContent}>
             <Typography gutterBottom variant="subtitle2">
@@ -127,6 +138,12 @@ const FileCard = ({ file, fileType }) => {
           ) : null}
         </CardActions>
       </Card>
+
+      <FileViewerDialog
+        file={file}
+        open={openViewer}
+        handleClose={handleCloseViewer}
+      />
     </Grid>
   );
 };
