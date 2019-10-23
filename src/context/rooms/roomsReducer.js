@@ -43,13 +43,15 @@ export default (state, action) => {
       return {
         ...state,
         current: action.payload,
-        loading: false
+        loading: false,
+        success: "The student has been added!"
       };
     case REMOVE_STUDENT:
       return {
         ...state,
         current: action.payload,
-        loading: false
+        loading: false,
+        success: "The student has been removed!"
       };
     case CLEAR_ERROR:
       return {

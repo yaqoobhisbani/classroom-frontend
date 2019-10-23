@@ -41,14 +41,6 @@ const Dashboard = () => {
     // eslint-disable-next-line
   }, [error]);
 
-  React.useEffect(() => {
-    if (success) {
-      alertContext.showAlert("success", success);
-      clearSuccess();
-    }
-    // eslint-disable-next-line
-  }, [success]);
-
   return (
     <Fragment>
       <Header />
