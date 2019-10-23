@@ -13,6 +13,7 @@ import {
 } from "@material-ui/core";
 import DeleteIcon from "@material-ui/icons/Delete";
 
+import ConfirmDeleteDialog from "./ConfirmDeleteDialog";
 import FileViewerDialog from "./FileViewerDialog";
 
 import xls from "../../assets/xls.png";
@@ -78,6 +79,11 @@ const FileCard = ({ file, fileType }) => {
   const handleOpenViewer = () => setOpenViewer(true);
   const handleCloseViewer = () => setOpenViewer(false);
 
+  // Confirm Delete Modal State
+  const [confirmModal, setConfirmModal] = React.useState(false);
+  const handleOpenConfirm = () => setConfirmModal(true);
+  const handleCloseConfirm = () => setConfirmModal(false);
+
   // Local Dynamic Variables
   const isAdminLoggedIn = current.createdBy === user._id ? true : false;
 
@@ -105,15 +111,15 @@ const FileCard = ({ file, fileType }) => {
     materialContext.downloadFile(file.downloadLink, file.originalName);
   };
 
-  // Remove File
-  const remove = () => {
-    materialContext.deleteFile(file.downloadLink, file._id);
+  // Show Confirm Delete Dialog
+  const showConfirm = () => {
+    handleOpenConfirm();
   };
 
   return (
     <Grid item xs={6} sm={4} md={3} lg={2}>
-      <Card onClick={handleOpenViewer} className={classes.card}>
-        <CardActionArea>
+      <Card className={classes.card}>
+        <CardActionArea onClick={handleOpenViewer}>
           <CardMedia className={`${classes.media} ${cardTheme.bg}`}>
             <img
               src={cardTheme.icon}
@@ -128,17 +134,22 @@ const FileCard = ({ file, fileType }) => {
           </CardContent>
         </CardActionArea>
         <CardActions className={classes.cardActions}>
-          <Button onClick={download} size="small" color="primary">
+          <Button onClick={download} size="small">
             Download
           </Button>
           {isAdminLoggedIn ? (
-            <IconButton onClick={remove} size="small" color="primary">
+            <IconButton onClick={showConfirm} size="small">
               <DeleteIcon />
             </IconButton>
           ) : null}
         </CardActions>
       </Card>
 
+      <ConfirmDeleteDialog
+        open={confirmModal}
+        handleClose={handleCloseConfirm}
+        file={file}
+      />
       <FileViewerDialog
         file={file}
         open={openViewer}

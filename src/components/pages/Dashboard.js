@@ -16,14 +16,7 @@ const useStyles = makeStyles(theme => ({
 const Dashboard = () => {
   const roomsContext = React.useContext(RoomsContext);
   const alertContext = React.useContext(AlertContext);
-  const {
-    rooms,
-    error,
-    success,
-    clearError,
-    clearCurrent,
-    clearSuccess
-  } = roomsContext;
+  const { rooms, error, clearError, clearCurrent } = roomsContext;
 
   const classes = useStyles();
 
