@@ -12,7 +12,9 @@ import {
   ROOMS_ERROR,
   LOAD_ROOM,
   RESET_ROOMS,
-  CLEAR_CURRENT
+  CLEAR_CURRENT,
+  ADD_STUDENT,
+  REMOVE_STUDENT
 } from "../types";
 
 const RoomsState = props => {
@@ -61,6 +63,22 @@ const RoomsState = props => {
     }
   };
 
+  // ADD STUDENT
+  const addStudent = async (code, email) => {
+    try {
+      const res = await axios.post(`/api/room/${code}/students`, email, config);
+
+      dispatch({ type: ADD_STUDENT, payload: res.data });
+
+      getRooms();
+    } catch (err) {
+      dispatch({ type: ROOMS_ERROR, payload: err.response.data.msg });
+    }
+  };
+
+  // REMOVE STUDENT
+  const removeStudent = async () => {};
+
   // LOAD ROOM
   const loadRoom = async code => dispatch({ type: LOAD_ROOM, payload: code });
 
@@ -91,7 +109,9 @@ const RoomsState = props => {
         clearSuccess,
         clearCurrent,
         loadRoom,
-        resetRooms
+        resetRooms,
+        addStudent,
+        removeStudent
       }}
     >
       {props.children}

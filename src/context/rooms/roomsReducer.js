@@ -7,7 +7,9 @@ import {
   CLEAR_SUCCESS,
   CLEAR_CURRENT,
   LOAD_ROOM,
-  RESET_ROOMS
+  RESET_ROOMS,
+  ADD_STUDENT,
+  REMOVE_STUDENT
 } from "../types";
 
 export default (state, action) => {
@@ -36,6 +38,12 @@ export default (state, action) => {
       return {
         ...state,
         current: state.rooms.filter(room => room.code === action.payload)[0]
+      };
+    case ADD_STUDENT:
+      return {
+        ...state,
+        current: action.payload,
+        loading: false
       };
     case CLEAR_ERROR:
       return {

@@ -17,6 +17,8 @@ export const CLEAR_CURRENT = "CLEAR_CURRENT";
 export const RESET_ROOMS = "RESET_ROOMS";
 export const ROOMS_ERROR = "ROOMS_ERROR";
 export const LOAD_ROOM = "LOAD_ROOM";
+export const ADD_STUDENT = "ADD_STUDENT";
+export const REMOVE_STUDENT = "REMOVE_STUDENT";
 // ALERTS STATE CONSTANTS
 export const SHOW_ALERT = "SHOW_ALERT";
 export const REMOVE_ALERT = "REMOVE_ALERT";

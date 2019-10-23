@@ -8,17 +8,49 @@ import {
   Button
 } from "@material-ui/core";
 
+import RoomsContext from "../../context/rooms/roomsContext";
+
 const AddPersonModal = ({ open, onClose }) => {
+  const roomsContext = React.useContext(RoomsContext);
+  const { current, addStudent } = roomsContext;
+
+  // Empty Error Object
+  const emptyError = {
+    isInvalid: false,
+    msg: null
+  };
+
+  const [email, setEmail] = React.useState({ newemail: "" });
+  const [error, setError] = React.useState(emptyError);
+
+  const onEmailChange = e => {
+    setEmail({ newemail: e.target.value });
+    if (e.target.value.includes("@") && e.target.value.includes(".")) {
+      setError(emptyError);
+    } else {
+      setError({ isInvalid: true, msg: "Invalid Email Address!" });
+    }
+  };
+
+  const onSubmit = () => {
+    if (error.isInvalid === false) {
+      addStudent(current.code, email);
+    }
+    onClose();
+  };
+
   return (
     <Dialog open={open} onClose={onClose} aria-labelledby="form-dialog-title">
       <DialogTitle id="form-dialog-title">Add Student</DialogTitle>
       <DialogContent>
         <TextField
-          autoFocus
+          error={error.isInvalid}
           variant="outlined"
+          name="email"
           id="email"
-          label="Email Address"
+          label={error.msg ? error.msg : "Email Address"}
           type="email"
+          onChange={onEmailChange}
           fullWidth
         />
       </DialogContent>
@@ -26,7 +58,7 @@ const AddPersonModal = ({ open, onClose }) => {
         <Button onClick={onClose} color="primary">
           Cancel
         </Button>
-        <Button onClick={onClose} color="primary">
+        <Button onClick={onSubmit} color="primary">
           Add Student
         </Button>
       </DialogActions>
