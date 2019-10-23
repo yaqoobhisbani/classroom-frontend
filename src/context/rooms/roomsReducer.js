@@ -45,6 +45,12 @@ export default (state, action) => {
         current: action.payload,
         loading: false
       };
+    case REMOVE_STUDENT:
+      return {
+        ...state,
+        current: action.payload,
+        loading: false
+      };
     case CLEAR_ERROR:
       return {
         ...state,

@@ -12,6 +12,8 @@ import {
 
 import CloseIcon from "@material-ui/icons/Close";
 
+import MaterialContext from "../../context/material/materialContext";
+
 const useStyles = makeStyles(theme => ({
   appBar: {
     position: "relative"
@@ -27,7 +29,12 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 });
 
 const FileViewerDialog = ({ file, open, handleClose }) => {
+  const materialContext = React.useContext(MaterialContext);
   const classes = useStyles();
+
+  const onDownload = () => {
+    materialContext.downloadFile(file.downloadLink, file.originalName);
+  };
 
   return (
     <Dialog
@@ -49,7 +56,7 @@ const FileViewerDialog = ({ file, open, handleClose }) => {
           <Typography variant="h6" className={classes.title}>
             {file.originalName}
           </Typography>
-          <Button color="inherit" onClick={handleClose}>
+          <Button color="inherit" onClick={onDownload}>
             Download
           </Button>
         </Toolbar>

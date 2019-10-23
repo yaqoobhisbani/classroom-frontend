@@ -77,7 +77,16 @@ const RoomsState = props => {
   };
 
   // REMOVE STUDENT
-  const removeStudent = async () => {};
+  const removeStudent = async (code, id) => {
+    try {
+      const res = await axios.delete(`/api/room/${code}/student/${id}`);
+
+      dispatch({ type: REMOVE_STUDENT, payload: res.data });
+      getRooms();
+    } catch (err) {
+      dispatch({ type: ROOMS_ERROR, payload: err.response.data.msg });
+    }
+  };
 
   // LOAD ROOM
   const loadRoom = async code => dispatch({ type: LOAD_ROOM, payload: code });

@@ -12,6 +12,7 @@ import {
   makeStyles
 } from "@material-ui/core";
 import DeleteIcon from "@material-ui/icons/Delete";
+import ConfirmRemoveDialog from "./ConfirmRemoveDialog";
 import RoomsContext from "../../context/rooms/roomsContext";
 import AuthContext from "../../context/auth/authContext";
 
@@ -34,6 +35,11 @@ const StudentItem = ({ student }) => {
   const { current } = roomsContext;
   const { user } = authContext;
 
+  // Remove Student Modal State
+  const [openModal, setOpenModal] = React.useState(false);
+  const handleOpenModal = () => setOpenModal(true);
+  const handleCloseModal = () => setOpenModal(false);
+
   // Props
   const { name, id } = student;
 
@@ -44,6 +50,11 @@ const StudentItem = ({ student }) => {
 
   // Styles
   const classes = useStyles();
+
+  // On Remove
+  const onRemove = () => {
+    handleOpenModal();
+  };
 
   // Avatar With Admin Badge
   const AdminAvatar = (
@@ -65,7 +76,7 @@ const StudentItem = ({ student }) => {
   // Delete Button
   const DeleteButton = (
     <ListItemSecondaryAction>
-      <IconButton edge="end" aria-label="remove">
+      <IconButton onClick={onRemove} edge="end" aria-label="remove">
         <DeleteIcon />
       </IconButton>
     </ListItemSecondaryAction>
@@ -82,6 +93,11 @@ const StudentItem = ({ student }) => {
         </ListItemText>
         {isAdminLoggedIn && !isStudentAdmin ? DeleteButton : null}
       </ListItem>
+      <ConfirmRemoveDialog
+        student={student}
+        open={openModal}
+        handleClose={handleCloseModal}
+      />
     </Grid>
   );
 };
