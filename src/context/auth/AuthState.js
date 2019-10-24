@@ -35,11 +35,8 @@ const AuthState = props => {
 
     try {
       const res = await axios.get("/api/auth");
-      console.log("loadUser() just fired off");
-      dispatch({
-        type: USER_LOADED,
-        payload: res.data
-      });
+
+      dispatch({ type: USER_LOADED, payload: res.data });
     } catch (err) {
       dispatch({ type: AUTH_ERROR });
     }
@@ -54,10 +51,7 @@ const AuthState = props => {
 
       loadUser();
     } catch (err) {
-      dispatch({
-        type: LOGIN_FAIL,
-        payload: err.response.data.msg
-      });
+      dispatch({ type: LOGIN_FAIL, payload: err.response.data.msg });
     }
   };
 
@@ -66,17 +60,11 @@ const AuthState = props => {
     try {
       const res = await axios.post("/api/users", registerData, config);
 
-      dispatch({
-        type: REGISTER_SUCCESS,
-        payload: res.data
-      });
+      dispatch({ type: REGISTER_SUCCESS, payload: res.data });
 
       loadUser();
     } catch (err) {
-      dispatch({
-        type: REGISTER_FAIL,
-        payload: err.response.data.msg
-      });
+      dispatch({ type: REGISTER_FAIL, payload: err.response.data.msg });
     }
   };
 

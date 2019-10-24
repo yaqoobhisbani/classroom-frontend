@@ -33,7 +33,7 @@ const Material = () => {
   const materialContext = React.useContext(MaterialContext);
   const { current } = roomsContext;
   const { user } = authContext;
-  const { material } = materialContext;
+  const { material, getMaterial, resetMaterial } = materialContext;
 
   // Styles
   const classes = useStyles();
@@ -49,7 +49,12 @@ const Material = () => {
   );
 
   React.useEffect(() => {
-    materialContext.getMaterial(current.code);
+    getMaterial(current.code);
+
+    // Reset Material State Whenever Material Component Unmounts
+    return () => {
+      resetMaterial();
+    };
     // eslint-disable-next-line
   }, []);
 
