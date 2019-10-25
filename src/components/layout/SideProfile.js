@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import {
   ListItem,
   ListItemIcon,
@@ -31,7 +32,13 @@ const SideProfile = () => {
   const classes = useStyles();
 
   return (
-    <ListItem button className={classes.userProfile} divider>
+    <ListItem
+      component={Link}
+      to="/profile"
+      button
+      className={classes.userProfile}
+      divider
+    >
       <ListItemIcon>
         <Avatar
           display="block"

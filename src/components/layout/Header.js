@@ -115,6 +115,8 @@ const Header = props => {
           ? "Dashboard"
           : props.match.url === "/settings"
           ? "Settings"
+          : props.match.url === "/profile"
+          ? "Profile"
           : current
           ? `${current.classname}`
           : "Classroom"}

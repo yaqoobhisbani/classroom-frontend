@@ -8,6 +8,7 @@ import {
 import Dashboard from "../components/pages/Dashboard";
 import NotFound from "../components/pages/NotFound";
 import Settings from "../components/pages/Settings";
+import Profile from "../components/pages/Profile";
 import Alerts from "../components/layout/Alerts";
 
 import Room from "../components/pages/Room";
@@ -52,6 +53,7 @@ const AuthApp = () => {
         {/* Normal Auth App Pages */}
         <Route exact path="/dashboard" component={Dashboard} />
         <Route exact path="/settings" component={Settings} />
+        <Route exact path="/profile" component={Profile} />
         <Route exact path="/room/:code" component={Room} />
         <Route component={NotFound} />
       </Switch>
