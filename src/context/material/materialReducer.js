@@ -14,6 +14,12 @@ export default (state, action) => {
         material: action.payload,
         loading: false
       };
+    case UPLOAD_FILE:
+      return {
+        ...state,
+        material: [action.payload, ...state.material],
+        loading: false
+      };
     case DELETE_FILE:
       return {
         ...state,

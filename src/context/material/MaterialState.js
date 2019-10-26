@@ -2,6 +2,7 @@ import React, { useReducer } from "react";
 import MaterialContext from "./materialContext";
 import materialReducer from "./materialReducer";
 import axios from "axios";
+import { formDataConfig } from "../../utils/axios";
 import {
   GET_MATERIAL,
   UPLOAD_FILE,
@@ -31,7 +32,19 @@ const MaterialState = props => {
   };
 
   // UPLOAD FILE
-  const uploadFile = async () => {};
+  const uploadFile = async (code, formData) => {
+    try {
+      const res = await axios.post(
+        `/api/room/${code}/upload`,
+        formData,
+        formDataConfig
+      );
+
+      dispatch({ type: UPLOAD_FILE, payload: res.data });
+    } catch (err) {
+      dispatch({ type: FILE_ERROR, payload: err.response.data.msg });
+    }
+  };
 
   // DOWNLOAD FILE
   const downloadFile = async (fileLink, fileName) => {
