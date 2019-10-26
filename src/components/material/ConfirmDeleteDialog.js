@@ -26,10 +26,10 @@ const ConfirmDeleteDialog = ({ open, handleClose, file }) => {
       aria-labelledby="alert-dialog-title"
       aria-describedby="alert-dialog-description"
     >
-      <DialogTitle id="alert-dialog-title">Delete File</DialogTitle>
+      <DialogTitle id="alert-dialog-title">Remove File</DialogTitle>
       <DialogContent>
         <DialogContentText id="alert-dialog-description">
-          Are you sure you want to delete {file.originalName}?
+          Are you sure you want to remove {file.originalName}?
         </DialogContentText>
       </DialogContent>
       <DialogActions>
