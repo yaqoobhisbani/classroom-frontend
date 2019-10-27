@@ -39,6 +39,14 @@ const AuthApp = () => {
     // eslint-disable-next-line
   }, [roomsContext.success]);
 
+  // Displaying Rooms Context Error Alerts!
+  React.useEffect(() => {
+    if (roomsContext.error) {
+      alertContext.showAlert("error", roomsContext.error);
+      roomsContext.clearError();
+    }
+  }, [roomsContext.error]);
+
   // Displaying Auth Context Success Alerts
   React.useEffect(() => {
     if (authContext.success) {
