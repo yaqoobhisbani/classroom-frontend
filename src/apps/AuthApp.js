@@ -45,6 +45,7 @@ const AuthApp = () => {
       alertContext.showAlert("error", roomsContext.error);
       roomsContext.clearError();
     }
+    // eslint-disable-next-line
   }, [roomsContext.error]);
 
   // Displaying Auth Context Success Alerts

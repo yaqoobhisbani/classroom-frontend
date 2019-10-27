@@ -4,9 +4,15 @@ import {
   ExpansionPanelSummary,
   ExpansionPanelDetails,
   Typography,
-  makeStyles
+  makeStyles,
+  TextField,
+  Button,
+  Grid
 } from "@material-ui/core";
+
+import AuthContext from "../../context/auth/authContext";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
+import SendIcon from "@material-ui/icons/Send";
 
 const useStyles = makeStyles(theme => ({
   heading: {
@@ -21,6 +27,10 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const AccountInfo = () => {
+  // Context
+  const authContext = React.useContext(AuthContext);
+  const { user } = authContext;
+
   // Styles
   const classes = useStyles();
 
@@ -30,6 +40,104 @@ const AccountInfo = () => {
   const handleChange = panel => (event, isExpanded) => {
     setExpanded(isExpanded ? panel : false);
   };
+
+  // Name Expanded
+  const NameExpanded = (
+    <ExpansionPanelDetails>
+      <Grid container spacing={2} alignItems="center">
+        <Grid item sm={3} xs={12}>
+          <Typography variant="subtitle2">Change Name:</Typography>
+        </Grid>
+
+        <Grid item>
+          <TextField
+            type="text"
+            variant="outlined"
+            margin="dense"
+            label="Full Name"
+          />
+        </Grid>
+
+        <Grid item>
+          <Button variant="contained" color="primary" endIcon={<SendIcon />}>
+            Submit
+          </Button>
+        </Grid>
+      </Grid>
+    </ExpansionPanelDetails>
+  );
+
+  const EmailExpanded = (
+    <ExpansionPanelDetails>
+      <Grid container spacing={2} alignItems="center">
+        <Grid item sm={3} xs={12}>
+          <Typography variant="subtitle2">Change Email:</Typography>
+        </Grid>
+
+        <Grid item>
+          <TextField
+            type="email"
+            variant="outlined"
+            margin="dense"
+            label="Email"
+          />
+        </Grid>
+
+        <Grid item>
+          <Button variant="contained" color="primary" endIcon={<SendIcon />}>
+            Submit
+          </Button>
+        </Grid>
+      </Grid>
+    </ExpansionPanelDetails>
+  );
+
+  const PasswordExpanded = (
+    <ExpansionPanelDetails>
+      <Grid container spacing={2} alignItems="center">
+        <Grid item sm={3} xs={12}>
+          <Typography variant="subtitle2">Change Password:</Typography>
+        </Grid>
+
+        <Grid item>
+          <Grid container direction="column">
+            <Grid item>
+              <TextField
+                type="password"
+                variant="outlined"
+                margin="dense"
+                label="Old Password"
+              />
+            </Grid>
+
+            <Grid item>
+              <TextField
+                type="password"
+                variant="outlined"
+                margin="dense"
+                label="New Password"
+              />
+            </Grid>
+
+            <Grid item>
+              <TextField
+                type="password"
+                variant="outlined"
+                margin="dense"
+                label="Confirm Password"
+              />
+            </Grid>
+          </Grid>
+        </Grid>
+
+        <Grid item>
+          <Button variant="contained" color="primary" endIcon={<SendIcon />}>
+            Submit
+          </Button>
+        </Grid>
+      </Grid>
+    </ExpansionPanelDetails>
+  );
 
   return (
     <Fragment>
@@ -44,15 +152,10 @@ const AccountInfo = () => {
         >
           <Typography className={classes.heading}>Name</Typography>
           <Typography className={classes.secondaryHeading}>
-            Muhammad Yaqoob
+            {user.name}
           </Typography>
         </ExpansionPanelSummary>
-        <ExpansionPanelDetails>
-          <Typography>
-            Nulla facilisi. Phasellus sollicitudin nulla et quam mattis feugiat.
-            Aliquam eget maximus est, id dignissim quam.
-          </Typography>
-        </ExpansionPanelDetails>
+        {NameExpanded}
       </ExpansionPanel>
       <ExpansionPanel
         expanded={expanded === "panel2"}
@@ -65,16 +168,10 @@ const AccountInfo = () => {
         >
           <Typography className={classes.heading}>Email</Typography>
           <Typography className={classes.secondaryHeading}>
-            yaqoobm91@gmail.com
+            {user.email}
           </Typography>
         </ExpansionPanelSummary>
-        <ExpansionPanelDetails>
-          <Typography>
-            Donec placerat, lectus sed mattis semper, neque lectus feugiat
-            lectus, varius pulvinar diam eros in elit. Pellentesque convallis
-            laoreet laoreet.
-          </Typography>
-        </ExpansionPanelDetails>
+        {EmailExpanded}
       </ExpansionPanel>
       <ExpansionPanel
         expanded={expanded === "panel3"}
@@ -88,12 +185,7 @@ const AccountInfo = () => {
           <Typography className={classes.heading}>Password</Typography>
           <Typography className={classes.secondaryHeading}>********</Typography>
         </ExpansionPanelSummary>
-        <ExpansionPanelDetails>
-          <Typography>
-            Nunc vitae orci ultricies, auctor nunc in, volutpat nisl. Integer
-            sit amet egestas eros, vitae egestas augue. Duis vel est augue.
-          </Typography>
-        </ExpansionPanelDetails>
+        {PasswordExpanded}
       </ExpansionPanel>
     </Fragment>
   );
