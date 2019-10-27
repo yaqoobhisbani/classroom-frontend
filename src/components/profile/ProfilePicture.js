@@ -9,8 +9,11 @@ import {
   makeStyles
 } from "@material-ui/core";
 
+import ConfirmDeleteDialog from "./ConfirmDeleteDialog";
+
 import DeleteIcon from "@material-ui/icons/Delete";
 import ImageIcon from "@material-ui/icons/Image";
+import UploadIcon from "@material-ui/icons/CloudUpload";
 
 import AuthContext from "../../context/auth/authContext";
 
@@ -28,15 +31,59 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const ProfilePicture = () => {
-  // Context & State
+  // Context
   const authContext = React.useContext(AuthContext);
-  const { user } = authContext;
+  const { user, uploadAvatar, removeAvatar } = authContext;
 
   // Dynamic Variables
-  const avatarURL = `/api/users/${user._id}/avatar`;
+  let avatarURL = `/api/users/${user._id}/avatar`;
+  let previewURL;
+
+  // State
+  const [picture, setPicture] = React.useState();
+  const [preview, setPreview] = React.useState(null);
+
+  // Confirm Delete Modal State
+  const [confirmModal, setConfirmModal] = React.useState(false);
+  const handleOpenConfirm = () => setConfirmModal(true);
+  const handleCloseConfirm = () => setConfirmModal(false);
+
+  const onChange = e => {
+    setPicture(e.target.files[0]);
+    previewURL = URL.createObjectURL(e.target.files[0]);
+    setPreview(previewURL);
+  };
+
+  const onSubmit = e => {
+    if (picture) {
+      e.preventDefault();
+      const formData = new FormData();
+      formData.append("avatar", picture);
+      uploadAvatar(formData);
+      window.URL.revokeObjectURL(previewURL);
+    }
+  };
+
+  const onRemove = () => {
+    removeAvatar();
+  };
 
   // Styles
   const classes = useStyles();
+
+  const UploadButton = (
+    <Grid item>
+      <Button
+        onClick={onSubmit}
+        variant="contained"
+        color="primary"
+        startIcon={<UploadIcon />}
+      >
+        Upload
+      </Button>
+    </Grid>
+  );
+
   return (
     <Paper className={classes.paper}>
       <Typography variant="h5" gutterBottom>
@@ -52,16 +99,30 @@ const ProfilePicture = () => {
         justify="center"
       >
         <Grid item>
-          <Button variant="contained" startIcon={<ImageIcon />}>
+          <Button
+            variant="contained"
+            startIcon={<ImageIcon />}
+            component="label"
+          >
             Choose Picture
+            <input
+              type="file"
+              style={{ display: "none" }}
+              accept="image/*"
+              onChange={onChange}
+            />
           </Button>
         </Grid>
         <Grid item>
-          <Avatar src={avatarURL} className={classes.avatar}></Avatar>
+          <Avatar
+            src={preview ? preview : avatarURL}
+            className={classes.avatar}
+          ></Avatar>
         </Grid>
-
+        {preview ? UploadButton : null}
         <Grid item>
           <Button
+            onClick={handleOpenConfirm}
             variant="contained"
             color="secondary"
             className={classes.button}
@@ -71,6 +132,12 @@ const ProfilePicture = () => {
           </Button>
         </Grid>
       </Grid>
+
+      <ConfirmDeleteDialog
+        open={confirmModal}
+        handleClose={handleCloseConfirm}
+        onConfirm={onRemove}
+      />
     </Paper>
   );
 };

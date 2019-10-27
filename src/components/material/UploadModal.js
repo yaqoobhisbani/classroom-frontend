@@ -15,12 +15,13 @@ import FileIcon from "@material-ui/icons/AttachFile";
 import UploadIcon from "@material-ui/icons/CloudUpload";
 
 const UploadModal = ({ open, onClose }) => {
-  // Context & State
+  // Context
   const roomsContext = React.useContext(RoomsContext);
   const materialContext = React.useContext(MaterialContext);
   const { current } = roomsContext;
   const { uploadFile } = materialContext;
 
+  // State
   const [file, setFile] = React.useState();
   const [fileName, setFileName] = React.useState("No File Selected");
 

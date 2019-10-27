@@ -5,8 +5,12 @@ import {
   AUTH_ERROR,
   LOGIN_SUCCESS,
   LOGIN_FAIL,
+  AVATAR_FAIL,
+  AVATAR_SUCCESS,
+  REMOVE_AVATAR,
   LOGOUT,
-  CLEAR_ERRORS
+  CLEAR_ERRORS,
+  CLEAR_SUCCESS
 } from "../types";
 
 export default (state, action) => {
@@ -38,6 +42,26 @@ export default (state, action) => {
         loading: true,
         user: null,
         error: action.payload
+      };
+    case AVATAR_SUCCESS:
+      return {
+        ...state,
+        success: "The Profile Picture has been uploaded!"
+      };
+    case AVATAR_FAIL:
+      return {
+        ...state,
+        error: action.payload
+      };
+    case REMOVE_AVATAR:
+      return {
+        ...state,
+        success: "The Profile Picture has been removed!"
+      };
+    case CLEAR_SUCCESS:
+      return {
+        ...state,
+        success: null
       };
     case CLEAR_ERRORS:
       return {

@@ -21,7 +21,6 @@ const AuthApp = () => {
   const authContext = React.useContext(AuthContext);
   const roomsContext = React.useContext(RoomsContext);
   const alertContext = React.useContext(AlertContext);
-  const { success, clearSuccess } = roomsContext;
 
   // Loading Classrooms From Backend
   React.useEffect(() => {
@@ -31,14 +30,23 @@ const AuthApp = () => {
     // eslint-disable-next-line
   }, [authContext.loading]);
 
-  // Displaying success alerts whenever it comes from different parts!
+  // Displaying Rooms Context Success Alerts!
   React.useEffect(() => {
-    if (success) {
-      alertContext.showAlert("success", success);
-      clearSuccess();
+    if (roomsContext.success) {
+      alertContext.showAlert("success", roomsContext.success);
+      roomsContext.clearSuccess();
     }
     // eslint-disable-next-line
-  }, [success]);
+  }, [roomsContext.success]);
+
+  // Displaying Auth Context Success Alerts
+  React.useEffect(() => {
+    if (authContext.success) {
+      alertContext.showAlert("success", authContext.success);
+      authContext.clearSuccess();
+    }
+    // eslint-disable-next-line
+  }, [authContext.success]);
 
   return (
     <Router>

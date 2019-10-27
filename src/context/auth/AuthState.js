@@ -1,6 +1,6 @@
 import React, { useReducer } from "react";
 import axios from "axios";
-import { setAuthToken, config } from "../../utils/axios";
+import { setAuthToken, config, formDataConfig } from "../../utils/axios";
 import AuthContext from "./authContext";
 import authReducer from "./authReducer";
 import {
@@ -10,8 +10,12 @@ import {
   AUTH_ERROR,
   LOGIN_SUCCESS,
   LOGIN_FAIL,
+  AVATAR_FAIL,
+  AVATAR_SUCCESS,
+  REMOVE_AVATAR,
   LOGOUT,
-  CLEAR_ERRORS
+  CLEAR_ERRORS,
+  CLEAR_SUCCESS
 } from "../types";
 
 const AuthState = props => {
@@ -21,7 +25,8 @@ const AuthState = props => {
     isAuthenticated: null,
     loading: true,
     user: null,
-    error: null
+    error: null,
+    success: null
   };
 
   // Attaching Reducer
@@ -68,11 +73,36 @@ const AuthState = props => {
     }
   };
 
+  // UPLOAD AVATAR
+  const uploadAvatar = async formData => {
+    try {
+      await axios.post("/api/users/me/avatar", formData, formDataConfig);
+
+      dispatch({ type: AVATAR_SUCCESS });
+    } catch (err) {
+      dispatch({ type: AVATAR_FAIL, payload: err.response.data.msg });
+    }
+  };
+
+  // REMOVE AVATAR
+  const removeAvatar = async () => {
+    try {
+      await axios.delete("/api/users/me/avatar");
+
+      dispatch({ type: REMOVE_AVATAR });
+    } catch (err) {
+      dispatch({ type: AVATAR_FAIL, payload: err.response.data.msg });
+    }
+  };
+
   // LOGOUT USER
   const logoutUser = () => dispatch({ type: LOGOUT });
 
   // CLEAR ERRORS
   const clearErrors = () => dispatch({ type: CLEAR_ERRORS });
+
+  // CLEAR SUCCESS
+  const clearSuccess = () => dispatch({ type: CLEAR_SUCCESS });
 
   return (
     <AuthContext.Provider
@@ -82,11 +112,15 @@ const AuthState = props => {
         loading: state.loading,
         user: state.user,
         error: state.error,
+        success: state.success,
         loadUser,
         loginUser,
         registerUser,
+        uploadAvatar,
+        removeAvatar,
         logoutUser,
-        clearErrors
+        clearErrors,
+        clearSuccess
       }}
     >
       {props.children}
