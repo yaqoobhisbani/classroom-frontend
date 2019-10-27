@@ -79,6 +79,8 @@ const AuthState = props => {
       await axios.post("/api/users/me/avatar", formData, formDataConfig);
 
       dispatch({ type: AVATAR_SUCCESS });
+
+      loadUser();
     } catch (err) {
       dispatch({ type: AVATAR_FAIL, payload: err.response.data.msg });
     }
@@ -90,6 +92,8 @@ const AuthState = props => {
       await axios.delete("/api/users/me/avatar");
 
       dispatch({ type: REMOVE_AVATAR });
+
+      loadUser();
     } catch (err) {
       dispatch({ type: AVATAR_FAIL, payload: err.response.data.msg });
     }

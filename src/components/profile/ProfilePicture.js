@@ -61,6 +61,7 @@ const ProfilePicture = () => {
       formData.append("avatar", picture);
       uploadAvatar(formData);
       window.URL.revokeObjectURL(previewURL);
+      setPreview(null);
     }
   };
 
@@ -80,6 +81,20 @@ const ProfilePicture = () => {
         startIcon={<UploadIcon />}
       >
         Upload
+      </Button>
+    </Grid>
+  );
+
+  const removeProfileButton = (
+    <Grid item>
+      <Button
+        onClick={handleOpenConfirm}
+        variant="contained"
+        color="secondary"
+        className={classes.button}
+        startIcon={<DeleteIcon />}
+      >
+        Remove Picture
       </Button>
     </Grid>
   );
@@ -120,17 +135,7 @@ const ProfilePicture = () => {
           ></Avatar>
         </Grid>
         {preview ? UploadButton : null}
-        <Grid item>
-          <Button
-            onClick={handleOpenConfirm}
-            variant="contained"
-            color="secondary"
-            className={classes.button}
-            startIcon={<DeleteIcon />}
-          >
-            Remove Picture
-          </Button>
-        </Grid>
+        {user.hasAvatar ? removeProfileButton : null}
       </Grid>
 
       <ConfirmDeleteDialog
