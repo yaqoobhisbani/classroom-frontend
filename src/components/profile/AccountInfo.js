@@ -2,17 +2,17 @@ import React, { Fragment } from "react";
 import {
   ExpansionPanel,
   ExpansionPanelSummary,
-  ExpansionPanelDetails,
   Typography,
-  makeStyles,
-  TextField,
-  Button,
-  Grid
+  makeStyles
 } from "@material-ui/core";
 
 import AuthContext from "../../context/auth/authContext";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
-import SendIcon from "@material-ui/icons/Send";
+
+// Expanded Components
+import NameExpanded from "./NameExpanded";
+import EmailExpanded from "./EmailExpanded";
+import PasswordExpanded from "./PasswordExpanded";
 
 const useStyles = makeStyles(theme => ({
   heading: {
@@ -41,104 +41,6 @@ const AccountInfo = () => {
     setExpanded(isExpanded ? panel : false);
   };
 
-  // Name Expanded
-  const NameExpanded = (
-    <ExpansionPanelDetails>
-      <Grid container spacing={2} alignItems="center">
-        <Grid item sm={3} xs={12}>
-          <Typography variant="subtitle2">Change Name:</Typography>
-        </Grid>
-
-        <Grid item>
-          <TextField
-            type="text"
-            variant="outlined"
-            margin="dense"
-            label="Full Name"
-          />
-        </Grid>
-
-        <Grid item>
-          <Button variant="contained" color="primary" endIcon={<SendIcon />}>
-            Submit
-          </Button>
-        </Grid>
-      </Grid>
-    </ExpansionPanelDetails>
-  );
-
-  const EmailExpanded = (
-    <ExpansionPanelDetails>
-      <Grid container spacing={2} alignItems="center">
-        <Grid item sm={3} xs={12}>
-          <Typography variant="subtitle2">Change Email:</Typography>
-        </Grid>
-
-        <Grid item>
-          <TextField
-            type="email"
-            variant="outlined"
-            margin="dense"
-            label="Email"
-          />
-        </Grid>
-
-        <Grid item>
-          <Button variant="contained" color="primary" endIcon={<SendIcon />}>
-            Submit
-          </Button>
-        </Grid>
-      </Grid>
-    </ExpansionPanelDetails>
-  );
-
-  const PasswordExpanded = (
-    <ExpansionPanelDetails>
-      <Grid container spacing={2} alignItems="center">
-        <Grid item sm={3} xs={12}>
-          <Typography variant="subtitle2">Change Password:</Typography>
-        </Grid>
-
-        <Grid item>
-          <Grid container direction="column">
-            <Grid item>
-              <TextField
-                type="password"
-                variant="outlined"
-                margin="dense"
-                label="Old Password"
-              />
-            </Grid>
-
-            <Grid item>
-              <TextField
-                type="password"
-                variant="outlined"
-                margin="dense"
-                label="New Password"
-              />
-            </Grid>
-
-            <Grid item>
-              <TextField
-                type="password"
-                variant="outlined"
-                margin="dense"
-                label="Confirm Password"
-              />
-            </Grid>
-          </Grid>
-        </Grid>
-
-        <Grid item>
-          <Button variant="contained" color="primary" endIcon={<SendIcon />}>
-            Submit
-          </Button>
-        </Grid>
-      </Grid>
-    </ExpansionPanelDetails>
-  );
-
   return (
     <Fragment>
       <ExpansionPanel
@@ -155,7 +57,7 @@ const AccountInfo = () => {
             {user.name}
           </Typography>
         </ExpansionPanelSummary>
-        {NameExpanded}
+        <NameExpanded />
       </ExpansionPanel>
       <ExpansionPanel
         expanded={expanded === "panel2"}
@@ -171,7 +73,7 @@ const AccountInfo = () => {
             {user.email}
           </Typography>
         </ExpansionPanelSummary>
-        {EmailExpanded}
+        <EmailExpanded />
       </ExpansionPanel>
       <ExpansionPanel
         expanded={expanded === "panel3"}
@@ -185,7 +87,7 @@ const AccountInfo = () => {
           <Typography className={classes.heading}>Password</Typography>
           <Typography className={classes.secondaryHeading}>********</Typography>
         </ExpansionPanelSummary>
-        {PasswordExpanded}
+        <PasswordExpanded />
       </ExpansionPanel>
     </Fragment>
   );
