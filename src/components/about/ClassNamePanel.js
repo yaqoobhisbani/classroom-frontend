@@ -1,0 +1,67 @@
+import React from "react";
+import {
+  Typography,
+  makeStyles,
+  ExpansionPanel,
+  ExpansionPanelSummary,
+  ExpansionPanelDetails
+} from "@material-ui/core";
+
+import AuthContext from "../../context/auth/authContext";
+import RoomsContext from "../../context/rooms/roomsContext";
+import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
+
+const useStyles = makeStyles(theme => ({
+  heading: {
+    fontSize: theme.typography.pxToRem(15),
+    flexBasis: "33.33%",
+    flexShrink: 0
+  },
+  secondaryHeading: {
+    fontSize: theme.typography.pxToRem(15),
+    color: theme.palette.text.secondary
+  }
+}));
+
+const ClassNamePanel = () => {
+  // Context
+  const authContext = React.useContext(AuthContext);
+  const roomsContext = React.useContext(RoomsContext);
+  const { user } = authContext;
+  const { current } = roomsContext;
+
+  // Styles
+  const classes = useStyles();
+
+  // State
+  const [expanded, setExpanded] = React.useState(false);
+
+  const handleChange = panel => (event, isExpanded) => {
+    setExpanded(isExpanded ? panel : false);
+  };
+
+  const isAdminLoggedIn = current.createdBy === user._id ? true : false;
+
+  return (
+    <ExpansionPanel
+      expanded={expanded === "panel1"}
+      onChange={isAdminLoggedIn ? handleChange("panel1") : null}
+    >
+      <ExpansionPanelSummary
+        expandIcon={isAdminLoggedIn ? <ExpandMoreIcon /> : null}
+        aria-controls="panel1bh-content"
+        id="panel1bh-header"
+      >
+        <Typography className={classes.heading}>Class Name</Typography>
+        <Typography className={classes.secondaryHeading}>
+          {current.classname}
+        </Typography>
+      </ExpansionPanelSummary>
+      <ExpansionPanelDetails>
+        <Typography>Empty For now!</Typography>
+      </ExpansionPanelDetails>
+    </ExpansionPanel>
+  );
+};
+
+export default ClassNamePanel;
