@@ -57,6 +57,15 @@ const AuthApp = () => {
     // eslint-disable-next-line
   }, [authContext.success]);
 
+  // Displaying Auth Context Error Alerts
+  React.useEffect(() => {
+    if (authContext.error) {
+      alertContext.showAlert("error", authContext.error);
+      authContext.clearErrors();
+    }
+    // eslint-disable-next-line
+  }, [authContext.error]);
+
   return (
     <Router>
       <Switch>

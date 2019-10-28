@@ -8,6 +8,10 @@ import {
   AVATAR_FAIL,
   AVATAR_SUCCESS,
   REMOVE_AVATAR,
+  NAME_UPDATED,
+  EMAIL_UPDATED,
+  PASS_UPDATED,
+  UPDATE_FAIL,
   LOGOUT,
   CLEAR_ERRORS,
   CLEAR_SUCCESS
@@ -48,6 +52,7 @@ export default (state, action) => {
         ...state,
         success: "The Profile Picture has been uploaded!"
       };
+    case UPDATE_FAIL:
     case AVATAR_FAIL:
       return {
         ...state,
@@ -57,6 +62,25 @@ export default (state, action) => {
       return {
         ...state,
         success: "The Profile Picture has been removed!"
+      };
+    case NAME_UPDATED:
+      return {
+        ...state,
+        user: action.payload,
+        loading: false,
+        success: "The Full Name Has Been Changed!"
+      };
+    case EMAIL_UPDATED:
+      return {
+        ...state,
+        user: action.payload,
+        loading: false,
+        success: "The Email Address Has Been Changed! "
+      };
+    case PASS_UPDATED:
+      return {
+        ...state,
+        success: "The Password Has Been Changed!"
       };
     case CLEAR_SUCCESS:
       return {

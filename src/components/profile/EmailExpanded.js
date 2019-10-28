@@ -7,9 +7,39 @@ import {
   Typography
 } from "@material-ui/core";
 
+import AuthContext from "../../context/auth/authContext";
 import SendIcon from "@material-ui/icons/Send";
 
 const EmailExpanded = () => {
+  const authContext = React.useContext(AuthContext);
+  const { changeEmail } = authContext;
+
+  // Empty Error
+  const emptyError = {
+    isInvalid: false,
+    msg: null
+  };
+
+  // State
+  const [email, setEmail] = React.useState("");
+  const [error, setError] = React.useState(emptyError);
+
+  const onChange = e => {
+    setEmail(e.target.value);
+    if (e.target.value.includes("@") && e.target.value.includes(".")) {
+      setError(emptyError);
+    } else {
+      setError({ isInvalid: true, msg: "Invalid Email Address!" });
+    }
+  };
+
+  const onSubmit = () => {
+    if (!error.isInvalid) {
+      changeEmail({ email: email });
+      setEmail("");
+    }
+  };
+
   return (
     <ExpansionPanelDetails>
       <Grid container spacing={2} alignItems="center">
@@ -19,15 +49,23 @@ const EmailExpanded = () => {
 
         <Grid item>
           <TextField
+            error={error.isInvalid}
             type="email"
             variant="outlined"
             margin="dense"
-            label="Email"
+            label={error.msg ? error.msg : "Email Address"}
+            onChange={onChange}
+            value={email}
           />
         </Grid>
 
         <Grid item>
-          <Button variant="contained" color="primary" endIcon={<SendIcon />}>
+          <Button
+            onClick={onSubmit}
+            variant="contained"
+            color="primary"
+            endIcon={<SendIcon />}
+          >
             Submit
           </Button>
         </Grid>

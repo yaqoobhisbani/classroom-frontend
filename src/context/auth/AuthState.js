@@ -13,6 +13,10 @@ import {
   AVATAR_FAIL,
   AVATAR_SUCCESS,
   REMOVE_AVATAR,
+  NAME_UPDATED,
+  EMAIL_UPDATED,
+  PASS_UPDATED,
+  UPDATE_FAIL,
   LOGOUT,
   CLEAR_ERRORS,
   CLEAR_SUCCESS
@@ -99,6 +103,39 @@ const AuthState = props => {
     }
   };
 
+  // CHANGE NAME
+  const changeName = async name => {
+    try {
+      const res = await axios.post("/api/users/me/name", name, config);
+
+      dispatch({ type: NAME_UPDATED, payload: res.data });
+    } catch (err) {
+      dispatch({ type: UPDATE_FAIL, payload: err.response.data.msg });
+    }
+  };
+
+  // CHANGE EMAIL
+  const changeEmail = async email => {
+    try {
+      const res = await axios.post("/api/users/me/email", email, config);
+
+      dispatch({ type: EMAIL_UPDATED, payload: res.data });
+    } catch (err) {
+      dispatch({ type: UPDATE_FAIL, payload: err.response.data.msg });
+    }
+  };
+
+  // CHANGE PASSWORD
+  const changePassword = async passwords => {
+    try {
+      await axios.post("/api/users/me/password", passwords, config);
+
+      dispatch({ type: PASS_UPDATED });
+    } catch (err) {
+      dispatch({ type: UPDATE_FAIL, payload: err.response.data.msg });
+    }
+  };
+
   // LOGOUT USER
   const logoutUser = () => dispatch({ type: LOGOUT });
 
@@ -122,6 +159,9 @@ const AuthState = props => {
         registerUser,
         uploadAvatar,
         removeAvatar,
+        changeName,
+        changeEmail,
+        changePassword,
         logoutUser,
         clearErrors,
         clearSuccess
