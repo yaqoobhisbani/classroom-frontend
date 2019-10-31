@@ -24,6 +24,7 @@ const Register = () => {
 
   React.useEffect(() => {
     document.title = "Register | Classroom";
+    // eslint-disable-next-line
   }, []);
 
   return (

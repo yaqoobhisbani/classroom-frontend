@@ -13,6 +13,7 @@ const NotFound = () => {
 
   React.useEffect(() => {
     document.title = "404 Not Found | Classroom";
+    // eslint-disable-next-line
   }, []);
 
   return (

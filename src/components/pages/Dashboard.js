@@ -16,13 +16,12 @@ const useStyles = makeStyles(theme => ({
 const Dashboard = () => {
   const roomsContext = React.useContext(RoomsContext);
   const alertContext = React.useContext(AlertContext);
-  const { rooms, error, clearError, clearCurrent } = roomsContext;
+  const { rooms, error, clearError } = roomsContext;
 
   const classes = useStyles();
 
   React.useEffect(() => {
     document.title = "Dashboard | Classroom";
-    clearCurrent();
     // eslint-disable-next-line
   }, []);
 

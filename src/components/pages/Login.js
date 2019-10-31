@@ -24,6 +24,7 @@ const Login = () => {
 
   React.useEffect(() => {
     document.title = "Sign In | Classroom";
+    // eslint-disable-next-line
   }, []);
 
   return (

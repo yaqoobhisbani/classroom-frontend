@@ -40,6 +40,15 @@ const Room = () => {
   const classes = useStyles();
   const [value, setValue] = React.useState(0);
 
+  // Component Effects
+  React.useEffect(() => {
+    // Clearing Current Object Whenenver Room Component Unmounts
+    return () => {
+      roomsContext.clearCurrent();
+    };
+    // eslint-disable-next-line
+  }, []);
+
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
