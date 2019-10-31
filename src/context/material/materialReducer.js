@@ -3,6 +3,7 @@ import {
   UPLOAD_FILE,
   DELETE_FILE,
   FILE_ERROR,
+  CLEAR_SUCCESS,
   RESET_MATERIAL
 } from "../types";
 
@@ -18,18 +19,25 @@ export default (state, action) => {
       return {
         ...state,
         material: [action.payload, ...state.material],
-        loading: false
+        loading: false,
+        success: "The file has been uploaded!"
       };
     case DELETE_FILE:
       return {
         ...state,
         material: state.material.filter(item => item._id !== action.payload),
-        loading: false
+        loading: false,
+        success: "The file has been deleted!"
       };
     case FILE_ERROR:
       return {
         ...state,
         error: action.payload
+      };
+    case CLEAR_SUCCESS:
+      return {
+        ...state,
+        success: null
       };
     case RESET_MATERIAL:
       return {

@@ -14,11 +14,13 @@ import Room from "../components/pages/Room";
 
 import AuthContext from "../context/auth/authContext";
 import RoomsContext from "../context/rooms/roomsContext";
+import MaterialContext from "../context/material/materialContext";
 import AlertContext from "../context/alerts/alertContext";
 
 const AuthApp = () => {
   const authContext = React.useContext(AuthContext);
   const roomsContext = React.useContext(RoomsContext);
+  const materialContext = React.useContext(MaterialContext);
   const alertContext = React.useContext(AlertContext);
 
   // Loading Classrooms From Backend
@@ -64,6 +66,15 @@ const AuthApp = () => {
     }
     // eslint-disable-next-line
   }, [authContext.error]);
+
+  // Displaying Material Context Success Alerts
+  React.useEffect(() => {
+    if (materialContext.success) {
+      alertContext.showAlert("success", materialContext.success);
+      materialContext.clearSuccess();
+    }
+    // eslint-disable-next-line
+  }, [materialContext.success]);
 
   return (
     <Router>

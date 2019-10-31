@@ -10,12 +10,12 @@ import App from "./App";
 ReactDOM.render(
   <AuthState>
     <RoomsState>
-      <AlertState>
-        <MaterialState>
+      <MaterialState>
+        <AlertState>
           <App />
           <CssBaseline />
-        </MaterialState>
-      </AlertState>
+        </AlertState>
+      </MaterialState>
     </RoomsState>
   </AuthState>,
   document.getElementById("root")

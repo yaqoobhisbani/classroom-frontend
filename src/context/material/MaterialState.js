@@ -8,14 +8,16 @@ import {
   UPLOAD_FILE,
   DELETE_FILE,
   FILE_ERROR,
-  RESET_MATERIAL
+  RESET_MATERIAL,
+  CLEAR_SUCCESS
 } from "../types";
 
 const MaterialState = props => {
   const initialState = {
     material: [],
     loading: true,
-    error: null
+    error: null,
+    success: null
   };
 
   const [state, dispatch] = useReducer(materialReducer, initialState);
@@ -80,6 +82,9 @@ const MaterialState = props => {
     }
   };
 
+  // CLEAR SUCCESS
+  const clearSuccess = async () => dispatch({ type: CLEAR_SUCCESS });
+
   // RESET
   const resetMaterial = async () => dispatch({ type: RESET_MATERIAL });
 
@@ -88,10 +93,13 @@ const MaterialState = props => {
       value={{
         material: state.material,
         loading: state.loading,
+        error: state.error,
+        success: state.success,
         getMaterial,
         uploadFile,
         downloadFile,
         deleteFile,
+        clearSuccess,
         resetMaterial
       }}
     >
