@@ -113,8 +113,6 @@ const Header = props => {
       <Typography component="h2" variant="h6" className={classes.title}>
         {props.match.url === "/dashboard"
           ? "Dashboard"
-          : props.match.url === "/settings"
-          ? "Settings"
           : props.match.url === "/profile"
           ? "Profile"
           : current

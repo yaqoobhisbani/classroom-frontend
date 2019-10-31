@@ -13,7 +13,7 @@ import {
 
 // Icons
 import DashboardIcon from "@material-ui/icons/Dashboard";
-import SettingsIcon from "@material-ui/icons/Settings";
+import ProfileIcon from "@material-ui/icons/AccountBox";
 import SchoolIcon from "@material-ui/icons/School";
 import LogoutIcon from "@material-ui/icons/ExitToApp";
 
@@ -76,11 +76,11 @@ const SideDrawer = ({ open, openDrawer, closeDrawer, logout }) => {
           </ListItemIcon>
           <ListItemText>Dashboard</ListItemText>
         </ListItem>
-        <ListItem component={Link} button to="/settings">
+        <ListItem component={Link} button to="/profile">
           <ListItemIcon>
-            <SettingsIcon />
+            <ProfileIcon />
           </ListItemIcon>
-          <ListItemText>Settings</ListItemText>
+          <ListItemText>Profile</ListItemText>
         </ListItem>
         <ListItem component={Link} button to="/" onClick={logout}>
           <ListItemIcon>
