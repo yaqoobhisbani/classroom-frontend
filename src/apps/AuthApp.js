@@ -76,6 +76,19 @@ const AuthApp = () => {
     // eslint-disable-next-line
   }, [materialContext.success]);
 
+  React.useEffect(() => {
+    if (roomsContext.current) {
+      if (authContext.user._id === roomsContext.current.createdBy) {
+        authContext.setAdmin(true);
+      }
+    }
+
+    if (roomsContext.current === null) {
+      authContext.setAdmin(false);
+    }
+    // eslint-disable-next-line
+  }, [roomsContext.current]);
+
   return (
     <Router>
       <Switch>

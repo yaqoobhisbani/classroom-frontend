@@ -19,7 +19,8 @@ import {
   UPDATE_FAIL,
   LOGOUT,
   CLEAR_ERRORS,
-  CLEAR_SUCCESS
+  CLEAR_SUCCESS,
+  SET_ADMIN
 } from "../types";
 
 const AuthState = props => {
@@ -27,6 +28,7 @@ const AuthState = props => {
   const initialState = {
     token: localStorage.getItem("token"),
     isAuthenticated: null,
+    isAdmin: false,
     loading: true,
     user: null,
     error: null,
@@ -145,11 +147,15 @@ const AuthState = props => {
   // CLEAR SUCCESS
   const clearSuccess = () => dispatch({ type: CLEAR_SUCCESS });
 
+  // SET ADMIN
+  const setAdmin = value => dispatch({ type: SET_ADMIN, payload: value });
+
   return (
     <AuthContext.Provider
       value={{
         token: state.token,
         isAuthenticated: state.isAuthenticated,
+        isAdmin: state.isAdmin,
         loading: state.loading,
         user: state.user,
         error: state.error,
@@ -162,6 +168,7 @@ const AuthState = props => {
         changeName,
         changeEmail,
         changePassword,
+        setAdmin,
         logoutUser,
         clearErrors,
         clearSuccess

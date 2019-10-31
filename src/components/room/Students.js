@@ -27,13 +27,10 @@ const Students = () => {
   const roomsContext = React.useContext(RoomsContext);
   const authContext = React.useContext(AuthContext);
   const { current } = roomsContext;
-  const { user } = authContext;
+  const { isAdmin } = authContext;
 
   // Styles
   const classes = useStyles();
-
-  // Local Dynamic Variables
-  const isAdminLoggedIn = current.createdBy === user._id ? true : false;
 
   return (
     <Fragment>
@@ -52,7 +49,7 @@ const Students = () => {
           </Grid>
         </List>
       </Container>
-      {isAdminLoggedIn ? <FabButton /> : null}
+      {isAdmin ? <FabButton /> : null}
     </Fragment>
   );
 };

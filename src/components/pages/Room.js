@@ -1,9 +1,9 @@
 import React, { Fragment, Suspense } from "react";
 import { AppBar, Tabs, Tab, makeStyles } from "@material-ui/core";
+import { withRouter } from "react-router-dom";
 import Header from "../layout/Header";
 import TabPanel from "../layout/TabPanel";
 import Loader from "../layout/Loader";
-import NotFound from "../pages/NotFound";
 import RoomsContext from "../../context/rooms/roomsContext";
 
 // Icons
@@ -35,12 +35,25 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const Room = () => {
+const Room = props => {
   const roomsContext = React.useContext(RoomsContext);
+  const { current } = roomsContext;
+  const code = props.match.params.code;
+
+  // Styles
   const classes = useStyles();
+
+  // Tab Panels State
   const [value, setValue] = React.useState(0);
 
   // Component Effects
+  React.useEffect(() => {
+    if (roomsContext.loading === false) {
+      roomsContext.loadRoom(code);
+    }
+    // eslint-disable-next-line
+  }, [roomsContext.loading]);
+
   React.useEffect(() => {
     // Clearing Current Object Whenenver Room Component Unmounts
     return () => {
@@ -52,8 +65,6 @@ const Room = () => {
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
-
-  if (roomsContext.current === null) return <NotFound />;
 
   return (
     <Fragment>
@@ -77,35 +88,41 @@ const Room = () => {
         </Tabs>
       </AppBar>
 
-      <TabPanel value={value} index={0}>
-        <Material />
-      </TabPanel>
+      {current === null ? (
+        <Loader />
+      ) : (
+        <Fragment>
+          <TabPanel value={value} index={0}>
+            <Material />
+          </TabPanel>
 
-      <TabPanel value={value} index={1}>
-        <Suspense fallback={<Loader />}>
-          <Tasks />
-        </Suspense>
-      </TabPanel>
+          <TabPanel value={value} index={1}>
+            <Suspense fallback={<Loader />}>
+              <Tasks />
+            </Suspense>
+          </TabPanel>
 
-      <TabPanel value={value} index={2}>
-        <Suspense fallback={<Loader />}>
-          <Students />
-        </Suspense>
-      </TabPanel>
+          <TabPanel value={value} index={2}>
+            <Suspense fallback={<Loader />}>
+              <Students />
+            </Suspense>
+          </TabPanel>
 
-      <TabPanel value={value} index={3}>
-        <Suspense fallback={<Loader />}>
-          <Chat />
-        </Suspense>
-      </TabPanel>
+          <TabPanel value={value} index={3}>
+            <Suspense fallback={<Loader />}>
+              <Chat />
+            </Suspense>
+          </TabPanel>
 
-      <TabPanel value={value} index={4}>
-        <Suspense fallback={<Loader />}>
-          <About />
-        </Suspense>
-      </TabPanel>
+          <TabPanel value={value} index={4}>
+            <Suspense fallback={<Loader />}>
+              <About />
+            </Suspense>
+          </TabPanel>
+        </Fragment>
+      )}
     </Fragment>
   );
 };
 
-export default Room;
+export default withRouter(Room);

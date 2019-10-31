@@ -27,7 +27,7 @@ const SubjectPanel = () => {
   // Context
   const authContext = React.useContext(AuthContext);
   const roomsContext = React.useContext(RoomsContext);
-  const { user } = authContext;
+  const { isAdmin } = authContext;
   const { current } = roomsContext;
 
   // Styles
@@ -40,15 +40,13 @@ const SubjectPanel = () => {
     setExpanded(isExpanded ? panel : false);
   };
 
-  const isAdminLoggedIn = current.createdBy === user._id ? true : false;
-
   return (
     <ExpansionPanel
       expanded={expanded === "panel1"}
-      onChange={isAdminLoggedIn ? handleChange("panel1") : null}
+      onChange={isAdmin ? handleChange("panel1") : null}
     >
       <ExpansionPanelSummary
-        expandIcon={isAdminLoggedIn ? <ExpandMoreIcon /> : null}
+        expandIcon={isAdmin ? <ExpandMoreIcon /> : null}
         aria-controls="panel1bh-content"
         id="panel1bh-header"
       >

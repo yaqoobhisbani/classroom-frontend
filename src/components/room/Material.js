@@ -32,14 +32,11 @@ const Material = () => {
   const authContext = React.useContext(AuthContext);
   const materialContext = React.useContext(MaterialContext);
   const { current } = roomsContext;
-  const { user } = authContext;
+  const { isAdmin } = authContext;
   const { material, getMaterial, resetMaterial } = materialContext;
 
   // Styles
   const classes = useStyles();
-
-  // Local Dynamic Variables
-  const isAdminLoggedIn = current.createdBy === user._id ? true : false;
 
   // No Material
   const NoMaterial = (
@@ -50,6 +47,7 @@ const Material = () => {
 
   React.useEffect(() => {
     getMaterial(current.code);
+    document.title = `${current.classname} | Classroom`;
 
     // Reset Material State Whenever Material Component Unmounts
     return () => {
@@ -75,7 +73,7 @@ const Material = () => {
             : NoMaterial}
         </Grid>
       </Container>
-      {isAdminLoggedIn ? <FabButton /> : null}
+      {isAdmin ? <FabButton /> : null}
     </Fragment>
   );
 };

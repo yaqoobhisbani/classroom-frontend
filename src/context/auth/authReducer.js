@@ -14,7 +14,8 @@ import {
   UPDATE_FAIL,
   LOGOUT,
   CLEAR_ERRORS,
-  CLEAR_SUCCESS
+  CLEAR_SUCCESS,
+  SET_ADMIN
 } from "../types";
 
 export default (state, action) => {
@@ -43,6 +44,7 @@ export default (state, action) => {
         ...state,
         token: null,
         isAuthenticated: null,
+        isAdmin: false,
         loading: true,
         user: null,
         error: action.payload
@@ -86,6 +88,11 @@ export default (state, action) => {
       return {
         ...state,
         success: null
+      };
+    case SET_ADMIN:
+      return {
+        ...state,
+        isAdmin: action.payload
       };
     case CLEAR_ERRORS:
       return {

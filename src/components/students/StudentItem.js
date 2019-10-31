@@ -33,7 +33,7 @@ const StudentItem = ({ student }) => {
   const roomsContext = React.useContext(RoomsContext);
   const authContext = React.useContext(AuthContext);
   const { current } = roomsContext;
-  const { user } = authContext;
+  const { isAdmin } = authContext;
 
   // Remove Student Modal State
   const [openModal, setOpenModal] = React.useState(false);
@@ -46,7 +46,6 @@ const StudentItem = ({ student }) => {
   // Dynamic Local Variables
   const avatarURL = `/api/users/${id}/avatar`;
   const isStudentAdmin = current.createdBy === id ? true : false;
-  const isAdminLoggedIn = current.createdBy === user._id ? true : false;
 
   // Styles
   const classes = useStyles();
@@ -91,7 +90,7 @@ const StudentItem = ({ student }) => {
         <ListItemText>
           <Typography variant="subtitle2">{name}</Typography>
         </ListItemText>
-        {isAdminLoggedIn && !isStudentAdmin ? DeleteButton : null}
+        {isAdmin && !isStudentAdmin ? DeleteButton : null}
       </ListItem>
       <ConfirmRemoveDialog
         student={student}

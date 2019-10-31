@@ -14,6 +14,7 @@ export const UPDATE_FAIL = "UPDATE_FAIL";
 export const REMOVE_AVATAR = "REMOVE_AVATAR";
 export const LOGOUT = "LOGOUT";
 export const CLEAR_ERRORS = "CLEAR_ERRORS";
+export const SET_ADMIN = "SET_ADMIN";
 // ROOMS STATE CONSTANTS
 export const GET_ROOMS = "GET_ROOMS";
 export const CREATE_ROOM = "CREATE_ROOM";

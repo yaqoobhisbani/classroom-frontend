@@ -22,7 +22,6 @@ import pdf from "../../assets/pdf.png";
 import doc from "../../assets/word.png";
 
 import AuthContext from "../../context/auth/authContext";
-import RoomsContext from "../../context/rooms/roomsContext";
 import MaterialContext from "../../context/material/materialContext";
 
 const useStyles = makeStyles({
@@ -68,10 +67,8 @@ const useStyles = makeStyles({
 
 const FileCard = ({ file, fileType }) => {
   const authContext = React.useContext(AuthContext);
-  const roomsContext = React.useContext(RoomsContext);
   const materialContext = React.useContext(MaterialContext);
-  const { user } = authContext;
-  const { current } = roomsContext;
+  const { isAdmin } = authContext;
   const classes = useStyles();
 
   // File Viewer Modal State
@@ -83,9 +80,6 @@ const FileCard = ({ file, fileType }) => {
   const [confirmModal, setConfirmModal] = React.useState(false);
   const handleOpenConfirm = () => setConfirmModal(true);
   const handleCloseConfirm = () => setConfirmModal(false);
-
-  // Local Dynamic Variables
-  const isAdminLoggedIn = current.createdBy === user._id ? true : false;
 
   let cardTheme = {
     icon: null,
@@ -137,7 +131,7 @@ const FileCard = ({ file, fileType }) => {
           <Button onClick={download} size="small">
             Download
           </Button>
-          {isAdminLoggedIn ? (
+          {isAdmin ? (
             <IconButton onClick={showConfirm} size="small">
               <DeleteIcon />
             </IconButton>
