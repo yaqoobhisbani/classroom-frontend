@@ -26,10 +26,6 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const Students = () => {
-  React.useEffect(() => {
-    console.log("Students Tab Renders..");
-    // eslint-disable-next-line
-  }, []);
   // Context
   const roomsContext = React.useContext(RoomsContext);
   const authContext = React.useContext(AuthContext);

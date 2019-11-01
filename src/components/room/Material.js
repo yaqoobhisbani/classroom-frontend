@@ -48,7 +48,6 @@ const Material = () => {
   React.useEffect(() => {
     getMaterial(current.code);
     document.title = `${current.classname} | Classroom`;
-    console.log("Material Tab Renders..");
 
     // Reset Material State Whenever Material Component Unmounts
     return () => {

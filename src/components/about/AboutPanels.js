@@ -2,7 +2,6 @@ import React from "react";
 import {
   ExpansionPanel,
   ExpansionPanelSummary,
-  ExpansionPanelDetails,
   Typography,
   makeStyles
 } from "@material-ui/core";
@@ -13,6 +12,8 @@ import RoomsContext from "../../context/rooms/roomsContext";
 
 // Expanded Panels
 import ClassNameExpanded from "./expanded/ClassNameExpanded";
+import SubjectExpanded from "./expanded/SubjectExpanded";
+import DescriptionExpanded from "./expanded/DescriptionExpanded";
 
 const useStyles = makeStyles(theme => ({
   heading: {
@@ -88,9 +89,7 @@ const AboutPanels = () => {
             {current.subject}
           </Typography>
         </ExpansionPanelSummary>
-        <ExpansionPanelDetails>
-          <Typography>Empty For now!</Typography>
-        </ExpansionPanelDetails>
+        <SubjectExpanded />
       </ExpansionPanel>
 
       <ExpansionPanel
@@ -113,9 +112,7 @@ const AboutPanels = () => {
             {current.description}
           </Typography>
         </ExpansionPanelSummary>
-        <ExpansionPanelDetails>
-          <Typography>Empty For now!</Typography>
-        </ExpansionPanelDetails>
+        <DescriptionExpanded />
       </ExpansionPanel>
 
       <ExpansionPanel expanded={expanded === "panel4"}>
