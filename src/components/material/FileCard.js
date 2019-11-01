@@ -113,7 +113,7 @@ const FileCard = ({ file, fileType }) => {
   return (
     <Grid item xs={6} sm={4} md={3} lg={2}>
       <Card className={classes.card}>
-        <CardActionArea onClick={handleOpenViewer}>
+        <CardActionArea>
           <CardMedia className={`${classes.media} ${cardTheme.bg}`}>
             <img
               src={cardTheme.icon}

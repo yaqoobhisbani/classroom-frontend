@@ -1,4 +1,4 @@
-import React, { Fragment } from "react";
+import React, { Fragment, Suspense } from "react";
 import {
   Container,
   Grid,
@@ -7,10 +7,14 @@ import {
   Divider,
   List
 } from "@material-ui/core";
-import StudentItem from "../students/StudentItem";
-import FabButton from "../students/FabButton";
+
 import RoomsContext from "../../context/rooms/roomsContext";
 import AuthContext from "../../context/auth/authContext";
+import Loader from "../layout/Loader";
+
+// Lazy Loaded Components
+const StudentItem = React.lazy(() => import("../students/StudentItem"));
+const FabButton = React.lazy(() => import("../students/FabButton"));
 
 const useStyles = makeStyles(theme => ({
   container: {
@@ -39,17 +43,19 @@ const Students = () => {
           Students
         </Typography>
         <Divider />
-        <List className={classes.list}>
-          <Grid container spacing={2}>
-            {current.students.length > 0
-              ? current.students.map((student, index) => (
-                  <StudentItem key={index} student={student} />
-                ))
-              : null}
-          </Grid>
-        </List>
+        <Suspense fallback={<Loader />}>
+          <List className={classes.list}>
+            <Grid container spacing={2}>
+              {current.students.length > 0
+                ? current.students.map((student, index) => (
+                    <StudentItem key={index} student={student} />
+                  ))
+                : null}
+            </Grid>
+          </List>
+          {isAdmin ? <FabButton /> : null}
+        </Suspense>
       </Container>
-      {isAdmin ? <FabButton /> : null}
     </Fragment>
   );
 };

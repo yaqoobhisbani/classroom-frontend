@@ -15,10 +15,10 @@ import AboutIcon from "@material-ui/icons/Info";
 
 // Room Pages
 import Material from "../room/Material";
-const Tasks = React.lazy(() => import("../room/Tasks"));
-const Students = React.lazy(() => import("../room/Students"));
-const Chat = React.lazy(() => import("../room/Chat"));
-const About = React.lazy(() => import("../room/About"));
+import Students from "../room/Students";
+import Tasks from "../room/Tasks";
+import Chat from "../room/Chat";
+import About from "../room/About";
 
 const a11yProps = index => {
   return {
@@ -97,27 +97,19 @@ const Room = props => {
           </TabPanel>
 
           <TabPanel value={value} index={1}>
-            <Suspense fallback={<Loader />}>
-              <Tasks />
-            </Suspense>
+            <Tasks />
           </TabPanel>
 
           <TabPanel value={value} index={2}>
-            <Suspense fallback={<Loader />}>
-              <Students />
-            </Suspense>
+            <Students />
           </TabPanel>
 
           <TabPanel value={value} index={3}>
-            <Suspense fallback={<Loader />}>
-              <Chat />
-            </Suspense>
+            <Chat />
           </TabPanel>
 
           <TabPanel value={value} index={4}>
-            <Suspense fallback={<Loader />}>
-              <About />
-            </Suspense>
+            <About />
           </TabPanel>
         </Fragment>
       )}

@@ -1,9 +1,10 @@
 import React, { Fragment } from "react";
 import Header from "../layout/Header";
 import { Container, makeStyles } from "@material-ui/core";
+import Loader from "../layout/Loader";
 
-import ProfilePicture from "../profile/ProfilePicture";
-import AccountInfo from "../profile/AccountInfo";
+const ProfilePicture = React.lazy(() => import("../profile/ProfilePicture"));
+const AccountInfo = React.lazy(() => import("../profile/AccountInfo"));
 
 const useStyles = makeStyles(theme => ({
   container: {
@@ -25,8 +26,10 @@ const Profile = () => {
     <Fragment>
       <Header />
       <Container component="main" className={classes.container}>
-        <ProfilePicture />
-        <AccountInfo />
+        <React.Suspense fallback={<Loader />}>
+          <ProfilePicture />
+          <AccountInfo />
+        </React.Suspense>
       </Container>
     </Fragment>
   );

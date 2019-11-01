@@ -46,7 +46,13 @@ const SubjectPanel = () => {
       onChange={isAdmin ? handleChange("panel1") : null}
     >
       <ExpansionPanelSummary
-        expandIcon={isAdmin ? <ExpandMoreIcon /> : null}
+        expandIcon={
+          isAdmin ? (
+            <ExpandMoreIcon />
+          ) : (
+            <ExpandMoreIcon style={{ color: "white" }} />
+          )
+        }
         aria-controls="panel1bh-content"
         id="panel1bh-header"
       >
