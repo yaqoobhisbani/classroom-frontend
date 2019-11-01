@@ -14,11 +14,11 @@ import ChatIcon from "@material-ui/icons/Chat";
 import AboutIcon from "@material-ui/icons/Info";
 
 // Room Pages
-import Material from "../room/Material";
-import Students from "../room/Students";
-import Tasks from "../room/Tasks";
-import Chat from "../room/Chat";
-import About from "../room/About";
+const Material = React.lazy(() => import("../room/Material"));
+const Students = React.lazy(() => import("../room/Students"));
+const Tasks = React.lazy(() => import("../room/Tasks"));
+const Chat = React.lazy(() => import("../room/Chat"));
+const About = React.lazy(() => import("../room/About"));
 
 const a11yProps = index => {
   return {
@@ -93,23 +93,33 @@ const Room = props => {
       ) : (
         <Fragment>
           <TabPanel value={value} index={0}>
-            <Material />
+            <Suspense fallback={<Loader />}>
+              <Material />
+            </Suspense>
           </TabPanel>
 
           <TabPanel value={value} index={1}>
-            <Tasks />
+            <Suspense fallback={<Loader />}>
+              <Tasks />
+            </Suspense>
           </TabPanel>
 
           <TabPanel value={value} index={2}>
-            <Students />
+            <Suspense fallback={<Loader />}>
+              <Students />
+            </Suspense>
           </TabPanel>
 
           <TabPanel value={value} index={3}>
-            <Chat />
+            <Suspense fallback={<Loader />}>
+              <Chat />
+            </Suspense>
           </TabPanel>
 
           <TabPanel value={value} index={4}>
-            <About />
+            <Suspense fallback={<Loader />}>
+              <About />
+            </Suspense>
           </TabPanel>
         </Fragment>
       )}

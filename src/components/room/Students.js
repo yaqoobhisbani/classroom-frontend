@@ -1,4 +1,4 @@
-import React, { Fragment, Suspense } from "react";
+import React, { Fragment } from "react";
 import {
   Container,
   Grid,
@@ -10,7 +10,6 @@ import {
 
 import RoomsContext from "../../context/rooms/roomsContext";
 import AuthContext from "../../context/auth/authContext";
-import Loader from "../layout/Loader";
 
 // Lazy Loaded Components
 const StudentItem = React.lazy(() => import("../students/StudentItem"));
@@ -27,6 +26,10 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const Students = () => {
+  React.useEffect(() => {
+    console.log("Students Tab Renders..");
+    // eslint-disable-next-line
+  }, []);
   // Context
   const roomsContext = React.useContext(RoomsContext);
   const authContext = React.useContext(AuthContext);
@@ -43,19 +46,17 @@ const Students = () => {
           Students
         </Typography>
         <Divider />
-        <Suspense fallback={<Loader />}>
-          <List className={classes.list}>
-            <Grid container spacing={2}>
-              {current.students.length > 0
-                ? current.students.map((student, index) => (
-                    <StudentItem key={index} student={student} />
-                  ))
-                : null}
-            </Grid>
-          </List>
-          {isAdmin ? <FabButton /> : null}
-        </Suspense>
+        <List className={classes.list}>
+          <Grid container spacing={2}>
+            {current.students.length > 0
+              ? current.students.map((student, index) => (
+                  <StudentItem key={index} student={student} />
+                ))
+              : null}
+          </Grid>
+        </List>
       </Container>
+      {isAdmin ? <FabButton /> : null}
     </Fragment>
   );
 };

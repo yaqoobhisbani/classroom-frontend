@@ -1,10 +1,37 @@
 import React from "react";
-import { ExpansionPanelDetails, Typography } from "@material-ui/core";
+import {
+  ExpansionPanelDetails,
+  Grid,
+  TextField,
+  Typography,
+  Button
+} from "@material-ui/core";
+
+import SendIcon from "@material-ui/icons/Send";
 
 const ClassNameExpanded = () => {
   return (
     <ExpansionPanelDetails>
-      <Typography>Empty For now!</Typography>
+      <Grid container spacing={2} alignItems="center">
+        <Grid item sm={3} xs={12}>
+          <Typography variant="subtitle2">Change Class Name:</Typography>
+        </Grid>
+
+        <Grid item>
+          <TextField
+            type="text"
+            variant="outlined"
+            margin="dense"
+            label="Class Name"
+          ></TextField>
+        </Grid>
+
+        <Grid item>
+          <Button variant="contained" color="primary" endIcon={<SendIcon />}>
+            Submit
+          </Button>
+        </Grid>
+      </Grid>
     </ExpansionPanelDetails>
   );
 };

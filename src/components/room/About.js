@@ -1,12 +1,7 @@
 import React from "react";
 import { Container, Paper, Typography, makeStyles } from "@material-ui/core";
 
-// Panels
-import ClassNamePanel from "../about/panels/ClassNamePanel";
-import SubjectPanel from "../about/panels/SubjectPanel";
-import DescriptionPanel from "../about/panels/DescriptionPanel";
-import CodePanel from "../about/panels/CodePanel";
-import StudentsPanel from "../about/panels/StudentsPanel";
+import AboutPanels from "../about/AboutPanels";
 
 const useStyles = makeStyles(theme => ({
   container: {
@@ -28,11 +23,7 @@ const About = () => {
         <Typography variant="h5">About This Classroom</Typography>
       </Paper>
 
-      <ClassNamePanel />
-      <SubjectPanel />
-      <DescriptionPanel />
-      <CodePanel />
-      <StudentsPanel />
+      <AboutPanels />
     </Container>
   );
 };

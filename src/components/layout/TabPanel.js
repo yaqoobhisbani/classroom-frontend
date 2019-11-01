@@ -14,7 +14,7 @@ const TabPanel = props => {
       aria-labelledby={`scrollable-auto-tab-${index}`}
       {...other}
     >
-      {children}
+      {value === index ? children : null}
     </Typography>
   );
 };
