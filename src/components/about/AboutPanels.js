@@ -136,7 +136,7 @@ const AboutPanels = () => {
         >
           <Typography className={classes.heading}>Total Students</Typography>
           <Typography className={classes.secondaryHeading}>
-            {current.students.length + 1}
+            {current.students.length}
           </Typography>
         </ExpansionPanelSummary>
       </ExpansionPanel>

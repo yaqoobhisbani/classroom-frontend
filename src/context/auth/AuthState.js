@@ -108,7 +108,7 @@ const AuthState = props => {
   // CHANGE NAME
   const changeName = async name => {
     try {
-      const res = await axios.post("/api/users/me/name", name, config);
+      const res = await axios.put("/api/users/me/name", name, config);
 
       dispatch({ type: NAME_UPDATED, payload: res.data });
     } catch (err) {
@@ -119,7 +119,7 @@ const AuthState = props => {
   // CHANGE EMAIL
   const changeEmail = async email => {
     try {
-      const res = await axios.post("/api/users/me/email", email, config);
+      const res = await axios.put("/api/users/me/email", email, config);
 
       dispatch({ type: EMAIL_UPDATED, payload: res.data });
     } catch (err) {
@@ -130,7 +130,7 @@ const AuthState = props => {
   // CHANGE PASSWORD
   const changePassword = async passwords => {
     try {
-      await axios.post("/api/users/me/password", passwords, config);
+      await axios.put("/api/users/me/password", passwords, config);
 
       dispatch({ type: PASS_UPDATED });
     } catch (err) {

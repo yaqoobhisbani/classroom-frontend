@@ -54,6 +54,7 @@ const AddPersonModal = ({ open, onClose }) => {
             type="email"
             onChange={onEmailChange}
             fullWidth
+            required
           />
         </form>
       </DialogContent>

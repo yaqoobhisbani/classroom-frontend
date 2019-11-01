@@ -58,6 +58,7 @@ const NameExpanded = () => {
               type="text"
               variant="outlined"
               margin="dense"
+              required
               label={error.msg ? error.msg : "Full Name"}
               onChange={onChange}
               value={name}

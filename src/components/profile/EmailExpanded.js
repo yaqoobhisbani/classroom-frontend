@@ -55,6 +55,7 @@ const EmailExpanded = () => {
               type="email"
               variant="outlined"
               margin="dense"
+              required
               label={error.msg ? error.msg : "Email Address"}
               onChange={onChange}
               value={email}

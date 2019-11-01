@@ -104,6 +104,7 @@ const PasswordExpanded = () => {
                   variant="outlined"
                   margin="dense"
                   label="Old Password"
+                  required
                   onChange={onOldPassChange}
                   value={oldPass}
                 />
@@ -116,6 +117,7 @@ const PasswordExpanded = () => {
                   variant="outlined"
                   margin="dense"
                   label={passError.msg ? passError.msg : "New Password"}
+                  required
                   onChange={onNewPassChange}
                   value={newPass}
                 />
@@ -128,6 +130,7 @@ const PasswordExpanded = () => {
                   variant="outlined"
                   margin="dense"
                   label={pass2Error.msg ? pass2Error.msg : "Confirm Password"}
+                  required
                   onChange={onConfirmPassChange}
                   value={confirmPass}
                 />
