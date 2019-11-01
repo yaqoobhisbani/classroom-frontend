@@ -6,7 +6,7 @@ import {
   ExpansionPanelSummary
 } from "@material-ui/core";
 
-import RoomsContext from "../../context/rooms/roomsContext";
+import RoomsContext from "../../../context/rooms/roomsContext";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 
 const useStyles = makeStyles(theme => ({

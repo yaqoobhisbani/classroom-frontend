@@ -3,12 +3,12 @@ import {
   Typography,
   makeStyles,
   ExpansionPanel,
-  ExpansionPanelSummary,
-  ExpansionPanelDetails
+  ExpansionPanelSummary
 } from "@material-ui/core";
 
-import AuthContext from "../../context/auth/authContext";
-import RoomsContext from "../../context/rooms/roomsContext";
+import ClassNameExpanded from "../expanded/ClassNameExpanded";
+import AuthContext from "../../../context/auth/authContext";
+import RoomsContext from "../../../context/rooms/roomsContext";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 
 const useStyles = makeStyles(theme => ({
@@ -23,7 +23,7 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const DescriptionPanel = () => {
+const ClassNamePanel = () => {
   // Context
   const authContext = React.useContext(AuthContext);
   const roomsContext = React.useContext(RoomsContext);
@@ -56,16 +56,14 @@ const DescriptionPanel = () => {
         aria-controls="panel1bh-content"
         id="panel1bh-header"
       >
-        <Typography className={classes.heading}>Description</Typography>
+        <Typography className={classes.heading}>Class Name</Typography>
         <Typography className={classes.secondaryHeading}>
-          {current.description}
+          {current.classname}
         </Typography>
       </ExpansionPanelSummary>
-      <ExpansionPanelDetails>
-        <Typography>Empty For now!</Typography>
-      </ExpansionPanelDetails>
+      <ClassNameExpanded />
     </ExpansionPanel>
   );
 };
 
-export default DescriptionPanel;
+export default ClassNamePanel;

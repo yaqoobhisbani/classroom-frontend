@@ -7,8 +7,8 @@ import {
   ExpansionPanelDetails
 } from "@material-ui/core";
 
-import AuthContext from "../../context/auth/authContext";
-import RoomsContext from "../../context/rooms/roomsContext";
+import AuthContext from "../../../context/auth/authContext";
+import RoomsContext from "../../../context/rooms/roomsContext";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 
 const useStyles = makeStyles(theme => ({

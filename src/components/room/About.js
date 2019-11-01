@@ -2,11 +2,11 @@ import React from "react";
 import { Container, Paper, Typography, makeStyles } from "@material-ui/core";
 
 // Panels
-import ClassNamePanel from "../about/ClassNamePanel";
-import SubjectPanel from "../about/SubjectPanel";
-import DescriptionPanel from "../about/DescriptionPanel";
-import CodePanel from "../about/CodePanel";
-import StudentsPanel from "../about/StudentsPanel";
+import ClassNamePanel from "../about/panels/ClassNamePanel";
+import SubjectPanel from "../about/panels/SubjectPanel";
+import DescriptionPanel from "../about/panels/DescriptionPanel";
+import CodePanel from "../about/panels/CodePanel";
+import StudentsPanel from "../about/panels/StudentsPanel";
 
 const useStyles = makeStyles(theme => ({
   container: {

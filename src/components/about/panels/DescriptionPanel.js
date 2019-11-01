@@ -7,8 +7,8 @@ import {
   ExpansionPanelDetails
 } from "@material-ui/core";
 
-import AuthContext from "../../context/auth/authContext";
-import RoomsContext from "../../context/rooms/roomsContext";
+import AuthContext from "../../../context/auth/authContext";
+import RoomsContext from "../../../context/rooms/roomsContext";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 
 const useStyles = makeStyles(theme => ({
@@ -23,7 +23,7 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const ClassNamePanel = () => {
+const DescriptionPanel = () => {
   // Context
   const authContext = React.useContext(AuthContext);
   const roomsContext = React.useContext(RoomsContext);
@@ -56,9 +56,9 @@ const ClassNamePanel = () => {
         aria-controls="panel1bh-content"
         id="panel1bh-header"
       >
-        <Typography className={classes.heading}>Class Name</Typography>
+        <Typography className={classes.heading}>Description</Typography>
         <Typography className={classes.secondaryHeading}>
-          {current.classname}
+          {current.description}
         </Typography>
       </ExpansionPanelSummary>
       <ExpansionPanelDetails>
@@ -68,4 +68,4 @@ const ClassNamePanel = () => {
   );
 };
 
-export default ClassNamePanel;
+export default DescriptionPanel;
