@@ -32,7 +32,8 @@ const AddPersonModal = ({ open, onClose }) => {
     }
   };
 
-  const onSubmit = () => {
+  const onSubmit = e => {
+    e.preventDefault();
     if (error.isInvalid === false) {
       addStudent(current.code, email);
     }
@@ -43,22 +44,24 @@ const AddPersonModal = ({ open, onClose }) => {
     <Dialog open={open} onClose={onClose} aria-labelledby="form-dialog-title">
       <DialogTitle id="form-dialog-title">Add Student</DialogTitle>
       <DialogContent>
-        <TextField
-          error={error.isInvalid}
-          variant="outlined"
-          name="email"
-          id="email"
-          label={error.msg ? error.msg : "Email Address"}
-          type="email"
-          onChange={onEmailChange}
-          fullWidth
-        />
+        <form id="add-student" onSubmit={onSubmit}>
+          <TextField
+            error={error.isInvalid}
+            variant="outlined"
+            name="email"
+            id="email"
+            label={error.msg ? error.msg : "Email Address"}
+            type="email"
+            onChange={onEmailChange}
+            fullWidth
+          />
+        </form>
       </DialogContent>
       <DialogActions>
         <Button onClick={onClose} color="primary">
           Cancel
         </Button>
-        <Button onClick={onSubmit} color="primary">
+        <Button type="submit" form="add-student" color="primary">
           Add Student
         </Button>
       </DialogActions>

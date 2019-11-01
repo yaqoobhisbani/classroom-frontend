@@ -36,8 +36,9 @@ const NameExpanded = () => {
     }
   };
 
-  const onSubmit = () => {
-    if (!error.isInvalid) {
+  const onSubmit = e => {
+    e.preventDefault();
+    if (!error.isInvalid && name.length > 3) {
       changeName({ name: name });
       setName("");
     }
@@ -51,20 +52,23 @@ const NameExpanded = () => {
         </Grid>
 
         <Grid item>
-          <TextField
-            error={error.isInvalid}
-            type="text"
-            variant="outlined"
-            margin="dense"
-            label={error.msg ? error.msg : "Full Name"}
-            onChange={onChange}
-            value={name}
-          />
+          <form id="change-name" onSubmit={onSubmit}>
+            <TextField
+              error={error.isInvalid}
+              type="text"
+              variant="outlined"
+              margin="dense"
+              label={error.msg ? error.msg : "Full Name"}
+              onChange={onChange}
+              value={name}
+            />
+          </form>
         </Grid>
 
         <Grid item>
           <Button
-            onClick={onSubmit}
+            type="submit"
+            form="change-name"
             variant="contained"
             color="primary"
             endIcon={<SendIcon />}

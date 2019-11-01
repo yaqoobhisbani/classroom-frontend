@@ -68,8 +68,14 @@ const PasswordExpanded = () => {
   };
 
   // On Submit
-  const onSubmit = () => {
-    if (!passError.isInvalid && !pass2Error.isInvalid) {
+  const onSubmit = e => {
+    e.preventDefault();
+    if (
+      !passError.isInvalid &&
+      !pass2Error.isInvalid &&
+      newPass.length > 5 &&
+      confirmPass.length > 5
+    ) {
       changePassword({
         oldpass: oldPass,
         newpass: newPass,
@@ -91,46 +97,49 @@ const PasswordExpanded = () => {
 
         <Grid item>
           <Grid container direction="column">
-            <Grid item>
-              <TextField
-                type="password"
-                variant="outlined"
-                margin="dense"
-                label="Old Password"
-                onChange={onOldPassChange}
-                value={oldPass}
-              />
-            </Grid>
+            <form id="change-password" onSubmit={onSubmit}>
+              <Grid item>
+                <TextField
+                  type="password"
+                  variant="outlined"
+                  margin="dense"
+                  label="Old Password"
+                  onChange={onOldPassChange}
+                  value={oldPass}
+                />
+              </Grid>
 
-            <Grid item>
-              <TextField
-                error={passError.isInvalid}
-                type="password"
-                variant="outlined"
-                margin="dense"
-                label={passError.msg ? passError.msg : "New Password"}
-                onChange={onNewPassChange}
-                value={newPass}
-              />
-            </Grid>
+              <Grid item>
+                <TextField
+                  error={passError.isInvalid}
+                  type="password"
+                  variant="outlined"
+                  margin="dense"
+                  label={passError.msg ? passError.msg : "New Password"}
+                  onChange={onNewPassChange}
+                  value={newPass}
+                />
+              </Grid>
 
-            <Grid item>
-              <TextField
-                error={pass2Error.isInvalid}
-                type="password"
-                variant="outlined"
-                margin="dense"
-                label={pass2Error.msg ? pass2Error.msg : "Confirm Password"}
-                onChange={onConfirmPassChange}
-                value={confirmPass}
-              />
-            </Grid>
+              <Grid item>
+                <TextField
+                  error={pass2Error.isInvalid}
+                  type="password"
+                  variant="outlined"
+                  margin="dense"
+                  label={pass2Error.msg ? pass2Error.msg : "Confirm Password"}
+                  onChange={onConfirmPassChange}
+                  value={confirmPass}
+                />
+              </Grid>
+            </form>
           </Grid>
         </Grid>
 
         <Grid item>
           <Button
-            onClick={onSubmit}
+            type="Submit"
+            form="change-password"
             variant="contained"
             color="primary"
             endIcon={<SendIcon />}

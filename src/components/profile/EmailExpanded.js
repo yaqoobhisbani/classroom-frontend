@@ -33,8 +33,9 @@ const EmailExpanded = () => {
     }
   };
 
-  const onSubmit = () => {
-    if (!error.isInvalid) {
+  const onSubmit = e => {
+    e.preventDefault();
+    if (!error.isInvalid && email.length > 3) {
       changeEmail({ email: email });
       setEmail("");
     }
@@ -48,20 +49,23 @@ const EmailExpanded = () => {
         </Grid>
 
         <Grid item>
-          <TextField
-            error={error.isInvalid}
-            type="email"
-            variant="outlined"
-            margin="dense"
-            label={error.msg ? error.msg : "Email Address"}
-            onChange={onChange}
-            value={email}
-          />
+          <form id="change-email" onSubmit={onSubmit}>
+            <TextField
+              error={error.isInvalid}
+              type="email"
+              variant="outlined"
+              margin="dense"
+              label={error.msg ? error.msg : "Email Address"}
+              onChange={onChange}
+              value={email}
+            />
+          </form>
         </Grid>
 
         <Grid item>
           <Button
-            onClick={onSubmit}
+            type="submit"
+            form="change-email"
             variant="contained"
             color="primary"
             endIcon={<SendIcon />}
