@@ -9,7 +9,10 @@ import {
   LOAD_ROOM,
   RESET_ROOMS,
   ADD_STUDENT,
-  REMOVE_STUDENT
+  REMOVE_STUDENT,
+  CLASSNAME_UPDATED,
+  SUBJECT_UPDATED,
+  DESCRIPTION_UPDATED
 } from "../types";
 
 export default (state, action) => {
@@ -52,6 +55,27 @@ export default (state, action) => {
         current: action.payload,
         loading: false,
         success: "The student has been removed!"
+      };
+    case CLASSNAME_UPDATED:
+      return {
+        ...state,
+        current: action.payload,
+        loading: false,
+        success: "The Classname has been changed!"
+      };
+    case SUBJECT_UPDATED:
+      return {
+        ...state,
+        current: action.payload,
+        loading: false,
+        success: "The Subject has been changed!"
+      };
+    case DESCRIPTION_UPDATED:
+      return {
+        ...state,
+        current: action.payload,
+        loading: false,
+        success: "The Description has been changed!"
       };
     case CLEAR_ERROR:
       return {

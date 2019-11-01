@@ -7,9 +7,14 @@ import {
   Button
 } from "@material-ui/core";
 
+import RoomsContext from "../../../context/rooms/roomsContext";
 import SendIcon from "@material-ui/icons/Send";
 
 const ClassNameExpanded = () => {
+  // Context
+  const roomsContext = React.useContext(RoomsContext);
+  const { changeClassName, current } = roomsContext;
+
   // Empty Error
   const emptyError = {
     isInvalid: false,
@@ -32,6 +37,14 @@ const ClassNameExpanded = () => {
     }
   };
 
+  const onSubmit = e => {
+    e.preventDefault();
+    if (!error.isInvalid && className.length > 2) {
+      changeClassName(current.code, { classname: className });
+      setClassName("");
+    }
+  };
+
   return (
     <ExpansionPanelDetails>
       <Grid container spacing={2} alignItems="center">
@@ -40,7 +53,7 @@ const ClassNameExpanded = () => {
         </Grid>
 
         <Grid item>
-          <form id="change-classname">
+          <form id="change-classname" onSubmit={onSubmit}>
             <TextField
               error={error.isInvalid}
               type="text"

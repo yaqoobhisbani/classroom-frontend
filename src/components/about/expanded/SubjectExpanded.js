@@ -7,9 +7,13 @@ import {
   Button
 } from "@material-ui/core";
 
+import RoomsContext from "../../../context/rooms/roomsContext";
 import SendIcon from "@material-ui/icons/Send";
 
 const SubjectExpanded = () => {
+  const roomsContext = React.useContext(RoomsContext);
+  const { changeSubject, current } = roomsContext;
+
   // Empty Error
   const emptyError = {
     isInvalid: false,
@@ -32,6 +36,14 @@ const SubjectExpanded = () => {
     }
   };
 
+  const onSubmit = e => {
+    e.preventDefault();
+    if (!error.isInvalid && subject.length > 2) {
+      changeSubject(current.code, { subject: subject });
+      setSubject("");
+    }
+  };
+
   return (
     <ExpansionPanelDetails>
       <Grid container spacing={2} alignItems="center">
@@ -40,7 +52,7 @@ const SubjectExpanded = () => {
         </Grid>
 
         <Grid item>
-          <form id="change-subject">
+          <form id="change-subject" onSubmit={onSubmit}>
             <TextField
               error={error.isInvalid}
               type="text"

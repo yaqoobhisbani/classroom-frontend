@@ -14,7 +14,10 @@ import {
   RESET_ROOMS,
   CLEAR_CURRENT,
   ADD_STUDENT,
-  REMOVE_STUDENT
+  REMOVE_STUDENT,
+  CLASSNAME_UPDATED,
+  SUBJECT_UPDATED,
+  DESCRIPTION_UPDATED
 } from "../types";
 
 const RoomsState = props => {
@@ -82,6 +85,54 @@ const RoomsState = props => {
       const res = await axios.delete(`/api/room/${code}/student/${id}`);
 
       dispatch({ type: REMOVE_STUDENT, payload: res.data });
+
+      getRooms();
+    } catch (err) {
+      dispatch({ type: ROOMS_ERROR, payload: err.response.data.msg });
+    }
+  };
+
+  // CHANGE CLASSNAME
+  const changeClassName = async (code, classname) => {
+    try {
+      const res = await axios.put(
+        `/api/room/${code}/classname`,
+        classname,
+        config
+      );
+
+      dispatch({ type: CLASSNAME_UPDATED, payload: res.data });
+
+      getRooms();
+    } catch (err) {
+      dispatch({ type: ROOMS_ERROR, payload: err.response.data.msg });
+    }
+  };
+
+  // CHANGE SUBJECT
+  const changeSubject = async (code, subject) => {
+    try {
+      const res = await axios.put(`/api/room/${code}/subject`, subject, config);
+
+      dispatch({ type: SUBJECT_UPDATED, payload: res.data });
+
+      getRooms();
+    } catch (err) {
+      dispatch({ type: ROOMS_ERROR, payload: err.response.data.msg });
+    }
+  };
+
+  // CHANGE DESCRIPTION
+  const changeDescription = async (code, description) => {
+    try {
+      const res = await axios.put(
+        `/api/room/${code}/description`,
+        description,
+        config
+      );
+
+      dispatch({ type: DESCRIPTION_UPDATED, payload: res.data });
+
       getRooms();
     } catch (err) {
       dispatch({ type: ROOMS_ERROR, payload: err.response.data.msg });
@@ -120,6 +171,9 @@ const RoomsState = props => {
         loadRoom,
         resetRooms,
         addStudent,
+        changeClassName,
+        changeSubject,
+        changeDescription,
         removeStudent
       }}
     >

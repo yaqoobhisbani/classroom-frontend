@@ -7,9 +7,14 @@ import {
   Button
 } from "@material-ui/core";
 
+import RoomsContext from "../../../context/rooms/roomsContext";
 import SendIcon from "@material-ui/icons/Send";
 
 const DescriptionExpanded = () => {
+  // Context
+  const roomsContext = React.useContext(RoomsContext);
+  const { changeDescription, current } = roomsContext;
+
   // Empty Error
   const emptyError = {
     isInvalid: false,
@@ -32,6 +37,14 @@ const DescriptionExpanded = () => {
     }
   };
 
+  const onSubmit = e => {
+    e.preventDefault();
+    if (!error.isInvalid && description.length > 2) {
+      changeDescription(current.code, { description: description });
+      setDescription("");
+    }
+  };
+
   return (
     <ExpansionPanelDetails>
       <Grid container spacing={2} alignItems="center">
@@ -40,7 +53,7 @@ const DescriptionExpanded = () => {
         </Grid>
 
         <Grid item>
-          <form id="change-desc">
+          <form id="change-desc" onSubmit={onSubmit}>
             <TextField
               error={error.isInvalid}
               type="text"
