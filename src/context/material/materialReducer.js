@@ -4,6 +4,7 @@ import {
   DELETE_FILE,
   FILE_ERROR,
   CLEAR_SUCCESS,
+  CLEAR_ERROR,
   RESET_MATERIAL
 } from "../types";
 
@@ -38,6 +39,11 @@ export default (state, action) => {
       return {
         ...state,
         success: null
+      };
+    case CLEAR_ERROR:
+      return {
+        ...state,
+        error: null
       };
     case RESET_MATERIAL:
       return {

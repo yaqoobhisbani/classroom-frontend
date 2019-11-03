@@ -76,6 +76,15 @@ const AuthApp = () => {
     // eslint-disable-next-line
   }, [materialContext.success]);
 
+  // Displaying Material Context Error Alerts
+  React.useEffect(() => {
+    if(materialContext.error) {
+      alertContext.showAlert("error", materialContext.error);
+      materialContext.clearError();
+    }
+    // eslint-disable-next-line
+  }, [materialContext.error]);
+
   React.useEffect(() => {
     if (roomsContext.current) {
       if (authContext.user._id === roomsContext.current.createdBy) {

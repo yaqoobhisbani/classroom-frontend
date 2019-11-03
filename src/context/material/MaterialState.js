@@ -9,7 +9,8 @@ import {
   DELETE_FILE,
   FILE_ERROR,
   RESET_MATERIAL,
-  CLEAR_SUCCESS
+  CLEAR_SUCCESS,
+  CLEAR_ERROR
 } from "../types";
 
 const MaterialState = props => {
@@ -85,6 +86,9 @@ const MaterialState = props => {
   // CLEAR SUCCESS
   const clearSuccess = async () => dispatch({ type: CLEAR_SUCCESS });
 
+  // CLEAR ERROR
+  const clearError = async () => dispatch({ type: CLEAR_ERROR });
+
   // RESET
   const resetMaterial = async () => dispatch({ type: RESET_MATERIAL });
 
@@ -100,6 +104,7 @@ const MaterialState = props => {
         downloadFile,
         deleteFile,
         clearSuccess,
+        clearError,
         resetMaterial
       }}
     >
