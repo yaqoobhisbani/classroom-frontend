@@ -12,6 +12,7 @@ import {
   IconButton
 } from "@material-ui/core";
 import DeleteIcon from "@material-ui/icons/Delete";
+import DownloadIcon from "@material-ui/icons/CloudDownload";
 
 import ConfirmDeleteDialog from "./ConfirmDeleteDialog";
 import FileViewerDialog from "./FileViewerDialog";
@@ -128,7 +129,7 @@ const FileCard = ({ file, fileType }) => {
           </CardContent>
         </CardActionArea>
         <CardActions className={classes.cardActions}>
-          <Button onClick={download} size="small">
+          <Button startIcon={<DownloadIcon />} onClick={download} size="small">
             Download
           </Button>
           {isAdmin ? (
