@@ -141,7 +141,7 @@ const PasswordExpanded = () => {
 
         <Grid item>
           <Button
-            type="Submit"
+            type="submit"
             form="change-password"
             variant="contained"
             color="primary"

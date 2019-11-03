@@ -46,6 +46,10 @@ const Room = props => {
   // Tab Panels State
   const [value, setValue] = React.useState(0);
 
+  const handleChange = (event, newValue) => {
+    setValue(newValue);
+  };
+
   // Component Effects
   React.useEffect(() => {
     if (roomsContext.loading === false) {
@@ -61,10 +65,6 @@ const Room = props => {
     };
     // eslint-disable-next-line
   }, []);
-
-  const handleChange = (event, newValue) => {
-    setValue(newValue);
-  };
 
   return (
     <Fragment>
