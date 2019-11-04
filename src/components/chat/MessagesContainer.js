@@ -1,5 +1,8 @@
 import React from "react";
-import { Container, Typography, makeStyles } from "@material-ui/core";
+import { Container, makeStyles } from "@material-ui/core";
+
+import MessageReceived from "./MessageReceived";
+import MessageSent from "./MessageSent";
 
 const useStyles = makeStyles(theme => ({
   container: {
@@ -19,24 +22,12 @@ const MessagesContainer = () => {
 
   return (
     <Container component="section" className={classes.messagesContainer}>
-      <Typography>Messages here..</Typography>
-      <Typography>Messages here..</Typography>
-      <Typography>Messages here..</Typography>
-      <Typography>Messages here..</Typography>
-      <Typography>Messages here..</Typography>
-      <Typography>Messages here..</Typography>
-      <Typography>Messages here..</Typography>
-      <Typography>Messages here..</Typography>
-      <Typography>Messages here..</Typography>
-      <Typography>Messages here..</Typography>
-      <Typography>Messages here..</Typography>
-      <Typography>Messages here..</Typography>
-      <Typography>Messages here..</Typography>
-      <Typography>Messages here..</Typography>
-      <Typography>Messages here..</Typography>
-      <Typography>Messages here..</Typography>
-      <Typography>Messages here..</Typography>
-      <Typography>Messages here..</Typography>
+      <MessageReceived />
+      <MessageReceived />
+      <MessageReceived />
+      <MessageSent />
+      <MessageSent />
+      <MessageSent />
     </Container>
   );
 };
