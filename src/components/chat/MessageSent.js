@@ -1,13 +1,5 @@
 import React from "react";
-import {
-  Avatar,
-  Paper,
-  Divider,
-  Typography,
-  Grid,
-  makeStyles
-} from "@material-ui/core";
-import FolderIcon from "@material-ui/icons/Folder";
+import { Paper, Typography, Grid, makeStyles } from "@material-ui/core";
 
 const useStyles = makeStyles(theme => ({
   container: {
@@ -17,13 +9,10 @@ const useStyles = makeStyles(theme => ({
     padding: theme.spacing(2),
     background: theme.palette.primary.main,
     color: "white"
-  },
-  text: {
-    paddingTop: theme.spacing(1)
   }
 }));
 
-const MessageSent = () => {
+const MessageSent = ({ message }) => {
   // Styles
   const classes = useStyles();
 
@@ -31,25 +20,12 @@ const MessageSent = () => {
     <Grid
       container
       direction="row-reverse"
-      spacing={2}
+      spacing={1}
       className={classes.container}
     >
-      <Grid item xs={2} sm={1}>
-        <Avatar>
-          <FolderIcon />
-        </Avatar>
-      </Grid>
-
-      <Grid item xs={10} sm={7}>
+      <Grid item>
         <Paper className={classes.paper}>
-          <Typography variant="subtitle2" align="right" gutterBottom>
-            <span style={{ fontWeight: 300 }}>6 mins ago |</span> Muhammad
-            Yaqoob
-          </Typography>
-          <Divider />
-          <Typography variant="body2" className={classes.text}>
-            This is some long text which is going to the message that we send
-          </Typography>
+          <Typography variant="body2">{message.text}</Typography>
         </Paper>
       </Grid>
     </Grid>

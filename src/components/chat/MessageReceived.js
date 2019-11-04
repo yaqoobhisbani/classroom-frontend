@@ -21,34 +21,35 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const MessageReceived = () => {
+const MessageReceived = ({ message }) => {
   // Styles
   const classes = useStyles();
 
   return (
-    <Grid
-      container
-      justify="flex-start"
-      spacing={2}
-      className={classes.container}
-    >
+    <Grid container spacing={1} className={classes.container}>
       <Grid item xs={2} sm={1}>
-        <Avatar>
-          <FolderIcon />
-        </Avatar>
+        <Grid container justify="center">
+          <Grid item>
+            <Avatar>
+              <FolderIcon />
+            </Avatar>
+          </Grid>
+        </Grid>
       </Grid>
 
-      <Grid item xs={10} sm={7}>
-        <Paper className={classes.paper}>
-          <Typography variant="subtitle2" gutterBottom>
-            Muhammad Yaqoob{" "}
-            <span style={{ fontWeight: 300 }}>| 6 mins ago</span>
-          </Typography>
-          <Divider />
-          <Typography variant="body2" className={classes.text}>
-            This is some long text which is going to the message that we send
-          </Typography>
-        </Paper>
+      <Grid item xs>
+        <Grid container xs="auto">
+          <Paper className={classes.paper}>
+            <Typography variant="subtitle2" gutterBottom>
+              {message.user}
+              <span style={{ fontWeight: 300 }}> | 6 mins ago</span>
+            </Typography>
+            <Divider />
+            <Typography variant="body2" className={classes.text}>
+              {message.text}
+            </Typography>
+          </Paper>
+        </Grid>
       </Grid>
     </Grid>
   );
