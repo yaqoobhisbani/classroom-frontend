@@ -9,9 +9,8 @@ const useStyles = makeStyles(theme => ({
     marginTop: theme.spacing(2)
   },
   messagesContainer: {
-    height: "47vh",
+    height: "50vh",
     overflow: "auto",
-    marginTop: theme.spacing(2),
     marginBottom: theme.spacing(2)
   }
 }));
@@ -39,11 +38,11 @@ const MessagesContainer = () => {
   return (
     <Container component="section" className={classes.messagesContainer}>
       <MessageReceived message={longMessage} />
+      <MessageSent message={medMessage} />
       <MessageReceived message={medMessage} />
+      <MessageSent message={shortMessage} />
       <MessageReceived message={shortMessage} />
       <MessageSent message={longMessage} />
-      <MessageSent message={medMessage} />
-      <MessageSent message={shortMessage} />
     </Container>
   );
 };

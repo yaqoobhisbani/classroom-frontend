@@ -7,6 +7,7 @@ import {
   Grid
 } from "@material-ui/core";
 
+import ChatContext from "../../context/chat/chatContext";
 import MessagesContainer from "../chat/MessagesContainer";
 import MessageSender from "../chat/MessageSender";
 import MembersOnlineList from "../chat/MembersOnlineList";
@@ -18,6 +19,18 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const Chat = () => {
+  const chatContext = React.useContext(ChatContext);
+
+  React.useEffect(() => {
+    // Init Chat
+    chatContext.initChat();
+
+    return () => {
+      chatContext.disconnect();
+    };
+    // eslint-disable-next-line
+  }, []);
+
   // Styles
   const classes = useStyles();
 

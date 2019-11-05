@@ -39,3 +39,7 @@ export const UPLOAD_FILE = "UPLOAD_FILE";
 export const DELETE_FILE = "DELETE_FILE";
 export const FILE_ERROR = "FILE_ERROR";
 export const RESET_MATERIAL = "RESET_MATERIAL";
+// CHAT STATE CONSTANTS
+export const RESET_CHAT = "RESET_CHAT";
+export const SET_USER = "SET_USER";
+export const SET_ROOM = "SET_ROOM";

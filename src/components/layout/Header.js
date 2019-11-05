@@ -18,6 +18,7 @@ import SideDrawer from "./SideDrawer";
 import AuthContext from "../../context/auth/authContext";
 import RoomsContext from "../../context/rooms/roomsContext";
 import MaterialContext from "../../context/material/materialContext";
+import ChatContext from "../../context/chat/chatContext";
 
 const useStyles = makeStyles(theme => ({
   iconLogo: {
@@ -50,10 +51,12 @@ const Header = props => {
   const authContext = useContext(AuthContext);
   const roomsContext = useContext(RoomsContext);
   const materialContext = useContext(MaterialContext);
+  const chatContext = useContext(ChatContext);
 
   const { isAuthenticated, logoutUser } = authContext;
   const { resetRooms, current } = roomsContext;
   const { resetMaterial } = materialContext;
+  const { resetChat } = chatContext;
 
   // Side Drawer State & Methods
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
@@ -66,6 +69,7 @@ const Header = props => {
     logoutUser();
     resetRooms();
     resetMaterial();
+    resetChat();
   };
 
   const classes = useStyles();

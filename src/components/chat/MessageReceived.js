@@ -38,7 +38,7 @@ const MessageReceived = ({ message }) => {
       </Grid>
 
       <Grid item xs>
-        <Grid container xs="auto">
+        <Grid container>
           <Paper className={classes.paper}>
             <Typography variant="subtitle2" gutterBottom>
               {message.user}

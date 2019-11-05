@@ -16,12 +16,14 @@ import AuthContext from "../context/auth/authContext";
 import RoomsContext from "../context/rooms/roomsContext";
 import MaterialContext from "../context/material/materialContext";
 import AlertContext from "../context/alerts/alertContext";
+import ChatContext from "../context/chat/chatContext";
 
 const AuthApp = () => {
   const authContext = React.useContext(AuthContext);
   const roomsContext = React.useContext(RoomsContext);
   const materialContext = React.useContext(MaterialContext);
   const alertContext = React.useContext(AlertContext);
+  const chatContext = React.useContext(ChatContext);
 
   // Loading Classrooms From Backend
   React.useEffect(() => {
@@ -78,7 +80,7 @@ const AuthApp = () => {
 
   // Displaying Material Context Error Alerts
   React.useEffect(() => {
-    if(materialContext.error) {
+    if (materialContext.error) {
       alertContext.showAlert("error", materialContext.error);
       materialContext.clearError();
     }
@@ -86,17 +88,35 @@ const AuthApp = () => {
   }, [materialContext.error]);
 
   React.useEffect(() => {
+    // If There is Room Set
     if (roomsContext.current) {
+      // Check & Set Admin
       if (authContext.user._id === roomsContext.current.createdBy) {
         authContext.setAdmin(true);
       }
+
+      // Set Room in Chat
+      chatContext.setRoom(roomsContext.current.code);
     }
 
     if (roomsContext.current === null) {
       authContext.setAdmin(false);
+      chatContext.setRoom(null);
     }
     // eslint-disable-next-line
   }, [roomsContext.current]);
+
+  React.useEffect(() => {
+    if (authContext.user) {
+      const user = {
+        name: authContext.user.name,
+        id: authContext.user._id
+      };
+
+      chatContext.setUser(user);
+    }
+    // eslint-disable-next-line
+  }, [authContext.user]);
 
   return (
     <Router>
