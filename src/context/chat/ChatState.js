@@ -1,7 +1,6 @@
 import React, { useReducer } from "react";
 import ChatContext from "./chatContext";
 import chatReducer from "./chatReducer";
-import { chatURL } from "../../utils/chat";
 import io from "socket.io-client";
 import {
   RESET_CHAT,
@@ -31,7 +30,7 @@ const ChatState = props => {
   // Init Connection
   const initChat = () => {
     // Initializing Connection
-    socket = io(chatURL);
+    socket = io("/");
     socket.emit("join", { room: state.room, user: state.user });
 
     // Event: History
