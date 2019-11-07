@@ -1,8 +1,10 @@
 import React from "react";
 import { Container, makeStyles } from "@material-ui/core";
-
 import MessageReceived from "./MessageReceived";
 import MessageSent from "./MessageSent";
+
+import AuthContext from "../../context/auth/authContext";
+import ChatContext from "../../context/chat/chatContext";
 
 const useStyles = makeStyles(theme => ({
   container: {
@@ -16,33 +18,26 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const MessagesContainer = () => {
+  // Context
+  const authContext = React.useContext(AuthContext);
+  const chatContext = React.useContext(ChatContext);
+  const { user } = authContext;
+  const { messages } = chatContext;
+
   // Styles
   const classes = useStyles();
 
-  const longMessage = {
-    user: "Muhammad Yaqoob",
-    text:
-      "This is some very long message which is being displayed in the chat section and it must be long enough cover first line and fall on second line. This is enough I think."
-  };
-
-  const medMessage = {
-    user: "KH Solangi",
-    text: "This is medium message which should cover half of the area!"
-  };
-
-  const shortMessage = {
-    user: "Kashif Hussain",
-    text: "This is a short message!"
-  };
-
   return (
     <Container component="section" className={classes.messagesContainer}>
-      <MessageReceived message={longMessage} />
-      <MessageSent message={medMessage} />
-      <MessageReceived message={medMessage} />
-      <MessageSent message={shortMessage} />
-      <MessageReceived message={shortMessage} />
-      <MessageSent message={longMessage} />
+      {messages.length > 0
+        ? messages.map(message =>
+            message.user.id === user._id ? (
+              <MessageSent key={message._id} message={message} />
+            ) : (
+              <MessageReceived key={message._id} message={message} />
+            )
+          )
+        : null}
     </Container>
   );
 };

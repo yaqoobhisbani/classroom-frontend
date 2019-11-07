@@ -3,7 +3,14 @@ import ChatContext from "./chatContext";
 import chatReducer from "./chatReducer";
 import { chatURL } from "../../utils/chat";
 import io from "socket.io-client";
-import { RESET_CHAT, SET_USER, SET_ROOM } from "../types";
+import {
+  RESET_CHAT,
+  SET_USER,
+  SET_ROOM,
+  SET_HISTORY,
+  SET_ONLINE_USERS,
+  NEW_MESSAGE
+} from "../types";
 
 // SOCKET IO CLIENT INSTANCE
 let socket;
@@ -14,7 +21,6 @@ const ChatState = props => {
     room: null,
     messages: [],
     onlineUsers: [],
-    connected: false,
     loading: true,
     user: null
   };
@@ -24,25 +30,37 @@ const ChatState = props => {
 
   // Init Connection
   const initChat = () => {
+    // Initializing Connection
     socket = io(chatURL);
+    socket.emit("join", { room: state.room, user: state.user });
 
-    socket.on("connection", data => {
-      console.log(data);
+    // Event: History
+    socket.on("history", history => {
+      console.log(history);
+      dispatch({ type: SET_HISTORY, payload: history });
     });
 
-    socket.emit("add_user", state.room, state.user);
+    // Event: Online Users
+    socket.on("onlineusers", onlineusers => {
+      console.log(onlineusers);
+      dispatch({ type: SET_ONLINE_USERS, payload: onlineusers });
+    });
+
+    // Event: New Message
+    socket.on("newMessage", message => {
+      dispatch({ type: NEW_MESSAGE, payload: message });
+    });
   };
 
   // Disconnect
   const disconnect = () => {
-    socket.disconnect(state.room, state.user);
+    socket.disconnect();
   };
 
-  // GET MESSAGES
-
-  // GET ONLINE USERS
-
   // SEND MESSAGE
+  const sendMessage = message => {
+    socket.emit("sendMessage", message);
+  };
 
   // SET ROOM
   const setRoom = room => dispatch({ type: SET_ROOM, payload: room });
@@ -61,6 +79,7 @@ const ChatState = props => {
         connected: state.connected,
         initChat,
         disconnect,
+        sendMessage,
         setRoom,
         setUser,
         resetChat

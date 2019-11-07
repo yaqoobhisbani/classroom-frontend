@@ -53,9 +53,10 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const MemberOnline = () => {
+const MemberOnline = ({ user }) => {
   // Styles
   const classes = useStyles();
+  const avatarURL = `/api/users/${user.dbid}/avatar`;
 
   // Online Badge
   const OnlineBadge = (
@@ -67,16 +68,14 @@ const MemberOnline = () => {
       }}
       variant="dot"
     >
-      <Avatar>
-        <FolderIcon />
-      </Avatar>
+      <Avatar src={avatarURL} />
     </StyledBadge>
   );
 
   return (
     <ListItem className={classes.listItem}>
       <ListItemAvatar>{OnlineBadge}</ListItemAvatar>
-      <ListItemText primary="Muhammad Yaqoob" />
+      <ListItemText primary={user.name} />
     </ListItem>
   );
 };

@@ -95,8 +95,13 @@ const AuthApp = () => {
         authContext.setAdmin(true);
       }
 
+      const room = {
+        roomid: roomsContext.current._id,
+        code: roomsContext.current.code
+      };
+
       // Set Room in Chat
-      chatContext.setRoom(roomsContext.current.code);
+      chatContext.setRoom(room);
     }
 
     if (roomsContext.current === null) {

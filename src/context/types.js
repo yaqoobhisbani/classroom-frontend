@@ -43,3 +43,6 @@ export const RESET_MATERIAL = "RESET_MATERIAL";
 export const RESET_CHAT = "RESET_CHAT";
 export const SET_USER = "SET_USER";
 export const SET_ROOM = "SET_ROOM";
+export const SET_HISTORY = "SET_HISTORY";
+export const SET_ONLINE_USERS = "SET_ONLINE_USERS";
+export const NEW_MESSAGE = "NEW_MESSAGE";

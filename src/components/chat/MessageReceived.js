@@ -24,15 +24,14 @@ const useStyles = makeStyles(theme => ({
 const MessageReceived = ({ message }) => {
   // Styles
   const classes = useStyles();
+  const avatarURL = `/api/users/${message.user.id}/avatar`;
 
   return (
     <Grid container spacing={1} className={classes.container}>
       <Grid item xs={2} sm={1}>
         <Grid container justify="center">
           <Grid item>
-            <Avatar>
-              <FolderIcon />
-            </Avatar>
+            <Avatar src={avatarURL} />
           </Grid>
         </Grid>
       </Grid>
@@ -41,7 +40,7 @@ const MessageReceived = ({ message }) => {
         <Grid container>
           <Paper className={classes.paper}>
             <Typography variant="subtitle2" gutterBottom>
-              {message.user}
+              {message.user.name}
               <span style={{ fontWeight: 300 }}> | 6 mins ago</span>
             </Typography>
             <Divider />
