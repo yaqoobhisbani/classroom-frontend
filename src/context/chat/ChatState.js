@@ -2,6 +2,7 @@ import React, { useReducer } from "react";
 import ChatContext from "./chatContext";
 import chatReducer from "./chatReducer";
 import io from "socket.io-client";
+import moment from "moment";
 import {
   RESET_CHAT,
   RESET_MESSAGES,
@@ -9,7 +10,8 @@ import {
   SET_ROOM,
   SET_HISTORY,
   SET_ONLINE_USERS,
-  NEW_MESSAGE
+  NEW_MESSAGE,
+  UPDATE_TIME
 } from "../types";
 
 // SOCKET IO CLIENT INSTANCE
@@ -36,13 +38,11 @@ const ChatState = props => {
 
     // Event: History
     socket.on("history", history => {
-      console.log(history);
       dispatch({ type: SET_HISTORY, payload: history });
     });
 
     // Event: Online Users
     socket.on("onlineusers", onlineusers => {
-      console.log(onlineusers);
       dispatch({ type: SET_ONLINE_USERS, payload: onlineusers });
     });
 

@@ -1,5 +1,5 @@
 import React from "react";
-import { Container, makeStyles } from "@material-ui/core";
+import { Container, makeStyles, Typography } from "@material-ui/core";
 import MessageReceived from "./MessageReceived";
 import MessageSent from "./MessageSent";
 import Loader from "../layout/Loader";
@@ -14,6 +14,10 @@ const useStyles = makeStyles(theme => ({
     height: "50vh",
     overflow: "auto",
     marginBottom: theme.spacing(2)
+  },
+  noMessages: {
+    textAlign: "center",
+    marginTop: 50
   }
 }));
 
@@ -24,18 +28,25 @@ const MessagesContainer = () => {
   const { user } = authContext;
   const { messages } = chatContext;
 
-  const mainDiv = React.useRef(null);
-  const endDiv = React.useRef(null);
+  const mainDiv = React.useRef();
 
   React.useEffect(() => {
-    endDiv.current.focus();
-    console.log(mainDiv.current);
-    console.log(endDiv.current);
+    mainDiv.current.scrollTop = mainDiv.current.scrollHeight;
     //eslint-disable-next-line
   }, [messages]);
 
   // Styles
   const classes = useStyles();
+
+  // No Messages
+  const NoMessages = (
+    <div className={classes.noMessages}>
+      <Typography style={{ marginBottom: 8 }} variant="h5">
+        It's Empty Here.
+      </Typography>
+      <Typography>Send a message to this room below!</Typography>
+    </div>
+  );
 
   if (chatContext.loading === true) return <Loader />;
 
@@ -54,9 +65,8 @@ const MessagesContainer = () => {
                 <MessageReceived key={message._id} message={message} />
               )
             )
-          : null}
+          : NoMessages}
       </React.Fragment>
-      <div ref={endDiv} style={{ display: "none" }} />
     </Container>
   );
 };

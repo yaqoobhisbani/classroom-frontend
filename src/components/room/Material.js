@@ -23,7 +23,10 @@ const useStyles = makeStyles(theme => ({
     marginTop: theme.spacing(2),
     marginBottom: theme.spacing(2)
   },
-  noMaterial: {}
+  noMaterial: {
+    textAlign: "center",
+    marginTop: 20
+  }
 }));
 
 const Material = () => {
@@ -41,8 +44,20 @@ const Material = () => {
   // No Material
   const NoMaterial = (
     <div className={classes.noMaterial}>
-      <Typography variant="h5">No Files Available!</Typography>
+      <Typography style={{ marginBottom: 8 }} variant="h5">
+        No Material Available.
+      </Typography>
+      <Typography>Comeback later until admin uploads material!</Typography>
     </div>
+  );
+
+  const MaterialTitle = (
+    <Fragment>
+      <Typography variant="h5" gutterBottom>
+        Study Material
+      </Typography>
+      <Divider />
+    </Fragment>
   );
 
   React.useEffect(() => {
@@ -61,17 +76,15 @@ const Material = () => {
   return (
     <Fragment>
       <Container component="main" className={classes.container}>
-        <Typography variant="h5" gutterBottom>
-          Study Material
-        </Typography>
-        <Divider />
+        {material.length > 0 ? MaterialTitle : null}
         <Grid container className={classes.grid} spacing={2}>
           {material.length > 0
             ? material.map((file, index) => (
                 <FileCard file={file} key={index} fileType={file.fileType} />
               ))
-            : NoMaterial}
+            : null}
         </Grid>
+        {material.length === 0 ? NoMaterial : null}
       </Container>
       {isAdmin ? <FabButton /> : null}
     </Fragment>

@@ -47,3 +47,4 @@ export const SET_ROOM = "SET_ROOM";
 export const SET_HISTORY = "SET_HISTORY";
 export const SET_ONLINE_USERS = "SET_ONLINE_USERS";
 export const NEW_MESSAGE = "NEW_MESSAGE";
+export const UPDATE_TIME = "UPDATE_TIME";

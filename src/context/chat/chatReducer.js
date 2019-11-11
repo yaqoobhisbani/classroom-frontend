@@ -5,7 +5,8 @@ import {
   SET_ROOM,
   SET_HISTORY,
   SET_ONLINE_USERS,
-  NEW_MESSAGE
+  NEW_MESSAGE,
+  UPDATE_TIME
 } from "../types";
 
 export default (state, action) => {
@@ -35,6 +36,11 @@ export default (state, action) => {
       return {
         ...state,
         user: action.payload
+      };
+    case UPDATE_TIME:
+      return {
+        ...state,
+        messages: action.payload
       };
     case RESET_MESSAGES:
       return {
