@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Fragment } from "react";
 import {
   Container,
   Typography,
@@ -11,6 +11,7 @@ import ChatContext from "../../context/chat/chatContext";
 import MessagesContainer from "../chat/MessagesContainer";
 import MessageSender from "../chat/MessageSender";
 import MembersOnlineList from "../chat/MembersOnlineList";
+import Loader from "../layout/Loader";
 
 const useStyles = makeStyles(theme => ({
   container: {
@@ -19,8 +20,13 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const Chat = () => {
+  // Context
   const chatContext = React.useContext(ChatContext);
 
+  // Styles
+  const classes = useStyles();
+
+  // Effects
   React.useEffect(() => {
     // Init Chat
     chatContext.initChat();
@@ -31,9 +37,6 @@ const Chat = () => {
     // eslint-disable-next-line
   }, []);
 
-  // Styles
-  const classes = useStyles();
-
   return (
     <Container componen="main" className={classes.container}>
       {/* Main Grid Container */}
@@ -43,8 +46,14 @@ const Chat = () => {
             Group Chat
           </Typography>
           <Divider />
-          <MessagesContainer />
-          <MessageSender />
+          {chatContext.loading === true ? (
+            <Loader />
+          ) : (
+            <Fragment>
+              <MessagesContainer />
+              <MessageSender />
+            </Fragment>
+          )}
         </Grid>
 
         <Grid item xs={12} md={3}>

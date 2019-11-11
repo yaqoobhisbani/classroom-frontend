@@ -41,6 +41,7 @@ export const FILE_ERROR = "FILE_ERROR";
 export const RESET_MATERIAL = "RESET_MATERIAL";
 // CHAT STATE CONSTANTS
 export const RESET_CHAT = "RESET_CHAT";
+export const RESET_MESSAGES = "RESET_MESSAGES";
 export const SET_USER = "SET_USER";
 export const SET_ROOM = "SET_ROOM";
 export const SET_HISTORY = "SET_HISTORY";

@@ -95,18 +95,18 @@ const AuthApp = () => {
         authContext.setAdmin(true);
       }
 
-      const room = {
-        roomid: roomsContext.current._id,
-        code: roomsContext.current.code
-      };
+      // const room = {
+      //   roomid: roomsContext.current._id,
+      //   code: roomsContext.current.code
+      // };
 
-      // Set Room in Chat
-      chatContext.setRoom(room);
+      // // Set Room in Chat
+      // chatContext.setRoom(room);
     }
 
     if (roomsContext.current === null) {
       authContext.setAdmin(false);
-      chatContext.setRoom(null);
+      // chatContext.setRoom(null);
     }
     // eslint-disable-next-line
   }, [roomsContext.current]);

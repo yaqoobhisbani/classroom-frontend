@@ -8,7 +8,6 @@ import {
   withStyles,
   Badge
 } from "@material-ui/core";
-import FolderIcon from "@material-ui/icons/Folder";
 
 const StyledBadge = withStyles(theme => ({
   badge: {

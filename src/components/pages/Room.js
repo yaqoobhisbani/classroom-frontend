@@ -5,6 +5,7 @@ import Header from "../layout/Header";
 import TabPanel from "../layout/TabPanel";
 import Loader from "../layout/Loader";
 import RoomsContext from "../../context/rooms/roomsContext";
+import ChatContext from "../../context/chat/chatContext";
 
 // Icons
 import BooksIcon from "@material-ui/icons/LibraryBooks";
@@ -37,6 +38,7 @@ const useStyles = makeStyles(theme => ({
 
 const Room = props => {
   const roomsContext = React.useContext(RoomsContext);
+  const chatContext = React.useContext(ChatContext);
   const { current } = roomsContext;
   const code = props.match.params.code;
 
@@ -51,6 +53,7 @@ const Room = props => {
   };
 
   // Component Effects
+  // Set Room in Current Object By Getting Code from URL
   React.useEffect(() => {
     if (roomsContext.loading === false) {
       roomsContext.loadRoom(code);
@@ -58,10 +61,25 @@ const Room = props => {
     // eslint-disable-next-line
   }, [roomsContext.loading]);
 
+  // Set Room in Chat Context
   React.useEffect(() => {
-    // Clearing Current Object Whenenver Room Component Unmounts
+    if (current) {
+      const room = {
+        roomid: current._id,
+        code: current.code
+      };
+
+      chatContext.setRoom(room);
+    }
+    // eslint-disable-next-line
+  }, [current]);
+
+  // Clear Clear Room in RoomsContext & Disconnect Chat Connection
+  // When Room Component Unmounts!
+  React.useEffect(() => {
     return () => {
       roomsContext.clearCurrent();
+      chatContext.resetMessages();
     };
     // eslint-disable-next-line
   }, []);

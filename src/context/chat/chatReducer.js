@@ -1,5 +1,6 @@
 import {
   RESET_CHAT,
+  RESET_MESSAGES,
   SET_USER,
   SET_ROOM,
   SET_HISTORY,
@@ -17,7 +18,8 @@ export default (state, action) => {
     case SET_ONLINE_USERS:
       return {
         ...state,
-        onlineUsers: action.payload.onlineUsers
+        onlineUsers: action.payload.onlineUsers,
+        loading: false
       };
     case SET_ROOM:
       return {
@@ -34,12 +36,18 @@ export default (state, action) => {
         ...state,
         user: action.payload
       };
+    case RESET_MESSAGES:
+      return {
+        ...state,
+        messages: [],
+        onlineUsers: [],
+        loading: true
+      };
     case RESET_CHAT:
       return {
         room: null,
-        message: [],
+        messages: [],
         onlineUsers: [],
-        connected: false,
         loading: true,
         user: null
       };

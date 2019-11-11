@@ -2,7 +2,7 @@ import React from "react";
 import { Container, makeStyles } from "@material-ui/core";
 import MessageReceived from "./MessageReceived";
 import MessageSent from "./MessageSent";
-
+import Loader from "../layout/Loader";
 import AuthContext from "../../context/auth/authContext";
 import ChatContext from "../../context/chat/chatContext";
 
@@ -24,20 +24,39 @@ const MessagesContainer = () => {
   const { user } = authContext;
   const { messages } = chatContext;
 
+  const mainDiv = React.useRef(null);
+  const endDiv = React.useRef(null);
+
+  React.useEffect(() => {
+    endDiv.current.focus();
+    console.log(mainDiv.current);
+    console.log(endDiv.current);
+    //eslint-disable-next-line
+  }, [messages]);
+
   // Styles
   const classes = useStyles();
 
+  if (chatContext.loading === true) return <Loader />;
+
   return (
-    <Container component="section" className={classes.messagesContainer}>
-      {messages.length > 0
-        ? messages.map(message =>
-            message.user.id === user._id ? (
-              <MessageSent key={message._id} message={message} />
-            ) : (
-              <MessageReceived key={message._id} message={message} />
+    <Container
+      ref={mainDiv}
+      component="section"
+      className={classes.messagesContainer}
+    >
+      <React.Fragment>
+        {messages.length > 0
+          ? messages.map(message =>
+              message.user.id === user._id ? (
+                <MessageSent key={message._id} message={message} />
+              ) : (
+                <MessageReceived key={message._id} message={message} />
+              )
             )
-          )
-        : null}
+          : null}
+      </React.Fragment>
+      <div ref={endDiv} style={{ display: "none" }} />
     </Container>
   );
 };

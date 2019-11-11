@@ -4,6 +4,7 @@ import chatReducer from "./chatReducer";
 import io from "socket.io-client";
 import {
   RESET_CHAT,
+  RESET_MESSAGES,
   SET_USER,
   SET_ROOM,
   SET_HISTORY,
@@ -67,20 +68,25 @@ const ChatState = props => {
   // SET USER
   const setUser = user => dispatch({ type: SET_USER, payload: user });
 
+  // RESET MESSAGES
+  const resetMessages = () => dispatch({ type: RESET_MESSAGES });
+
   // RESET CHAT
   const resetChat = () => dispatch({ type: RESET_CHAT });
 
   return (
     <ChatContext.Provider
       value={{
+        room: state.room,
         messages: state.messages,
         onlineUsers: state.onlineUsers,
-        connected: state.connected,
+        loading: state.loading,
         initChat,
         disconnect,
         sendMessage,
         setRoom,
         setUser,
+        resetMessages,
         resetChat
       }}
     >
