@@ -15,7 +15,6 @@ import DeleteIcon from "@material-ui/icons/Delete";
 import DownloadIcon from "@material-ui/icons/CloudDownload";
 
 import ConfirmDeleteDialog from "./ConfirmDeleteDialog";
-import FileViewerDialog from "./FileViewerDialog";
 
 import xls from "../../assets/xls.png";
 import ppt from "../../assets/ppt.png";
@@ -71,11 +70,6 @@ const FileCard = ({ file, fileType }) => {
   const materialContext = React.useContext(MaterialContext);
   const { isAdmin } = authContext;
   const classes = useStyles();
-
-  // File Viewer Modal State
-  const [openViewer, setOpenViewer] = React.useState(false);
-  const handleOpenViewer = () => setOpenViewer(true);
-  const handleCloseViewer = () => setOpenViewer(false);
 
   // Confirm Delete Modal State
   const [confirmModal, setConfirmModal] = React.useState(false);
@@ -144,11 +138,6 @@ const FileCard = ({ file, fileType }) => {
         open={confirmModal}
         handleClose={handleCloseConfirm}
         file={file}
-      />
-      <FileViewerDialog
-        file={file}
-        open={openViewer}
-        handleClose={handleCloseViewer}
       />
     </Grid>
   );
