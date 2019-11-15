@@ -9,7 +9,8 @@ import {
   Typography,
   CardActions,
   makeStyles,
-  IconButton
+  IconButton,
+  Tooltip
 } from "@material-ui/core";
 import DeleteIcon from "@material-ui/icons/Delete";
 import DownloadIcon from "@material-ui/icons/CloudDownload";
@@ -123,13 +124,21 @@ const FileCard = ({ file, fileType }) => {
           </CardContent>
         </CardActionArea>
         <CardActions className={classes.cardActions}>
-          <Button startIcon={<DownloadIcon />} onClick={download} size="small">
-            Download
-          </Button>
+          <Tooltip title="Download File">
+            <Button
+              startIcon={<DownloadIcon />}
+              onClick={download}
+              size="small"
+            >
+              Download
+            </Button>
+          </Tooltip>
           {isAdmin ? (
-            <IconButton onClick={showConfirm} size="small">
-              <DeleteIcon />
-            </IconButton>
+            <Tooltip title="Delete File">
+              <IconButton onClick={showConfirm} size="small">
+                <DeleteIcon />
+              </IconButton>
+            </Tooltip>
           ) : null}
         </CardActions>
       </Card>

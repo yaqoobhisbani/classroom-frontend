@@ -1,5 +1,5 @@
 import React, { Fragment, useState } from "react";
-import { Fab, makeStyles, MenuItem, Menu } from "@material-ui/core";
+import { Fab, makeStyles, MenuItem, Menu, Tooltip } from "@material-ui/core";
 import AddIcon from "@material-ui/icons/Add";
 import CreateRoomModal from "./CreateRoomModal";
 import JoinRoomModal from "./JoinRoomModal";
@@ -41,14 +41,16 @@ const FabButton = () => {
 
   return (
     <Fragment>
-      <Fab
-        color="secondary"
-        className={classes.fab}
-        aria-haspopup="true"
-        onClick={fabClick}
-      >
-        <AddIcon />
-      </Fab>
+      <Tooltip title="Create or Join Classroom">
+        <Fab
+          color="secondary"
+          className={classes.fab}
+          aria-haspopup="true"
+          onClick={fabClick}
+        >
+          <AddIcon />
+        </Fab>
+      </Tooltip>
       <Menu
         anchorEl={fabAnchorEl}
         getContentAnchorEl={null}

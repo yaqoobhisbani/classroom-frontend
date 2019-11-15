@@ -9,7 +9,8 @@ import {
   ListItemSecondaryAction,
   IconButton,
   Typography,
-  makeStyles
+  makeStyles,
+  Tooltip
 } from "@material-ui/core";
 import DeleteIcon from "@material-ui/icons/Delete";
 import ConfirmRemoveDialog from "./ConfirmRemoveDialog";
@@ -75,9 +76,11 @@ const StudentItem = ({ student }) => {
   // Delete Button
   const DeleteButton = (
     <ListItemSecondaryAction>
-      <IconButton onClick={onRemove} edge="end" aria-label="remove">
-        <DeleteIcon />
-      </IconButton>
+      <Tooltip title="Remove Student" placement="top">
+        <IconButton onClick={onRemove} edge="end" aria-label="remove">
+          <DeleteIcon />
+        </IconButton>
+      </Tooltip>
     </ListItemSecondaryAction>
   );
 

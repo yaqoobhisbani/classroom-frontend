@@ -3,7 +3,7 @@ import {
   Avatar,
   Badge,
   Paper,
-  Divider,
+  Tooltip,
   Typography,
   Grid,
   makeStyles
@@ -16,10 +16,16 @@ const useStyles = makeStyles(theme => ({
     marginTop: theme.spacing(1)
   },
   paper: {
-    padding: theme.spacing(2)
+    paddingTop: theme.spacing(1.5),
+    paddingBottom: theme.spacing(1.5),
+    paddingLeft: theme.spacing(2),
+    paddingRight: theme.spacing(2),
+    marginTop: 3,
+    marginBottom: 5
   },
-  text: {
-    paddingTop: theme.spacing(1)
+  senderName: {
+    color: "#9e9e9e",
+    fontWeight: 400
   }
 }));
 
@@ -42,7 +48,7 @@ const MessageReceived = ({ message }) => {
       color="secondary"
       badgeContent="Admin"
       anchorOrigin={{
-        horizontal: "right",
+        horizontal: "left",
         vertical: "top"
       }}
     >
@@ -59,17 +65,17 @@ const MessageReceived = ({ message }) => {
       </Grid>
 
       <Grid item xs>
+        <Typography variant="body2" className={classes.senderName}>
+          {message.user.name}
+        </Typography>
         <Grid container>
-          <Paper className={classes.paper}>
-            <Typography variant="subtitle2" gutterBottom>
-              {message.user.name}
-              <span style={{ fontWeight: 300 }}> | {message.time}</span>
-            </Typography>
-            <Divider />
-            <Typography variant="body2" className={classes.text}>
-              {message.text}
-            </Typography>
-          </Paper>
+          <Tooltip title={message.time} placement="right">
+            <Paper className={classes.paper}>
+              <Typography variant="body2" className={classes.text}>
+                {message.text}
+              </Typography>
+            </Paper>
+          </Tooltip>
         </Grid>
       </Grid>
     </Grid>

@@ -1,5 +1,5 @@
 import React, { Fragment } from "react";
-import { Fab, makeStyles } from "@material-ui/core";
+import { Fab, makeStyles, Tooltip } from "@material-ui/core";
 import AddPersonIcon from "@material-ui/icons/PersonAdd";
 import AddPersonModal from "./AddPersonModal";
 
@@ -24,14 +24,16 @@ const FabButton = () => {
 
   return (
     <Fragment>
-      <Fab
-        onClick={handleOpen}
-        color="secondary"
-        className={classes.fab}
-        aria-haspopup="true"
-      >
-        <AddPersonIcon />
-      </Fab>
+      <Tooltip title="Add Student">
+        <Fab
+          onClick={handleOpen}
+          color="secondary"
+          className={classes.fab}
+          aria-haspopup="true"
+        >
+          <AddPersonIcon />
+        </Fab>
+      </Tooltip>
       <AddPersonModal open={open} onClose={handleClose} />
     </Fragment>
   );

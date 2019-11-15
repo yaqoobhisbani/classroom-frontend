@@ -1,5 +1,5 @@
 import React, { Fragment } from "react";
-import { Fab, makeStyles } from "@material-ui/core";
+import { Fab, makeStyles, Tooltip } from "@material-ui/core";
 import UploadIcon from "@material-ui/icons/Publish";
 import UploadModal from "./UploadModal";
 
@@ -24,14 +24,16 @@ const FabButton = () => {
 
   return (
     <Fragment>
-      <Fab
-        onClick={handleOpen}
-        color="secondary"
-        className={classes.fab}
-        aria-haspopup="true"
-      >
-        <UploadIcon />
-      </Fab>
+      <Tooltip title="Upload Material">
+        <Fab
+          onClick={handleOpen}
+          color="secondary"
+          className={classes.fab}
+          aria-haspopup="true"
+        >
+          <UploadIcon />
+        </Fab>
+      </Tooltip>
       <UploadModal open={open} onClose={handleClose} />
     </Fragment>
   );
