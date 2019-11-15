@@ -9,6 +9,8 @@ import {
   Badge
 } from "@material-ui/core";
 
+import RoomsContext from "../../context/rooms/roomsContext";
+
 const StyledBadge = withStyles(theme => ({
   badge: {
     backgroundColor: "#44b700",
@@ -53,12 +55,17 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const MemberOnline = ({ user }) => {
+  // Context
+  const roomsContext = React.useContext(RoomsContext);
+  const { current } = roomsContext;
+  const isAdmin = current.createdBy === user.dbid ? true : false;
+
   // Styles
   const classes = useStyles();
   const avatarURL = `/api/users/${user.dbid}/avatar`;
 
-  // Online Badge
-  const OnlineBadge = (
+  // Normal Online Avatar
+  const NormalOnlineAvatar = (
     <StyledBadge
       overlap="circle"
       anchorOrigin={{
@@ -71,9 +78,34 @@ const MemberOnline = ({ user }) => {
     </StyledBadge>
   );
 
+  // Admin Online Avatar
+  const AdminOnlineAvatar = (
+    <StyledBadge
+      overlap="circle"
+      anchorOrigin={{
+        vertical: "bottom",
+        horizontal: "right"
+      }}
+      variant="dot"
+    >
+      <Badge
+        color="secondary"
+        badgeContent="Admin"
+        anchorOrigin={{
+          horizontal: "right",
+          vertical: "top"
+        }}
+      >
+        <Avatar src={avatarURL} />
+      </Badge>
+    </StyledBadge>
+  );
+
   return (
     <ListItem className={classes.listItem}>
-      <ListItemAvatar>{OnlineBadge}</ListItemAvatar>
+      <ListItemAvatar>
+        {isAdmin ? AdminOnlineAvatar : NormalOnlineAvatar}
+      </ListItemAvatar>
       <ListItemText primary={user.name} />
     </ListItem>
   );
