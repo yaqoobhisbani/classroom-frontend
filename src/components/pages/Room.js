@@ -5,6 +5,7 @@ import Header from "../layout/Header";
 import TabPanel from "../layout/TabPanel";
 import Loader from "../layout/Loader";
 import RoomsContext from "../../context/rooms/roomsContext";
+import AuthContext from "../../context/auth/authContext";
 import ChatContext from "../../context/chat/chatContext";
 
 // Icons
@@ -12,6 +13,7 @@ import BooksIcon from "@material-ui/icons/LibraryBooks";
 import TaskIcon from "@material-ui/icons/AssignmentTurnedIn";
 import StudentsIcon from "@material-ui/icons/People";
 import ChatIcon from "@material-ui/icons/Chat";
+import AdminIcon from "@material-ui/icons/Settings";
 import AboutIcon from "@material-ui/icons/Info";
 
 // Room Pages
@@ -19,6 +21,7 @@ const Material = React.lazy(() => import("../room/Material"));
 const Students = React.lazy(() => import("../room/Students"));
 const Tasks = React.lazy(() => import("../room/Tasks"));
 const Chat = React.lazy(() => import("../room/Chat"));
+const Admin = React.lazy(() => import("../room/Admin"));
 const About = React.lazy(() => import("../room/About"));
 
 const a11yProps = index => {
@@ -38,8 +41,10 @@ const useStyles = makeStyles(theme => ({
 
 const Room = props => {
   const roomsContext = React.useContext(RoomsContext);
+  const authContext = React.useContext(AuthContext);
   const chatContext = React.useContext(ChatContext);
   const { current } = roomsContext;
+  const { isAdmin } = authContext;
   const code = props.match.params.code;
 
   // Styles
@@ -102,7 +107,10 @@ const Room = props => {
           <Tab icon={<TaskIcon />} label="Tasks" {...a11yProps(1)} />
           <Tab icon={<StudentsIcon />} label="Students" {...a11yProps(2)} />
           <Tab icon={<ChatIcon />} label="Chat" {...a11yProps(3)} />
-          <Tab icon={<AboutIcon />} label="About" {...a11yProps(4)} />
+          {isAdmin ? (
+            <Tab icon={<AdminIcon />} label="Admin" {...a11yProps(4)} />
+          ) : null}
+          <Tab icon={<AboutIcon />} label="About" {...a11yProps(5)} />
         </Tabs>
       </AppBar>
 
@@ -134,7 +142,15 @@ const Room = props => {
             </Suspense>
           </TabPanel>
 
-          <TabPanel value={value} index={4}>
+          {isAdmin ? (
+            <TabPanel value={value} index={4}>
+              <Suspense fallback={<Loader />}>
+                <Admin />
+              </Suspense>
+            </TabPanel>
+          ) : null}
+
+          <TabPanel value={value} index={isAdmin ? 5 : 4}>
             <Suspense fallback={<Loader />}>
               <About />
             </Suspense>
