@@ -60,7 +60,7 @@ const RoomsState = props => {
     try {
       const res = await axios.put(`/api/classrooms/${code}`);
 
-      dispatch({ type: JOIN_ROOM, payload: res.data });
+      dispatch({ type: JOIN_ROOM, payload: res.data.msg });
     } catch (err) {
       dispatch({ type: ROOMS_ERROR, payload: err.response.data.msg });
     }

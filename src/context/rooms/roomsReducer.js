@@ -33,9 +33,8 @@ export default (state, action) => {
     case JOIN_ROOM:
       return {
         ...state,
-        rooms: [action.payload, ...state.rooms],
         loading: false,
-        success: "The Classroom has been joined!"
+        success: action.payload
       };
     case LOAD_ROOM:
       return {
