@@ -41,8 +41,8 @@ const StyledBadge = withStyles(theme => ({
 
 const useStyles = makeStyles(theme => ({
   listItem: {
-    paddingTop: theme.spacing(1.5),
-    paddingBottom: theme.spacing(1.5),
+    paddingTop: theme.spacing(2),
+    paddingBottom: theme.spacing(2),
     paddingLeft: theme.spacing(2),
     cursor: "pointer",
     transition: "all 0.4s ease-out",

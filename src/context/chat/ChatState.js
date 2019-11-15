@@ -2,7 +2,7 @@ import React, { useReducer } from "react";
 import ChatContext from "./chatContext";
 import chatReducer from "./chatReducer";
 import io from "socket.io-client";
-import moment from "moment";
+
 import {
   RESET_CHAT,
   RESET_MESSAGES,
@@ -10,8 +10,7 @@ import {
   SET_ROOM,
   SET_HISTORY,
   SET_ONLINE_USERS,
-  NEW_MESSAGE,
-  UPDATE_TIME
+  NEW_MESSAGE
 } from "../types";
 
 // SOCKET IO CLIENT INSTANCE
