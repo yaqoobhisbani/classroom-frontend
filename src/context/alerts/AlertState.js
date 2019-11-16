@@ -16,20 +16,19 @@ const AlertState = props => {
 
   // SHOW ALERT
   const showAlert = (variant, msg) => {
-    dispatch({
-      type: SHOW_ALERT,
-      payload: { variant, msg }
-    });
-
-    setTimeout(() => dispatch({ type: REMOVE_ALERT }), 4000);
+    dispatch({ type: SHOW_ALERT, payload: { variant, msg } });
   };
+
+  // REMOVE ALERT
+  const removeAlert = () => dispatch({ type: REMOVE_ALERT });
 
   return (
     <AlertContext.Provider
       value={{
         alert: state.alert,
         isAvailable: state.isAvailable,
-        showAlert
+        showAlert,
+        removeAlert
       }}
     >
       {props.children}

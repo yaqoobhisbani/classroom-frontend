@@ -11,11 +11,19 @@ const useStyles = makeStyles(theme => ({
     marginTop: theme.spacing(2)
   },
   messagesContainer: {
-    height: "50vh",
+    height: "55vh",
     overflow: "hidden",
     marginBottom: theme.spacing(2),
     "&:hover": {
       overflow: "auto"
+    },
+    "&::-webkit-scrollbar": {
+      width: 6,
+      background: "#e0e0e0"
+    },
+    "&::-webkit-scrollbar-thumb": {
+      background: "#bdbdbd",
+      borderRadius: 5
     }
   },
   noMessages: {

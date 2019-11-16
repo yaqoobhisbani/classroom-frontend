@@ -14,12 +14,15 @@ const Alerts = () => {
   const authContext = React.useContext(AuthContext);
   const roomsContext = React.useContext(RoomsContext);
   const materialContext = React.useContext(MaterialContext);
-  const { alert, isAvailable } = alertContext;
+  const { alert, isAvailable, removeAlert } = alertContext;
 
   // State
   const [open, setOpen] = React.useState(false);
   const handleClick = () => setOpen(true);
   const handleClose = () => setOpen(false);
+
+  // Clear Alert State
+  const clearAlert = () => removeAlert();
 
   // Component Effects
   React.useEffect(() => {
@@ -93,6 +96,7 @@ const Alerts = () => {
         autoHideDuration={2500}
         open={open}
         onClose={handleClose}
+        onExited={clearAlert}
       >
         <AlertWrapper
           onClose={handleClose}

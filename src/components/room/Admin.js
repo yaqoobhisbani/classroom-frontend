@@ -18,6 +18,9 @@ const useStyles = makeStyles(theme => ({
   list: {
     marginTop: theme.spacing(2),
     marginBottom: theme.spacing(2)
+  },
+  noPending: {
+    textAlign: "center"
   }
 }));
 
@@ -28,6 +31,15 @@ const Admin = () => {
 
   // Styles
   const classes = useStyles();
+
+  const NoPendingApprovals = (
+    <div className={classes.noPending}>
+      <Typography style={{ marginBottom: 8 }} variant="h5">
+        All Good Here.
+      </Typography>
+      <Typography>There are no pending approvals!</Typography>
+    </div>
+  );
 
   return (
     <Container component="main" className={classes.container}>
@@ -44,6 +56,7 @@ const Admin = () => {
             : null}
         </Grid>
       </List>
+      {current.approvals.length === 0 ? NoPendingApprovals : null}
     </Container>
   );
 };
