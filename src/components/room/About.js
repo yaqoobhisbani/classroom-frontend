@@ -8,8 +8,8 @@ import {
 } from "@material-ui/core";
 import DeleteIcon from "@material-ui/icons/Delete";
 import AuthContext from "../../context/auth/authContext";
-import AboutPanels from "../about/AboutPanels";
-import DeleteRoomDialog from "../about/DeleteRoomDialog";
+import AboutPanels from "./about/AboutPanels";
+import DeleteRoomDialog from "./about/DeleteRoomDialog";
 
 const useStyles = makeStyles(theme => ({
   container: {

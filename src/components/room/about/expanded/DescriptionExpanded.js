@@ -7,7 +7,7 @@ import {
   Button
 } from "@material-ui/core";
 
-import RoomsContext from "../../../context/rooms/roomsContext";
+import RoomsContext from "../../../../context/rooms/roomsContext";
 import SendIcon from "@material-ui/icons/Send";
 
 const DescriptionExpanded = () => {

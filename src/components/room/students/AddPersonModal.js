@@ -8,7 +8,7 @@ import {
   Button
 } from "@material-ui/core";
 
-import RoomsContext from "../../context/rooms/roomsContext";
+import RoomsContext from "../../../context/rooms/roomsContext";
 
 const AddPersonModal = ({ open, onClose }) => {
   const roomsContext = React.useContext(RoomsContext);

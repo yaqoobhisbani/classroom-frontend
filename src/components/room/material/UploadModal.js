@@ -9,8 +9,8 @@ import {
   Grid
 } from "@material-ui/core";
 
-import RoomsContext from "../../context/rooms/roomsContext";
-import MaterialContext from "../../context/material/materialContext";
+import RoomsContext from "../../../context/rooms/roomsContext";
+import MaterialContext from "../../../context/material/materialContext";
 import FileIcon from "@material-ui/icons/AttachFile";
 import UploadIcon from "@material-ui/icons/CloudUpload";
 

@@ -8,7 +8,7 @@ import {
   Grid
 } from "@material-ui/core";
 
-import StudentItem from "../admin/StudentItem";
+import StudentItem from "./admin/StudentItem";
 import RoomsContext from "../../context/rooms/roomsContext";
 
 const useStyles = makeStyles(theme => ({
@@ -29,15 +29,6 @@ const Admin = () => {
   // Styles
   const classes = useStyles();
 
-  const approvals = [
-    { name: "Muhammad Yaqoob", id: "iuhaisdf" },
-    { name: "Kashif Hussain", id: "asdf" },
-    { name: "Khalil Ahmed", id: "kjh" },
-    { name: "Zeeshan Muneer", id: "opjoj" },
-    { name: "Tahir Ali Tunio", id: "adasd" },
-    { name: "Ameer Muhammad", id: "aoijoi" }
-  ];
-
   return (
     <Container component="main" className={classes.container}>
       <Typography variant="h5" gutterBottom>
@@ -46,8 +37,8 @@ const Admin = () => {
       <Divider />
       <List className={classes.list}>
         <Grid container spacing={2}>
-          {approvals.length > 0
-            ? approvals.map(student => (
+          {current.approvals.length > 0
+            ? current.approvals.map(student => (
                 <StudentItem student={student} key={student.id} />
               ))
             : null}

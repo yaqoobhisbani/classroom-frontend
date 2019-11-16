@@ -12,8 +12,8 @@ import RoomsContext from "../../context/rooms/roomsContext";
 import AuthContext from "../../context/auth/authContext";
 
 // Lazy Loaded Components
-const StudentItem = React.lazy(() => import("../students/StudentItem"));
-const FabButton = React.lazy(() => import("../students/FabButton"));
+const StudentItem = React.lazy(() => import("./students/StudentItem"));
+const FabButton = React.lazy(() => import("./students/FabButton"));
 
 const useStyles = makeStyles(theme => ({
   container: {

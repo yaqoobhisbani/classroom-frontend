@@ -2,9 +2,9 @@ import React from "react";
 import { Container, makeStyles, Typography } from "@material-ui/core";
 import MessageReceived from "./MessageReceived";
 import MessageSent from "./MessageSent";
-import Loader from "../layout/Loader";
-import AuthContext from "../../context/auth/authContext";
-import ChatContext from "../../context/chat/chatContext";
+import Loader from "../../layout/Loader";
+import AuthContext from "../../../context/auth/authContext";
+import ChatContext from "../../../context/chat/chatContext";
 
 const useStyles = makeStyles(theme => ({
   container: {
@@ -12,8 +12,11 @@ const useStyles = makeStyles(theme => ({
   },
   messagesContainer: {
     height: "50vh",
-    overflow: "auto",
-    marginBottom: theme.spacing(2)
+    overflow: "hidden",
+    marginBottom: theme.spacing(2),
+    "&:hover": {
+      overflow: "auto"
+    }
   },
   noMessages: {
     textAlign: "center",

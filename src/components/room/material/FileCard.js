@@ -17,13 +17,13 @@ import DownloadIcon from "@material-ui/icons/CloudDownload";
 
 import ConfirmDeleteDialog from "./ConfirmDeleteDialog";
 
-import xls from "../../assets/xls.png";
-import ppt from "../../assets/ppt.png";
-import pdf from "../../assets/pdf.png";
-import doc from "../../assets/word.png";
+import xls from "../../../assets/xls.png";
+import ppt from "../../../assets/ppt.png";
+import pdf from "../../../assets/pdf.png";
+import doc from "../../../assets/word.png";
 
-import AuthContext from "../../context/auth/authContext";
-import MaterialContext from "../../context/material/materialContext";
+import AuthContext from "../../../context/auth/authContext";
+import MaterialContext from "../../../context/material/materialContext";
 
 const useStyles = makeStyles({
   card: {

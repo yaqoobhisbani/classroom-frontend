@@ -14,8 +14,8 @@ import {
 } from "@material-ui/core";
 import DeleteIcon from "@material-ui/icons/Delete";
 import ConfirmRemoveDialog from "./ConfirmRemoveDialog";
-import RoomsContext from "../../context/rooms/roomsContext";
-import AuthContext from "../../context/auth/authContext";
+import RoomsContext from "../../../context/rooms/roomsContext";
+import AuthContext from "../../../context/auth/authContext";
 
 const useStyles = makeStyles(theme => ({
   listItem: {

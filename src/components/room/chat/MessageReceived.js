@@ -9,7 +9,7 @@ import {
   makeStyles
 } from "@material-ui/core";
 
-import RoomsContext from "../../context/rooms/roomsContext";
+import RoomsContext from "../../../context/rooms/roomsContext";
 
 const useStyles = makeStyles(theme => ({
   container: {

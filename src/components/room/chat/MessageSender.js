@@ -1,8 +1,8 @@
 import React from "react";
 import { Button, TextField, makeStyles } from "@material-ui/core";
 import SendIcon from "@material-ui/icons/Send";
-import RoomsContext from "../../context/rooms/roomsContext";
-import ChatContext from "../../context/chat/chatContext";
+import RoomsContext from "../../../context/rooms/roomsContext";
+import ChatContext from "../../../context/chat/chatContext";
 
 const useStyles = makeStyles(theme => ({
   container: {

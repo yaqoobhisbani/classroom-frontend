@@ -11,7 +11,6 @@ import {
   Tooltip
 } from "@material-ui/core";
 
-import FolderIcon from "@material-ui/icons/Folder";
 import DeleteIcon from "@material-ui/icons/Delete";
 import ConfirmIcon from "@material-ui/icons/Check";
 
@@ -33,14 +32,13 @@ const useStyles = makeStyles(theme => ({
 const StudentItem = ({ student }) => {
   // Styles
   const classes = useStyles();
+  const avatarURL = `/api/users/${student.id}/avatar`;
 
   return (
     <Grid item className={classes.listItem} xs={12} sm="auto">
       <ListItem>
         <ListItemAvatar>
-          <Avatar>
-            <FolderIcon />
-          </Avatar>
+          <Avatar src={avatarURL} />
         </ListItemAvatar>
         <ListItemText
           primary={student.name}

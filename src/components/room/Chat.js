@@ -8,9 +8,9 @@ import {
 } from "@material-ui/core";
 
 import ChatContext from "../../context/chat/chatContext";
-import MessagesContainer from "../chat/MessagesContainer";
-import MessageSender from "../chat/MessageSender";
-import MembersOnlineList from "../chat/MembersOnlineList";
+import MessagesContainer from "./chat/MessagesContainer";
+import MessageSender from "./chat/MessageSender";
+import MembersOnlineList from "./chat/MembersOnlineList";
 import Loader from "../layout/Loader";
 
 const useStyles = makeStyles(theme => ({

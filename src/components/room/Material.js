@@ -12,8 +12,8 @@ import RoomsContext from "../../context/rooms/roomsContext";
 import AuthContext from "../../context/auth/authContext";
 import MaterialContext from "../../context/material/materialContext";
 
-import FileCard from "../material/FileCard";
-import FabButton from "../material/FabButton";
+import FileCard from "./material/FileCard";
+import FabButton from "./material/FabButton";
 
 const useStyles = makeStyles(theme => ({
   container: {

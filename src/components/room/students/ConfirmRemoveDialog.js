@@ -7,7 +7,7 @@ import {
   DialogActions,
   Button
 } from "@material-ui/core";
-import RoomsContext from "../../context/rooms/roomsContext";
+import RoomsContext from "../../../context/rooms/roomsContext";
 
 const ConfirmRemoveDialog = ({ open, handleClose, student }) => {
   // Context

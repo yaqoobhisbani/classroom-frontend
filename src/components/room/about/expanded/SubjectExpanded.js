@@ -7,13 +7,12 @@ import {
   Button
 } from "@material-ui/core";
 
-import RoomsContext from "../../../context/rooms/roomsContext";
+import RoomsContext from "../../../../context/rooms/roomsContext";
 import SendIcon from "@material-ui/icons/Send";
 
-const ClassNameExpanded = () => {
-  // Context
+const SubjectExpanded = () => {
   const roomsContext = React.useContext(RoomsContext);
-  const { changeClassName, current } = roomsContext;
+  const { changeSubject, current } = roomsContext;
 
   // Empty Error
   const emptyError = {
@@ -22,11 +21,11 @@ const ClassNameExpanded = () => {
   };
 
   // State
-  const [className, setClassName] = React.useState("");
+  const [subject, setSubject] = React.useState("");
   const [error, setError] = React.useState(emptyError);
 
   const onChange = e => {
-    setClassName(e.target.value);
+    setSubject(e.target.value);
     if (e.target.value.length < 3) {
       setError({
         isInvalid: true,
@@ -39,9 +38,9 @@ const ClassNameExpanded = () => {
 
   const onSubmit = e => {
     e.preventDefault();
-    if (!error.isInvalid && className.length > 2) {
-      changeClassName(current.code, { classname: className });
-      setClassName("");
+    if (!error.isInvalid && subject.length > 2) {
+      changeSubject(current.code, { subject: subject });
+      setSubject("");
     }
   };
 
@@ -49,19 +48,19 @@ const ClassNameExpanded = () => {
     <ExpansionPanelDetails>
       <Grid container spacing={2} alignItems="center">
         <Grid item sm={3} xs={12}>
-          <Typography variant="subtitle2">Change Class Name:</Typography>
+          <Typography variant="subtitle2">Change Subject:</Typography>
         </Grid>
 
         <Grid item>
-          <form id="change-classname" onSubmit={onSubmit}>
+          <form id="change-subject" onSubmit={onSubmit}>
             <TextField
               error={error.isInvalid}
               type="text"
               variant="outlined"
               margin="dense"
-              label={error.msg ? error.msg : "Class Name"}
+              label={error.msg ? error.msg : "Subject"}
               onChange={onChange}
-              value={className}
+              value={subject}
               required
             />
           </form>
@@ -70,7 +69,7 @@ const ClassNameExpanded = () => {
         <Grid item>
           <Button
             type="submit"
-            form="change-classname"
+            form="change-subject"
             variant="contained"
             color="primary"
             endIcon={<SendIcon />}
@@ -83,4 +82,4 @@ const ClassNameExpanded = () => {
   );
 };
 
-export default ClassNameExpanded;
+export default SubjectExpanded;

@@ -7,8 +7,8 @@ import {
 } from "@material-ui/core";
 
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
-import AuthContext from "../../context/auth/authContext";
-import RoomsContext from "../../context/rooms/roomsContext";
+import AuthContext from "../../../context/auth/authContext";
+import RoomsContext from "../../../context/rooms/roomsContext";
 
 // Expanded Panels
 import ClassNameExpanded from "./expanded/ClassNameExpanded";

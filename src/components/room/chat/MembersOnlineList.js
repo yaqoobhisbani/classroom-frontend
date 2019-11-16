@@ -1,7 +1,7 @@
 import React from "react";
 import { Container, List, makeStyles } from "@material-ui/core";
 import MemberOnline from "./MemberOnline";
-import ChatContext from "../../context/chat/chatContext";
+import ChatContext from "../../../context/chat/chatContext";
 
 const useStyles = makeStyles(theme => ({
   container: {

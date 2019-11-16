@@ -8,7 +8,7 @@ import {
   Button
 } from "@material-ui/core";
 
-import MaterialContext from "../../context/material/materialContext";
+import MaterialContext from "../../../context/material/materialContext";
 
 const ConfirmDeleteDialog = ({ open, handleClose, file }) => {
   const materialContext = React.useContext(MaterialContext);
