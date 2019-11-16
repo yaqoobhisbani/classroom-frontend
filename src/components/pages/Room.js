@@ -1,5 +1,5 @@
 import React, { Fragment, Suspense } from "react";
-import { AppBar, Tabs, Tab, makeStyles } from "@material-ui/core";
+import { AppBar, Tabs, Tab, makeStyles, Badge } from "@material-ui/core";
 import { withRouter } from "react-router-dom";
 import Header from "../layout/Header";
 import TabPanel from "../layout/TabPanel";
@@ -50,6 +50,16 @@ const Room = props => {
   // Styles
   const classes = useStyles();
 
+  // State
+  const [adminCounts, setAdminCounts] = React.useState(0);
+
+  // Get Counts
+  const getCounts = () => {
+    if (current) {
+      setAdminCounts(current.approvals.length);
+    }
+  };
+
   // Tab Panels State
   const [value, setValue] = React.useState(0);
 
@@ -63,6 +73,7 @@ const Room = props => {
     if (roomsContext.loading === false) {
       roomsContext.loadRoom(code);
     }
+
     // eslint-disable-next-line
   }, [roomsContext.loading]);
 
@@ -75,7 +86,9 @@ const Room = props => {
       };
 
       chatContext.setRoom(room);
+      getCounts();
     }
+
     // eslint-disable-next-line
   }, [current]);
 
@@ -88,6 +101,13 @@ const Room = props => {
     };
     // eslint-disable-next-line
   }, []);
+
+  // Admin Icon Badge
+  const AdminIconBadge = (
+    <Badge color="secondary" badgeContent={adminCounts}>
+      <AdminIcon />
+    </Badge>
+  );
 
   return (
     <Fragment>
@@ -108,7 +128,7 @@ const Room = props => {
           <Tab icon={<StudentsIcon />} label="Students" {...a11yProps(2)} />
           <Tab icon={<ChatIcon />} label="Chat" {...a11yProps(3)} />
           {isAdmin ? (
-            <Tab icon={<AdminIcon />} label="Admin" {...a11yProps(4)} />
+            <Tab icon={AdminIconBadge} label="Admin" {...a11yProps(4)} />
           ) : null}
           <Tab icon={<AboutIcon />} label="About" {...a11yProps(5)} />
         </Tabs>

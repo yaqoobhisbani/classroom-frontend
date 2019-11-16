@@ -12,7 +12,9 @@ import {
   REMOVE_STUDENT,
   CLASSNAME_UPDATED,
   SUBJECT_UPDATED,
-  DESCRIPTION_UPDATED
+  DESCRIPTION_UPDATED,
+  APPROVE_REQUEST,
+  DENY_REQUEST
 } from "../types";
 
 export default (state, action) => {
@@ -75,6 +77,20 @@ export default (state, action) => {
         current: action.payload,
         loading: false,
         success: "The Description has been changed!"
+      };
+    case APPROVE_REQUEST:
+      return {
+        ...state,
+        current: action.payload,
+        loading: false,
+        success: "The request has been accepted!"
+      };
+    case DENY_REQUEST:
+      return {
+        ...state,
+        current: action.payload,
+        loading: false,
+        success: "The request has been denied!"
       };
     case CLEAR_ERROR:
       return {

@@ -17,7 +17,9 @@ import {
   REMOVE_STUDENT,
   CLASSNAME_UPDATED,
   SUBJECT_UPDATED,
-  DESCRIPTION_UPDATED
+  DESCRIPTION_UPDATED,
+  APPROVE_REQUEST,
+  DENY_REQUEST
 } from "../types";
 
 const RoomsState = props => {
@@ -139,6 +141,32 @@ const RoomsState = props => {
     }
   };
 
+  // APPROVE REQUEST
+  const approveRequest = async (code, user) => {
+    try {
+      const res = await axios.post(`/api/room/${code}/approve`, user, config);
+
+      dispatch({ type: APPROVE_REQUEST, payload: res.data });
+
+      getRooms();
+    } catch (err) {
+      dispatch({ type: ROOMS_ERROR, payload: err.response.data.msg });
+    }
+  };
+
+  // DENY REQUEST
+  const denyRequest = async (code, id) => {
+    try {
+      const res = await axios.delete(`/api/room/${code}/deny/${id}`, config);
+
+      dispatch({ type: DENY_REQUEST, payload: res.data });
+
+      getRooms();
+    } catch (err) {
+      dispatch({ type: ROOMS_ERROR, payload: err.response.data.msg });
+    }
+  };
+
   // LOAD ROOM
   const loadRoom = async code => dispatch({ type: LOAD_ROOM, payload: code });
 
@@ -171,10 +199,12 @@ const RoomsState = props => {
         loadRoom,
         resetRooms,
         addStudent,
+        removeStudent,
         changeClassName,
         changeSubject,
         changeDescription,
-        removeStudent
+        approveRequest,
+        denyRequest
       }}
     >
       {props.children}
