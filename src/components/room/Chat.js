@@ -38,7 +38,7 @@ const Chat = () => {
   }, []);
 
   return (
-    <Container componen="main" className={classes.container}>
+    <Container component="main" className={classes.container}>
       {/* Main Grid Container */}
       <Grid container spacing={2}>
         <Grid item xs={12} md={9}>
