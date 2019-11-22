@@ -17,6 +17,9 @@ import DueDateChooser from "./DueDateChooser";
 import moment from "moment";
 
 const useStyles = makeStyles(theme => ({
+  container: {
+    marginTop: -10
+  },
   textField: {
     width: 170
   },
@@ -54,27 +57,37 @@ const AddTaskModal = ({ open, onClose }) => {
   // Classes
   const classes = useStyles();
 
+  // on Closing
+  const onClosing = () => {
+    setTask(initialState);
+    onClose();
+  };
+
   // On Submit
   const onSubmit = e => {
     e.preventDefault();
 
-    console.log("Form Submitted..");
+    // Check For Errors
     if (
       title.length > 0 &&
       description.length > 0 &&
       taskType.length > 0 &&
-      dueDate !== null
+      dueDate !== "Invalid Date"
     ) {
-      console.log("Inside Condition..");
       createTask(current.code, task);
+      onClosing();
     }
   };
 
   return (
-    <Dialog onClose={onClose} open={open}>
-      <ModalTitle onClose={onClose}>Create New Task</ModalTitle>
+    <Dialog onClose={onClosing} open={open}>
+      <ModalTitle onClose={onClosing}>Create New Task</ModalTitle>
       <DialogContent dividers>
-        <form>
+        <form
+          onSubmit={onSubmit}
+          id="create-task"
+          className={classes.container}
+        >
           <TextField
             variant="outlined"
             margin="normal"
@@ -98,6 +111,7 @@ const AddTaskModal = ({ open, onClose }) => {
             <Grid item>
               <TextField
                 select
+                required
                 label="Task Type"
                 margin="normal"
                 variant="outlined"
@@ -122,10 +136,10 @@ const AddTaskModal = ({ open, onClose }) => {
         </form>
       </DialogContent>
       <DialogActions>
-        <Button onClick={onClose} color="primary">
+        <Button onClick={onClosing} color="primary">
           Cancel
         </Button>
-        <Button onClick={onSubmit} type="submit" color="primary">
+        <Button type="submit" form="create-task" color="primary">
           Create
         </Button>
       </DialogActions>

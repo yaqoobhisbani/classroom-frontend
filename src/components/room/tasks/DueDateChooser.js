@@ -10,6 +10,7 @@ const DueDateChooser = ({ dueDate, onDueDate }) => {
   return (
     <MuiPickersUtilsProvider utils={MomentUtils}>
       <KeyboardDatePicker
+        required
         disableToolbar
         variant="dialog"
         inputVariant="outlined"
