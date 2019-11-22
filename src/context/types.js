@@ -41,6 +41,12 @@ export const UPLOAD_FILE = "UPLOAD_FILE";
 export const DELETE_FILE = "DELETE_FILE";
 export const FILE_ERROR = "FILE_ERROR";
 export const RESET_MATERIAL = "RESET_MATERIAL";
+// TASK STATE CONSTANTS
+export const CREATE_TASK = "CREATE_TASK";
+export const GET_TASKS = "GET_TASKS";
+export const REMOVE_TASK = "REMOVE_TASK";
+export const TASK_ERROR = "TASK_ERROR";
+export const RESET_TASKS = "RESET_TASKS";
 // CHAT STATE CONSTANTS
 export const RESET_CHAT = "RESET_CHAT";
 export const RESET_MESSAGES = "RESET_MESSAGES";
