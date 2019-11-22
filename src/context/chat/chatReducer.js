@@ -45,7 +45,7 @@ export default (state, action) => {
           {
             ...action.payload,
             time:
-              moment(action.payload.time).format("YYYY-MM-DD") +
+              moment(action.payload.time).format("DD MMM YYYY") +
               " | " +
               moment(action.payload.time).format("LT")
           }

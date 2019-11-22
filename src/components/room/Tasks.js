@@ -7,8 +7,12 @@ import {
   makeStyles
 } from "@material-ui/core";
 import FabButton from "./tasks/FabButton";
-import AuthContext from "../../context/auth/authContext";
 import TaskItem from "./tasks/TaskItem";
+import Loader from "../layout/Loader";
+
+import AuthContext from "../../context/auth/authContext";
+import RoomsContext from "../../context/rooms/roomsContext";
+import TaskContext from "../../context/tasks/taskContext";
 
 const useStyles = makeStyles(theme => ({
   container: {
@@ -17,56 +21,66 @@ const useStyles = makeStyles(theme => ({
   grid: {
     marginTop: theme.spacing(2),
     marginBottom: theme.spacing(2)
+  },
+  noTasks: {
+    textAlign: "center",
+    marginTop: 20
   }
 }));
 
 const Tasks = () => {
   // Context
   const authContext = React.useContext(AuthContext);
+  const roomsContext = React.useContext(RoomsContext);
+  const taskContext = React.useContext(TaskContext);
   const { isAdmin } = authContext;
+  const { current } = roomsContext;
+  const { tasks, getTasks, resetTasks } = taskContext;
 
   // Styles
   const classes = useStyles();
 
-  const tasks = [
-    {
-      title: "This is task 1",
-      description: "This is the description of task 1 which is long",
-      taskType: "Assignment",
-      dueDate: "22/11/2019"
-    },
-    {
-      title: "This is task 2",
-      description: "This is the description of task 2 which is long",
-      taskType: "Presentation",
-      dueDate: "25/11/2019"
-    },
-    {
-      title: "This is task 3",
-      description: "This is the description of task 3 which is long",
-      taskType: "Assignment",
-      dueDate: "28/11/2019"
-    },
-    {
-      title: "This is task 4",
-      description: "This is the description of task 4 which is long",
-      taskType: "Assignment",
-      dueDate: "10/12/2019"
-    }
-  ];
+  // Effects
+  React.useEffect(() => {
+    getTasks(current.code);
+
+    // Cleanup
+    return () => {
+      resetTasks();
+    };
+    // eslint-disable-next-line
+  }, []);
+
+  if (taskContext.loading === true) return <Loader />;
+
+  const TasksTitle = (
+    <Fragment>
+      <Typography variant="h5" gutterBottom>
+        Tasks
+      </Typography>
+      <Divider />
+    </Fragment>
+  );
+
+  const NoTasks = (
+    <div className={classes.noTasks}>
+      <Typography style={{ marginBottom: 8 }} variant="h5">
+        No Tasks Available.
+      </Typography>
+      <Typography>Comeback later until admin adds tasks!</Typography>
+    </div>
+  );
 
   return (
     <Fragment>
       <Container component="main" className={classes.container}>
-        <Typography variant="h5" gutterBottom>
-          Tasks
-        </Typography>
-        <Divider />
+        {tasks.length > 0 ? TasksTitle : null}
         <Grid container spacing={2} className={classes.grid}>
           {tasks.length > 0
-            ? tasks.map(task => <TaskItem task={task} />)
+            ? tasks.map(task => <TaskItem task={task} key={task._id} />)
             : null}
         </Grid>
+        {tasks.length === 0 ? NoTasks : null}
       </Container>
       {isAdmin ? <FabButton /> : null}
     </Fragment>

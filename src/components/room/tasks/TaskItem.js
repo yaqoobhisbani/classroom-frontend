@@ -12,6 +12,7 @@ import {
   makeStyles
 } from "@material-ui/core";
 
+import AuthContext from "../../../context/auth/authContext";
 import RemoveIcon from "@material-ui/icons/Delete";
 import DeadlineIcon from "@material-ui/icons/Schedule";
 import AssignmentIcon from "@material-ui/icons/AssignmentRounded";
@@ -32,11 +33,15 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const TaskItem = ({ task }) => {
+  // Context
+  const authContext = React.useContext(AuthContext);
+  const { isAdmin } = authContext;
+
   // Styles
   const classes = useStyles();
 
   // Values
-  const { title, description, taskType, dueDate } = task;
+  const { title, description, taskType, shortDate, fullDate } = task;
   const TagIcon = taskType === "Assignment" ? AssignmentIcon : PresentationIcon;
 
   return (
@@ -55,12 +60,12 @@ const TaskItem = ({ task }) => {
           <div className={classes.deadline}>
             <Typography variant="subtitle2">
               Due Date:{" "}
-              <Tooltip title={dueDate} placement="top">
+              <Tooltip title={fullDate} placement="top">
                 <span style={{ fontWeight: 400 }}>
                   <Chip
                     icon={<DeadlineIcon />}
                     size="small"
-                    label={dueDate}
+                    label={shortDate}
                     color="secondary"
                   />
                 </span>
@@ -68,11 +73,13 @@ const TaskItem = ({ task }) => {
             </Typography>
           </div>
         </CardContent>
-        <CardActions className={classes.cardActions}>
-          <Tooltip title="Remove Task" placement="top">
-            <Button startIcon={<RemoveIcon />}>Remove</Button>
-          </Tooltip>
-        </CardActions>
+        {isAdmin ? (
+          <CardActions className={classes.cardActions}>
+            <Tooltip title="Remove Task" placement="top">
+              <Button startIcon={<RemoveIcon />}>Remove</Button>
+            </Tooltip>
+          </CardActions>
+        ) : null}
       </Card>
     </Grid>
   );

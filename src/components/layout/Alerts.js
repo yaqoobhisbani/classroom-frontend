@@ -7,6 +7,7 @@ import AlertContext from "../../context/alerts/alertContext";
 import AuthContext from "../../context/auth/authContext";
 import RoomsContext from "../../context/rooms/roomsContext";
 import MaterialContext from "../../context/material/materialContext";
+import TaskContext from "../../context/tasks/taskContext";
 
 const Alerts = () => {
   // Context
@@ -14,6 +15,7 @@ const Alerts = () => {
   const authContext = React.useContext(AuthContext);
   const roomsContext = React.useContext(RoomsContext);
   const materialContext = React.useContext(MaterialContext);
+  const taskContext = React.useContext(TaskContext);
   const { alert, isAvailable, removeAlert } = alertContext;
 
   // State
@@ -85,6 +87,15 @@ const Alerts = () => {
     }
     // eslint-disable-next-line
   }, [materialContext.error]);
+
+  // Displaying Task Context Success Alerts
+  React.useEffect(() => {
+    if (taskContext.success) {
+      alertContext.showAlert("success", taskContext.success);
+      taskContext.clearSuccess();
+    }
+    // eslint-disable-next-line
+  }, [taskContext.success]);
 
   return (
     <Fragment>

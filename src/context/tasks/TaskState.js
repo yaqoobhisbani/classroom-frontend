@@ -8,7 +8,8 @@ import {
   GET_TASKS,
   REMOVE_TASK,
   RESET_TASKS,
-  TASK_ERROR
+  TASK_ERROR,
+  CLEAR_SUCCESS
 } from "../types";
 
 const TaskState = props => {
@@ -34,13 +35,24 @@ const TaskState = props => {
   };
 
   // GET TASKS
-  const getTasks = () => {};
+  const getTasks = async code => {
+    try {
+      const res = await axios.get(`/api/room/${code}/tasks`, config);
+
+      dispatch({ type: GET_TASKS, payload: res.data });
+    } catch (err) {
+      dispatch({ type: TASK_ERROR, payload: err.response.data.msg });
+    }
+  };
 
   // REMOVE TASK
   const removeTask = () => {};
 
+  // CLEAR SUCCESS
+  const clearSuccess = () => dispatch({ type: CLEAR_SUCCESS });
+
   // RESET TASKS
-  const resetTasks = () => {};
+  const resetTasks = () => dispatch({ type: RESET_TASKS });
 
   return (
     <TaskContext.Provider
@@ -52,7 +64,8 @@ const TaskState = props => {
         createTask,
         getTasks,
         removeTask,
-        resetTasks
+        resetTasks,
+        clearSuccess
       }}
     >
       {props.children}
