@@ -7,6 +7,7 @@ import {
   CREATE_TASK,
   GET_TASKS,
   REMOVE_TASK,
+  UPDATE_TASK,
   RESET_TASKS,
   TASK_ERROR,
   CLEAR_SUCCESS
@@ -56,6 +57,18 @@ const TaskState = props => {
     }
   };
 
+  // UPDATE TASK
+  const updateTask = async (code, id, task) => {
+    try {
+      const res = await axios.put(`/api/room/${code}/task/${id}`, task, config);
+
+      console.log(res.data);
+      dispatch({ type: UPDATE_TASK, payload: res.data });
+    } catch (err) {
+      dispatch({ type: TASK_ERROR, payload: err.response.data.msg });
+    }
+  };
+
   // CLEAR SUCCESS
   const clearSuccess = () => dispatch({ type: CLEAR_SUCCESS });
 
@@ -72,6 +85,7 @@ const TaskState = props => {
         createTask,
         getTasks,
         removeTask,
+        updateTask,
         resetTasks,
         clearSuccess
       }}

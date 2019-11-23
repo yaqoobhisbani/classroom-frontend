@@ -45,6 +45,7 @@ export const RESET_MATERIAL = "RESET_MATERIAL";
 export const CREATE_TASK = "CREATE_TASK";
 export const GET_TASKS = "GET_TASKS";
 export const REMOVE_TASK = "REMOVE_TASK";
+export const UPDATE_TASK = "UPDATE_TASK";
 export const TASK_ERROR = "TASK_ERROR";
 export const RESET_TASKS = "RESET_TASKS";
 // CHAT STATE CONSTANTS

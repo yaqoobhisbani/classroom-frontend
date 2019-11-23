@@ -18,10 +18,13 @@ import RoomsContext from "../../../context/rooms/roomsContext";
 import TaskContext from "../../../context/tasks/taskContext";
 
 // Icons
+import EditIcon from "@material-ui/icons/Edit";
 import RemoveIcon from "@material-ui/icons/Delete";
 import DeadlineIcon from "@material-ui/icons/Schedule";
 import AssignmentIcon from "@material-ui/icons/AssignmentRounded";
 import PresentationIcon from "@material-ui/icons/SlideshowRounded";
+
+const EditTaskModal = React.lazy(() => import("./EditTaskModal"));
 
 const useStyles = makeStyles(theme => ({
   card: {
@@ -64,6 +67,11 @@ const TaskItem = ({ task }) => {
   const handleOpenConfirm = () => setConfirmModal(true);
   const handleCloseConfirm = () => setConfirmModal(false);
 
+  // State
+  const [open, setOpen] = React.useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
+
   return (
     <Grid item xs={12} sm={6} md={4} lg={3}>
       <Card className={classes.card}>
@@ -95,11 +103,26 @@ const TaskItem = ({ task }) => {
         </CardContent>
         {isAdmin ? (
           <CardActions className={classes.cardActions}>
-            <Tooltip title="Remove Task" placement="top">
-              <Button onClick={handleOpenConfirm} startIcon={<RemoveIcon />}>
-                Remove
-              </Button>
-            </Tooltip>
+            <Grid container justify="space-between">
+              <Grid item>
+                <Tooltip title="Remove Task" placement="top">
+                  <Button
+                    onClick={handleOpenConfirm}
+                    startIcon={<RemoveIcon />}
+                  >
+                    Remove
+                  </Button>
+                </Tooltip>
+              </Grid>
+
+              <Grid item>
+                <Tooltip title="Edit Task" placement="top">
+                  <Button onClick={handleOpen} startIcon={<EditIcon />}>
+                    Edit
+                  </Button>
+                </Tooltip>
+              </Grid>
+            </Grid>
           </CardActions>
         ) : null}
       </Card>
@@ -110,6 +133,16 @@ const TaskItem = ({ task }) => {
         task={task}
         onConfirm={onRemove}
       />
+
+      <React.Suspense>
+        <ConfirmRemoveDialog
+          open={confirmModal}
+          handleClose={handleCloseConfirm}
+          task={task}
+          onConfirm={onRemove}
+        />
+        <EditTaskModal open={open} onClose={handleClose} currentTask={task} />
+      </React.Suspense>
     </Grid>
   );
 };

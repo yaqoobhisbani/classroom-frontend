@@ -4,7 +4,8 @@ import {
   REMOVE_TASK,
   RESET_TASKS,
   TASK_ERROR,
-  CLEAR_SUCCESS
+  CLEAR_SUCCESS,
+  UPDATE_TASK
 } from "../types";
 import moment from "moment";
 
@@ -41,6 +42,20 @@ export default (state, action) => {
       return {
         ...state,
         success: "The task has been removed!"
+      };
+    case UPDATE_TASK:
+      return {
+        ...state,
+        tasks: state.tasks.map(task =>
+          task._id === action.payload._id
+            ? {
+                ...action.payload,
+                shortDate: moment(action.payload.dueDate).format("DD-MM-YYYY"),
+                fullDate: moment(action.payload.dueDate).format("DD MMMM YYYY")
+              }
+            : task
+        ),
+        success: "The task has been updated!"
       };
     case TASK_ERROR:
       return {
