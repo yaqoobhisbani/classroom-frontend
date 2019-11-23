@@ -10,7 +10,7 @@ import {
   Tooltip,
   makeStyles
 } from "@material-ui/core";
-import ConifrmRemoveDialog from "./ConfirmRemoveDialog";
+import ConfirmRemoveDialog from "./ConfirmRemoveDialog";
 
 // Context
 import AuthContext from "../../../context/auth/authContext";
@@ -22,7 +22,6 @@ import RemoveIcon from "@material-ui/icons/Delete";
 import DeadlineIcon from "@material-ui/icons/Schedule";
 import AssignmentIcon from "@material-ui/icons/AssignmentRounded";
 import PresentationIcon from "@material-ui/icons/SlideshowRounded";
-import ConfirmRemoveDialog from "./ConfirmRemoveDialog";
 
 const useStyles = makeStyles(theme => ({
   card: {

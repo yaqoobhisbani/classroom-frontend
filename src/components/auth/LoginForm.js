@@ -2,8 +2,19 @@ import React, { useState, useContext, useEffect } from "react";
 import AuthContext from "../../context/auth/authContext";
 import AlertContext from "../../context/alerts/alertContext";
 import { Link as RouterLink } from "react-router-dom";
-import { TextField, Link, Grid, Button } from "@material-ui/core";
+import {
+  TextField,
+  Link,
+  Grid,
+  Button,
+  InputAdornment,
+  IconButton
+} from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
+
+// Icons
+import VisibilityOn from "@material-ui/icons/Visibility";
+import VisibilityOff from "@material-ui/icons/VisibilityOff";
 
 const useStyles = makeStyles(theme => ({
   form: {
@@ -43,6 +54,10 @@ const LoginForm = () => {
   // User State
   const [user, setUser] = useState(initialUser);
   const { email, password } = user;
+
+  // Password Visibility State
+  const [visibile, setVisibile] = useState(false);
+  const onPassToggle = () => setVisibile(!visibile);
 
   // Login Errors State
   const [errors, setErrors] = useState(initialErrors);
@@ -120,9 +135,21 @@ const LoginForm = () => {
         required
         name="password"
         label={passwordError.msg ? passwordError.msg : "Password"}
-        type="password"
+        type={visibile ? "text" : "password"}
         value={password}
         onChange={onPasswordChange}
+        InputProps={{
+          endAdornment: (
+            <InputAdornment position="end">
+              <IconButton
+                aria-label="toggle-password-visibility"
+                onClick={onPassToggle}
+              >
+                {visibile ? <VisibilityOn /> : <VisibilityOff />}
+              </IconButton>
+            </InputAdornment>
+          )
+        }}
       />
 
       <Button
