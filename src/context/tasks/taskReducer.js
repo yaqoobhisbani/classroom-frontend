@@ -38,7 +38,10 @@ export default (state, action) => {
         loading: false
       };
     case REMOVE_TASK:
-      return {};
+      return {
+        ...state,
+        success: "The task has been removed!"
+      };
     case TASK_ERROR:
       return {
         ...state,

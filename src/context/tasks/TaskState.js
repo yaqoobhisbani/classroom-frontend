@@ -46,7 +46,15 @@ const TaskState = props => {
   };
 
   // REMOVE TASK
-  const removeTask = () => {};
+  const removeTask = async (code, id) => {
+    try {
+      await axios.delete(`/api/room/${code}/task/${id}`, config);
+
+      dispatch({ type: REMOVE_TASK, payload: id });
+    } catch (err) {
+      dispatch({ type: TASK_ERROR, payload: err.response.data.msg });
+    }
+  };
 
   // CLEAR SUCCESS
   const clearSuccess = () => dispatch({ type: CLEAR_SUCCESS });
