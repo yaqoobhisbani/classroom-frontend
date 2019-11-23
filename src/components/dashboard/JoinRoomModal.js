@@ -39,6 +39,12 @@ const JoinRoomModal = props => {
 
   const [codeError, setCodeError] = useState(emptyError);
 
+  const onClose = () => {
+    setCodeError(emptyError);
+    setRoomCode("");
+    closeModal();
+  };
+
   const onCodeChange = e => {
     e.preventDefault();
     setRoomCode(e.target.value);
@@ -56,8 +62,7 @@ const JoinRoomModal = props => {
     e.preventDefault();
     if (roomCode.length === 6) {
       roomsContext.joinRoom(roomCode);
-      closeModal();
-      setRoomCode("");
+      onClose();
     } else {
       setCodeError({
         isInvalid: true,
@@ -93,7 +98,7 @@ const JoinRoomModal = props => {
         </form>
       </DialogContent>
       <DialogActions className={classes.dialogButtons}>
-        <Button onClick={closeModal} color="primary">
+        <Button onClick={onClose} color="primary">
           Cancel
         </Button>
         <Button onClick={onSubmit} color="primary">

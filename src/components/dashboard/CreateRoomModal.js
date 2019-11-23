@@ -43,6 +43,11 @@ const CreateRoomModal = props => {
   const onChange = e =>
     setRoomInfo({ ...roomInfo, [e.target.name]: e.target.value });
 
+  const onClose = () => {
+    setRoomInfo(emptyRoom);
+    closeModal();
+  };
+
   const onSubmit = e => {
     e.preventDefault();
     if (classname.length > 2 && subject.length > 2 && description.length > 2) {
@@ -51,8 +56,7 @@ const CreateRoomModal = props => {
         subject,
         description
       });
-      closeModal();
-      setRoomInfo(emptyRoom);
+      onClose();
     }
   };
 
@@ -102,7 +106,7 @@ const CreateRoomModal = props => {
         </form>
       </DialogContent>
       <DialogActions className={classes.dialogButtons}>
-        <Button onClick={closeModal} color="primary">
+        <Button onClick={onClose} color="primary">
           Cancel
         </Button>
         <Button type="submit" form="create-room" color="primary">
