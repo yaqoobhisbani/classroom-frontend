@@ -22,7 +22,7 @@ const useStyles = makeStyles(theme => ({
     marginTop: theme.spacing(1)
   },
   submit: {
-    margin: theme.spacing(3, 0, 2)
+    margin: theme.spacing(2, 0, 2)
   }
 }));
 
@@ -223,13 +223,6 @@ const RegisterForm = () => {
       >
         Register Account
       </Button>
-      <Grid container>
-        <Grid item xs>
-          <Link to="/" component={RouterLink} variant="body2">
-            Already have an account? Sign in
-          </Link>
-        </Grid>
-      </Grid>
     </form>
   );
 };

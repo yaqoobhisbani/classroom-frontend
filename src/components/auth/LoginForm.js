@@ -1,11 +1,8 @@
 import React, { useState, useContext, useEffect } from "react";
 import AuthContext from "../../context/auth/authContext";
 import AlertContext from "../../context/alerts/alertContext";
-import { Link as RouterLink } from "react-router-dom";
 import {
   TextField,
-  Link,
-  Grid,
   Button,
   InputAdornment,
   IconButton
@@ -22,7 +19,7 @@ const useStyles = makeStyles(theme => ({
     marginTop: theme.spacing(1)
   },
   submit: {
-    margin: theme.spacing(3, 0, 2)
+    margin: theme.spacing(2, 0, 2)
   }
 }));
 
@@ -161,18 +158,6 @@ const LoginForm = () => {
       >
         Sign In
       </Button>
-      <Grid container>
-        <Grid item xs>
-          <Link href="#" variant="body2">
-            Forgot password?
-          </Link>
-        </Grid>
-        <Grid item>
-          <Link to="/register" component={RouterLink} variant="body2">
-            Don't have an account? Sign Up
-          </Link>
-        </Grid>
-      </Grid>
     </form>
   );
 };
