@@ -7,13 +7,21 @@ import {
   DialogActions,
   Button
 } from "@material-ui/core";
+import { withRouter } from "react-router-dom";
 
 import RoomsContext from "../../../context/rooms/roomsContext";
 
-const DeleteRoomDialog = ({ open, handleClose }) => {
+const DeleteRoomDialog = ({ open, handleClose, history }) => {
   // Context
   const roomsContext = React.useContext(RoomsContext);
-  const { current } = roomsContext;
+  const { current, deleteRoom } = roomsContext;
+
+  // On Remove
+  const onRemove = () => {
+    deleteRoom(current.code);
+    history.push("/dashboard");
+    handleClose();
+  };
 
   return (
     <Dialog
@@ -41,7 +49,7 @@ const DeleteRoomDialog = ({ open, handleClose }) => {
         <Button onClick={handleClose} color="primary">
           Cancel
         </Button>
-        <Button onClick={handleClose} color="primary">
+        <Button onClick={onRemove} color="primary">
           Confirm
         </Button>
       </DialogActions>
@@ -49,4 +57,4 @@ const DeleteRoomDialog = ({ open, handleClose }) => {
   );
 };
 
-export default DeleteRoomDialog;
+export default withRouter(DeleteRoomDialog);

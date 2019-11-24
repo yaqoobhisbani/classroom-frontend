@@ -19,7 +19,8 @@ import {
   SUBJECT_UPDATED,
   DESCRIPTION_UPDATED,
   APPROVE_REQUEST,
-  DENY_REQUEST
+  DENY_REQUEST,
+  DELETE_ROOM
 } from "../types";
 
 const RoomsState = props => {
@@ -167,6 +168,19 @@ const RoomsState = props => {
     }
   };
 
+  // DELETE ROOM
+  const deleteRoom = async code => {
+    try {
+      const res = await axios.delete(`/api/room/${code}`, config);
+
+      dispatch({ type: DELETE_ROOM, payload: res.data.msg });
+
+      getRooms();
+    } catch (err) {
+      dispatch({ type: ROOMS_ERROR, payload: err.response.data.msg });
+    }
+  };
+
   // LOAD ROOM
   const loadRoom = async code => dispatch({ type: LOAD_ROOM, payload: code });
 
@@ -204,7 +218,8 @@ const RoomsState = props => {
         changeSubject,
         changeDescription,
         approveRequest,
-        denyRequest
+        denyRequest,
+        deleteRoom
       }}
     >
       {props.children}

@@ -14,7 +14,8 @@ import {
   SUBJECT_UPDATED,
   DESCRIPTION_UPDATED,
   APPROVE_REQUEST,
-  DENY_REQUEST
+  DENY_REQUEST,
+  DELETE_ROOM
 } from "../types";
 
 export default (state, action) => {
@@ -91,6 +92,11 @@ export default (state, action) => {
         current: action.payload,
         loading: false,
         success: "The request has been denied!"
+      };
+    case DELETE_ROOM:
+      return {
+        ...state,
+        success: action.payload
       };
     case CLEAR_ERROR:
       return {
